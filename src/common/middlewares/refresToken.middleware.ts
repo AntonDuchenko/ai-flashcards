@@ -38,7 +38,7 @@ export class RefreshTokenMiddleware implements NestMiddleware {
         });
 
         const user = await this.prisma.user.findUnique({
-          where: { id: payload.userId },
+          where: { id: payload.sub },
         });
 
         if (!user || !user.refreshToken) {
@@ -51,17 +51,17 @@ export class RefreshTokenMiddleware implements NestMiddleware {
         }
 
         const newAccessToken = this.jwtService.sign(
-          { userId: payload.userId },
+          { sub: payload.sub },
           {
             secret: process.env.JWT_SECRET,
-            expiresIn: '15m',
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
           },
         );
 
         res.cookie('access_token', newAccessToken, {
           httpOnly: true,
-          maxAge: 15 * 60 * 1000,
           sameSite: 'lax',
+          secure: false,
         });
 
         req.cookies.access_token = newAccessToken;

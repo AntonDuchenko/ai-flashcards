@@ -14,6 +14,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Deck
+ * 
+ */
+export type Deck = $Result.DefaultSelection<Prisma.$DeckPayload>
+/**
+ * Model Flashcard
+ * 
+ */
+export type Flashcard = $Result.DefaultSelection<Prisma.$FlashcardPayload>
+/**
  * Model User
  * 
  */
@@ -26,8 +36,8 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Decks
+ * const decks = await prisma.deck.findMany()
  * ```
  *
  *
@@ -47,8 +57,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Decks
+   * const decks = await prisma.deck.findMany()
    * ```
    *
    *
@@ -145,6 +155,26 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.deck`: Exposes CRUD operations for the **Deck** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Decks
+    * const decks = await prisma.deck.findMany()
+    * ```
+    */
+  get deck(): Prisma.DeckDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.flashcard`: Exposes CRUD operations for the **Flashcard** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Flashcards
+    * const flashcards = await prisma.flashcard.findMany()
+    * ```
+    */
+  get flashcard(): Prisma.FlashcardDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -593,6 +623,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Deck: 'Deck',
+    Flashcard: 'Flashcard',
     User: 'User'
   };
 
@@ -612,10 +644,158 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user"
+      modelProps: "deck" | "flashcard" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Deck: {
+        payload: Prisma.$DeckPayload<ExtArgs>
+        fields: Prisma.DeckFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeckFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeckFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>
+          }
+          findFirst: {
+            args: Prisma.DeckFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeckFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>
+          }
+          findMany: {
+            args: Prisma.DeckFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>[]
+          }
+          create: {
+            args: Prisma.DeckCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>
+          }
+          createMany: {
+            args: Prisma.DeckCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeckCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>[]
+          }
+          delete: {
+            args: Prisma.DeckDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>
+          }
+          update: {
+            args: Prisma.DeckUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>
+          }
+          deleteMany: {
+            args: Prisma.DeckDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeckUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DeckUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>[]
+          }
+          upsert: {
+            args: Prisma.DeckUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeckPayload>
+          }
+          aggregate: {
+            args: Prisma.DeckAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeck>
+          }
+          groupBy: {
+            args: Prisma.DeckGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeckGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeckCountArgs<ExtArgs>
+            result: $Utils.Optional<DeckCountAggregateOutputType> | number
+          }
+        }
+      }
+      Flashcard: {
+        payload: Prisma.$FlashcardPayload<ExtArgs>
+        fields: Prisma.FlashcardFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FlashcardFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FlashcardFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>
+          }
+          findFirst: {
+            args: Prisma.FlashcardFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FlashcardFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>
+          }
+          findMany: {
+            args: Prisma.FlashcardFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>[]
+          }
+          create: {
+            args: Prisma.FlashcardCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>
+          }
+          createMany: {
+            args: Prisma.FlashcardCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FlashcardCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>[]
+          }
+          delete: {
+            args: Prisma.FlashcardDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>
+          }
+          update: {
+            args: Prisma.FlashcardUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>
+          }
+          deleteMany: {
+            args: Prisma.FlashcardDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FlashcardUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FlashcardUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>[]
+          }
+          upsert: {
+            args: Prisma.FlashcardUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FlashcardPayload>
+          }
+          aggregate: {
+            args: Prisma.FlashcardAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFlashcard>
+          }
+          groupBy: {
+            args: Prisma.FlashcardGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FlashcardGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FlashcardCountArgs<ExtArgs>
+            result: $Utils.Optional<FlashcardCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -774,6 +954,8 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    deck?: DeckOmit
+    flashcard?: FlashcardOmit
     user?: UserOmit
   }
 
@@ -864,10 +1046,2260 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type DeckCountOutputType
+   */
+
+  export type DeckCountOutputType = {
+    flashcards: number
+  }
+
+  export type DeckCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    flashcards?: boolean | DeckCountOutputTypeCountFlashcardsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DeckCountOutputType without action
+   */
+  export type DeckCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeckCountOutputType
+     */
+    select?: DeckCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DeckCountOutputType without action
+   */
+  export type DeckCountOutputTypeCountFlashcardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FlashcardWhereInput
+  }
+
+
+  /**
+   * Count Type FlashcardCountOutputType
+   */
+
+  export type FlashcardCountOutputType = {
+    deck: number
+  }
+
+  export type FlashcardCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deck?: boolean | FlashcardCountOutputTypeCountDeckArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FlashcardCountOutputType without action
+   */
+  export type FlashcardCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlashcardCountOutputType
+     */
+    select?: FlashcardCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FlashcardCountOutputType without action
+   */
+  export type FlashcardCountOutputTypeCountDeckArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeckWhereInput
+  }
+
+
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    deck: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deck?: boolean | UserCountOutputTypeCountDeckArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDeckArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeckWhereInput
+  }
+
 
   /**
    * Models
    */
+
+  /**
+   * Model Deck
+   */
+
+  export type AggregateDeck = {
+    _count: DeckCountAggregateOutputType | null
+    _min: DeckMinAggregateOutputType | null
+    _max: DeckMaxAggregateOutputType | null
+  }
+
+  export type DeckMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeckMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeckCountAggregateOutputType = {
+    id: number
+    title: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DeckMinAggregateInputType = {
+    id?: true
+    title?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeckMaxAggregateInputType = {
+    id?: true
+    title?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeckCountAggregateInputType = {
+    id?: true
+    title?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DeckAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Deck to aggregate.
+     */
+    where?: DeckWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Decks to fetch.
+     */
+    orderBy?: DeckOrderByWithRelationInput | DeckOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeckWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Decks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Decks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Decks
+    **/
+    _count?: true | DeckCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeckMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeckMaxAggregateInputType
+  }
+
+  export type GetDeckAggregateType<T extends DeckAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeck]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeck[P]>
+      : GetScalarType<T[P], AggregateDeck[P]>
+  }
+
+
+
+
+  export type DeckGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeckWhereInput
+    orderBy?: DeckOrderByWithAggregationInput | DeckOrderByWithAggregationInput[]
+    by: DeckScalarFieldEnum[] | DeckScalarFieldEnum
+    having?: DeckScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeckCountAggregateInputType | true
+    _min?: DeckMinAggregateInputType
+    _max?: DeckMaxAggregateInputType
+  }
+
+  export type DeckGroupByOutputType = {
+    id: string
+    title: string
+    userId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DeckCountAggregateOutputType | null
+    _min: DeckMinAggregateOutputType | null
+    _max: DeckMaxAggregateOutputType | null
+  }
+
+  type GetDeckGroupByPayload<T extends DeckGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeckGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeckGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeckGroupByOutputType[P]>
+            : GetScalarType<T[P], DeckGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeckSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    flashcards?: boolean | Deck$flashcardsArgs<ExtArgs>
+    _count?: boolean | DeckCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deck"]>
+
+  export type DeckSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deck"]>
+
+  export type DeckSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deck"]>
+
+  export type DeckSelectScalar = {
+    id?: boolean
+    title?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DeckOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["deck"]>
+  export type DeckInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    flashcards?: boolean | Deck$flashcardsArgs<ExtArgs>
+    _count?: boolean | DeckCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DeckIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DeckIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DeckPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Deck"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      flashcards: Prisma.$FlashcardPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      userId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["deck"]>
+    composites: {}
+  }
+
+  type DeckGetPayload<S extends boolean | null | undefined | DeckDefaultArgs> = $Result.GetResult<Prisma.$DeckPayload, S>
+
+  type DeckCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeckFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeckCountAggregateInputType | true
+    }
+
+  export interface DeckDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Deck'], meta: { name: 'Deck' } }
+    /**
+     * Find zero or one Deck that matches the filter.
+     * @param {DeckFindUniqueArgs} args - Arguments to find a Deck
+     * @example
+     * // Get one Deck
+     * const deck = await prisma.deck.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeckFindUniqueArgs>(args: SelectSubset<T, DeckFindUniqueArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Deck that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeckFindUniqueOrThrowArgs} args - Arguments to find a Deck
+     * @example
+     * // Get one Deck
+     * const deck = await prisma.deck.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeckFindUniqueOrThrowArgs>(args: SelectSubset<T, DeckFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Deck that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeckFindFirstArgs} args - Arguments to find a Deck
+     * @example
+     * // Get one Deck
+     * const deck = await prisma.deck.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeckFindFirstArgs>(args?: SelectSubset<T, DeckFindFirstArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Deck that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeckFindFirstOrThrowArgs} args - Arguments to find a Deck
+     * @example
+     * // Get one Deck
+     * const deck = await prisma.deck.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeckFindFirstOrThrowArgs>(args?: SelectSubset<T, DeckFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Decks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeckFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Decks
+     * const decks = await prisma.deck.findMany()
+     * 
+     * // Get first 10 Decks
+     * const decks = await prisma.deck.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deckWithIdOnly = await prisma.deck.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeckFindManyArgs>(args?: SelectSubset<T, DeckFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Deck.
+     * @param {DeckCreateArgs} args - Arguments to create a Deck.
+     * @example
+     * // Create one Deck
+     * const Deck = await prisma.deck.create({
+     *   data: {
+     *     // ... data to create a Deck
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeckCreateArgs>(args: SelectSubset<T, DeckCreateArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Decks.
+     * @param {DeckCreateManyArgs} args - Arguments to create many Decks.
+     * @example
+     * // Create many Decks
+     * const deck = await prisma.deck.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeckCreateManyArgs>(args?: SelectSubset<T, DeckCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Decks and returns the data saved in the database.
+     * @param {DeckCreateManyAndReturnArgs} args - Arguments to create many Decks.
+     * @example
+     * // Create many Decks
+     * const deck = await prisma.deck.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Decks and only return the `id`
+     * const deckWithIdOnly = await prisma.deck.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeckCreateManyAndReturnArgs>(args?: SelectSubset<T, DeckCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Deck.
+     * @param {DeckDeleteArgs} args - Arguments to delete one Deck.
+     * @example
+     * // Delete one Deck
+     * const Deck = await prisma.deck.delete({
+     *   where: {
+     *     // ... filter to delete one Deck
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeckDeleteArgs>(args: SelectSubset<T, DeckDeleteArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Deck.
+     * @param {DeckUpdateArgs} args - Arguments to update one Deck.
+     * @example
+     * // Update one Deck
+     * const deck = await prisma.deck.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeckUpdateArgs>(args: SelectSubset<T, DeckUpdateArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Decks.
+     * @param {DeckDeleteManyArgs} args - Arguments to filter Decks to delete.
+     * @example
+     * // Delete a few Decks
+     * const { count } = await prisma.deck.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeckDeleteManyArgs>(args?: SelectSubset<T, DeckDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Decks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeckUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Decks
+     * const deck = await prisma.deck.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeckUpdateManyArgs>(args: SelectSubset<T, DeckUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Decks and returns the data updated in the database.
+     * @param {DeckUpdateManyAndReturnArgs} args - Arguments to update many Decks.
+     * @example
+     * // Update many Decks
+     * const deck = await prisma.deck.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Decks and only return the `id`
+     * const deckWithIdOnly = await prisma.deck.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DeckUpdateManyAndReturnArgs>(args: SelectSubset<T, DeckUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Deck.
+     * @param {DeckUpsertArgs} args - Arguments to update or create a Deck.
+     * @example
+     * // Update or create a Deck
+     * const deck = await prisma.deck.upsert({
+     *   create: {
+     *     // ... data to create a Deck
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Deck we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeckUpsertArgs>(args: SelectSubset<T, DeckUpsertArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Decks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeckCountArgs} args - Arguments to filter Decks to count.
+     * @example
+     * // Count the number of Decks
+     * const count = await prisma.deck.count({
+     *   where: {
+     *     // ... the filter for the Decks we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeckCountArgs>(
+      args?: Subset<T, DeckCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeckCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Deck.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeckAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeckAggregateArgs>(args: Subset<T, DeckAggregateArgs>): Prisma.PrismaPromise<GetDeckAggregateType<T>>
+
+    /**
+     * Group by Deck.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeckGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeckGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeckGroupByArgs['orderBy'] }
+        : { orderBy?: DeckGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeckGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeckGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Deck model
+   */
+  readonly fields: DeckFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Deck.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeckClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    flashcards<T extends Deck$flashcardsArgs<ExtArgs> = {}>(args?: Subset<T, Deck$flashcardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Deck model
+   */
+  interface DeckFieldRefs {
+    readonly id: FieldRef<"Deck", 'String'>
+    readonly title: FieldRef<"Deck", 'String'>
+    readonly userId: FieldRef<"Deck", 'String'>
+    readonly createdAt: FieldRef<"Deck", 'DateTime'>
+    readonly updatedAt: FieldRef<"Deck", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Deck findUnique
+   */
+  export type DeckFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * Filter, which Deck to fetch.
+     */
+    where: DeckWhereUniqueInput
+  }
+
+  /**
+   * Deck findUniqueOrThrow
+   */
+  export type DeckFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * Filter, which Deck to fetch.
+     */
+    where: DeckWhereUniqueInput
+  }
+
+  /**
+   * Deck findFirst
+   */
+  export type DeckFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * Filter, which Deck to fetch.
+     */
+    where?: DeckWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Decks to fetch.
+     */
+    orderBy?: DeckOrderByWithRelationInput | DeckOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Decks.
+     */
+    cursor?: DeckWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Decks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Decks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Decks.
+     */
+    distinct?: DeckScalarFieldEnum | DeckScalarFieldEnum[]
+  }
+
+  /**
+   * Deck findFirstOrThrow
+   */
+  export type DeckFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * Filter, which Deck to fetch.
+     */
+    where?: DeckWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Decks to fetch.
+     */
+    orderBy?: DeckOrderByWithRelationInput | DeckOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Decks.
+     */
+    cursor?: DeckWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Decks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Decks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Decks.
+     */
+    distinct?: DeckScalarFieldEnum | DeckScalarFieldEnum[]
+  }
+
+  /**
+   * Deck findMany
+   */
+  export type DeckFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * Filter, which Decks to fetch.
+     */
+    where?: DeckWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Decks to fetch.
+     */
+    orderBy?: DeckOrderByWithRelationInput | DeckOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Decks.
+     */
+    cursor?: DeckWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Decks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Decks.
+     */
+    skip?: number
+    distinct?: DeckScalarFieldEnum | DeckScalarFieldEnum[]
+  }
+
+  /**
+   * Deck create
+   */
+  export type DeckCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Deck.
+     */
+    data: XOR<DeckCreateInput, DeckUncheckedCreateInput>
+  }
+
+  /**
+   * Deck createMany
+   */
+  export type DeckCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Decks.
+     */
+    data: DeckCreateManyInput | DeckCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Deck createManyAndReturn
+   */
+  export type DeckCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * The data used to create many Decks.
+     */
+    data: DeckCreateManyInput | DeckCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Deck update
+   */
+  export type DeckUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Deck.
+     */
+    data: XOR<DeckUpdateInput, DeckUncheckedUpdateInput>
+    /**
+     * Choose, which Deck to update.
+     */
+    where: DeckWhereUniqueInput
+  }
+
+  /**
+   * Deck updateMany
+   */
+  export type DeckUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Decks.
+     */
+    data: XOR<DeckUpdateManyMutationInput, DeckUncheckedUpdateManyInput>
+    /**
+     * Filter which Decks to update
+     */
+    where?: DeckWhereInput
+    /**
+     * Limit how many Decks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Deck updateManyAndReturn
+   */
+  export type DeckUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * The data used to update Decks.
+     */
+    data: XOR<DeckUpdateManyMutationInput, DeckUncheckedUpdateManyInput>
+    /**
+     * Filter which Decks to update
+     */
+    where?: DeckWhereInput
+    /**
+     * Limit how many Decks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Deck upsert
+   */
+  export type DeckUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Deck to update in case it exists.
+     */
+    where: DeckWhereUniqueInput
+    /**
+     * In case the Deck found by the `where` argument doesn't exist, create a new Deck with this data.
+     */
+    create: XOR<DeckCreateInput, DeckUncheckedCreateInput>
+    /**
+     * In case the Deck was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeckUpdateInput, DeckUncheckedUpdateInput>
+  }
+
+  /**
+   * Deck delete
+   */
+  export type DeckDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    /**
+     * Filter which Deck to delete.
+     */
+    where: DeckWhereUniqueInput
+  }
+
+  /**
+   * Deck deleteMany
+   */
+  export type DeckDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Decks to delete
+     */
+    where?: DeckWhereInput
+    /**
+     * Limit how many Decks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Deck.flashcards
+   */
+  export type Deck$flashcardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    where?: FlashcardWhereInput
+    orderBy?: FlashcardOrderByWithRelationInput | FlashcardOrderByWithRelationInput[]
+    cursor?: FlashcardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FlashcardScalarFieldEnum | FlashcardScalarFieldEnum[]
+  }
+
+  /**
+   * Deck without action
+   */
+  export type DeckDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Flashcard
+   */
+
+  export type AggregateFlashcard = {
+    _count: FlashcardCountAggregateOutputType | null
+    _min: FlashcardMinAggregateOutputType | null
+    _max: FlashcardMaxAggregateOutputType | null
+  }
+
+  export type FlashcardMinAggregateOutputType = {
+    id: string | null
+    question: string | null
+    answer: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FlashcardMaxAggregateOutputType = {
+    id: string | null
+    question: string | null
+    answer: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FlashcardCountAggregateOutputType = {
+    id: number
+    question: number
+    answer: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FlashcardMinAggregateInputType = {
+    id?: true
+    question?: true
+    answer?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FlashcardMaxAggregateInputType = {
+    id?: true
+    question?: true
+    answer?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FlashcardCountAggregateInputType = {
+    id?: true
+    question?: true
+    answer?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FlashcardAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Flashcard to aggregate.
+     */
+    where?: FlashcardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Flashcards to fetch.
+     */
+    orderBy?: FlashcardOrderByWithRelationInput | FlashcardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FlashcardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Flashcards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Flashcards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Flashcards
+    **/
+    _count?: true | FlashcardCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FlashcardMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FlashcardMaxAggregateInputType
+  }
+
+  export type GetFlashcardAggregateType<T extends FlashcardAggregateArgs> = {
+        [P in keyof T & keyof AggregateFlashcard]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFlashcard[P]>
+      : GetScalarType<T[P], AggregateFlashcard[P]>
+  }
+
+
+
+
+  export type FlashcardGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FlashcardWhereInput
+    orderBy?: FlashcardOrderByWithAggregationInput | FlashcardOrderByWithAggregationInput[]
+    by: FlashcardScalarFieldEnum[] | FlashcardScalarFieldEnum
+    having?: FlashcardScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FlashcardCountAggregateInputType | true
+    _min?: FlashcardMinAggregateInputType
+    _max?: FlashcardMaxAggregateInputType
+  }
+
+  export type FlashcardGroupByOutputType = {
+    id: string
+    question: string
+    answer: string
+    createdAt: Date
+    updatedAt: Date
+    _count: FlashcardCountAggregateOutputType | null
+    _min: FlashcardMinAggregateOutputType | null
+    _max: FlashcardMaxAggregateOutputType | null
+  }
+
+  type GetFlashcardGroupByPayload<T extends FlashcardGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FlashcardGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FlashcardGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FlashcardGroupByOutputType[P]>
+            : GetScalarType<T[P], FlashcardGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FlashcardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    question?: boolean
+    answer?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deck?: boolean | Flashcard$deckArgs<ExtArgs>
+    _count?: boolean | FlashcardCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["flashcard"]>
+
+  export type FlashcardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    question?: boolean
+    answer?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["flashcard"]>
+
+  export type FlashcardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    question?: boolean
+    answer?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["flashcard"]>
+
+  export type FlashcardSelectScalar = {
+    id?: boolean
+    question?: boolean
+    answer?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FlashcardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "answer" | "createdAt" | "updatedAt", ExtArgs["result"]["flashcard"]>
+  export type FlashcardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deck?: boolean | Flashcard$deckArgs<ExtArgs>
+    _count?: boolean | FlashcardCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FlashcardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FlashcardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $FlashcardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Flashcard"
+    objects: {
+      deck: Prisma.$DeckPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      question: string
+      answer: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["flashcard"]>
+    composites: {}
+  }
+
+  type FlashcardGetPayload<S extends boolean | null | undefined | FlashcardDefaultArgs> = $Result.GetResult<Prisma.$FlashcardPayload, S>
+
+  type FlashcardCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FlashcardFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FlashcardCountAggregateInputType | true
+    }
+
+  export interface FlashcardDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Flashcard'], meta: { name: 'Flashcard' } }
+    /**
+     * Find zero or one Flashcard that matches the filter.
+     * @param {FlashcardFindUniqueArgs} args - Arguments to find a Flashcard
+     * @example
+     * // Get one Flashcard
+     * const flashcard = await prisma.flashcard.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FlashcardFindUniqueArgs>(args: SelectSubset<T, FlashcardFindUniqueArgs<ExtArgs>>): Prisma__FlashcardClient<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Flashcard that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FlashcardFindUniqueOrThrowArgs} args - Arguments to find a Flashcard
+     * @example
+     * // Get one Flashcard
+     * const flashcard = await prisma.flashcard.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FlashcardFindUniqueOrThrowArgs>(args: SelectSubset<T, FlashcardFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FlashcardClient<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Flashcard that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlashcardFindFirstArgs} args - Arguments to find a Flashcard
+     * @example
+     * // Get one Flashcard
+     * const flashcard = await prisma.flashcard.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FlashcardFindFirstArgs>(args?: SelectSubset<T, FlashcardFindFirstArgs<ExtArgs>>): Prisma__FlashcardClient<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Flashcard that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlashcardFindFirstOrThrowArgs} args - Arguments to find a Flashcard
+     * @example
+     * // Get one Flashcard
+     * const flashcard = await prisma.flashcard.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FlashcardFindFirstOrThrowArgs>(args?: SelectSubset<T, FlashcardFindFirstOrThrowArgs<ExtArgs>>): Prisma__FlashcardClient<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Flashcards that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlashcardFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Flashcards
+     * const flashcards = await prisma.flashcard.findMany()
+     * 
+     * // Get first 10 Flashcards
+     * const flashcards = await prisma.flashcard.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const flashcardWithIdOnly = await prisma.flashcard.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FlashcardFindManyArgs>(args?: SelectSubset<T, FlashcardFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Flashcard.
+     * @param {FlashcardCreateArgs} args - Arguments to create a Flashcard.
+     * @example
+     * // Create one Flashcard
+     * const Flashcard = await prisma.flashcard.create({
+     *   data: {
+     *     // ... data to create a Flashcard
+     *   }
+     * })
+     * 
+     */
+    create<T extends FlashcardCreateArgs>(args: SelectSubset<T, FlashcardCreateArgs<ExtArgs>>): Prisma__FlashcardClient<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Flashcards.
+     * @param {FlashcardCreateManyArgs} args - Arguments to create many Flashcards.
+     * @example
+     * // Create many Flashcards
+     * const flashcard = await prisma.flashcard.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FlashcardCreateManyArgs>(args?: SelectSubset<T, FlashcardCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Flashcards and returns the data saved in the database.
+     * @param {FlashcardCreateManyAndReturnArgs} args - Arguments to create many Flashcards.
+     * @example
+     * // Create many Flashcards
+     * const flashcard = await prisma.flashcard.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Flashcards and only return the `id`
+     * const flashcardWithIdOnly = await prisma.flashcard.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FlashcardCreateManyAndReturnArgs>(args?: SelectSubset<T, FlashcardCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Flashcard.
+     * @param {FlashcardDeleteArgs} args - Arguments to delete one Flashcard.
+     * @example
+     * // Delete one Flashcard
+     * const Flashcard = await prisma.flashcard.delete({
+     *   where: {
+     *     // ... filter to delete one Flashcard
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FlashcardDeleteArgs>(args: SelectSubset<T, FlashcardDeleteArgs<ExtArgs>>): Prisma__FlashcardClient<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Flashcard.
+     * @param {FlashcardUpdateArgs} args - Arguments to update one Flashcard.
+     * @example
+     * // Update one Flashcard
+     * const flashcard = await prisma.flashcard.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FlashcardUpdateArgs>(args: SelectSubset<T, FlashcardUpdateArgs<ExtArgs>>): Prisma__FlashcardClient<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Flashcards.
+     * @param {FlashcardDeleteManyArgs} args - Arguments to filter Flashcards to delete.
+     * @example
+     * // Delete a few Flashcards
+     * const { count } = await prisma.flashcard.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FlashcardDeleteManyArgs>(args?: SelectSubset<T, FlashcardDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Flashcards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlashcardUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Flashcards
+     * const flashcard = await prisma.flashcard.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FlashcardUpdateManyArgs>(args: SelectSubset<T, FlashcardUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Flashcards and returns the data updated in the database.
+     * @param {FlashcardUpdateManyAndReturnArgs} args - Arguments to update many Flashcards.
+     * @example
+     * // Update many Flashcards
+     * const flashcard = await prisma.flashcard.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Flashcards and only return the `id`
+     * const flashcardWithIdOnly = await prisma.flashcard.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FlashcardUpdateManyAndReturnArgs>(args: SelectSubset<T, FlashcardUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Flashcard.
+     * @param {FlashcardUpsertArgs} args - Arguments to update or create a Flashcard.
+     * @example
+     * // Update or create a Flashcard
+     * const flashcard = await prisma.flashcard.upsert({
+     *   create: {
+     *     // ... data to create a Flashcard
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Flashcard we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FlashcardUpsertArgs>(args: SelectSubset<T, FlashcardUpsertArgs<ExtArgs>>): Prisma__FlashcardClient<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Flashcards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlashcardCountArgs} args - Arguments to filter Flashcards to count.
+     * @example
+     * // Count the number of Flashcards
+     * const count = await prisma.flashcard.count({
+     *   where: {
+     *     // ... the filter for the Flashcards we want to count
+     *   }
+     * })
+    **/
+    count<T extends FlashcardCountArgs>(
+      args?: Subset<T, FlashcardCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FlashcardCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Flashcard.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlashcardAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FlashcardAggregateArgs>(args: Subset<T, FlashcardAggregateArgs>): Prisma.PrismaPromise<GetFlashcardAggregateType<T>>
+
+    /**
+     * Group by Flashcard.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlashcardGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FlashcardGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FlashcardGroupByArgs['orderBy'] }
+        : { orderBy?: FlashcardGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FlashcardGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFlashcardGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Flashcard model
+   */
+  readonly fields: FlashcardFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Flashcard.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FlashcardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    deck<T extends Flashcard$deckArgs<ExtArgs> = {}>(args?: Subset<T, Flashcard$deckArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Flashcard model
+   */
+  interface FlashcardFieldRefs {
+    readonly id: FieldRef<"Flashcard", 'String'>
+    readonly question: FieldRef<"Flashcard", 'String'>
+    readonly answer: FieldRef<"Flashcard", 'String'>
+    readonly createdAt: FieldRef<"Flashcard", 'DateTime'>
+    readonly updatedAt: FieldRef<"Flashcard", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Flashcard findUnique
+   */
+  export type FlashcardFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * Filter, which Flashcard to fetch.
+     */
+    where: FlashcardWhereUniqueInput
+  }
+
+  /**
+   * Flashcard findUniqueOrThrow
+   */
+  export type FlashcardFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * Filter, which Flashcard to fetch.
+     */
+    where: FlashcardWhereUniqueInput
+  }
+
+  /**
+   * Flashcard findFirst
+   */
+  export type FlashcardFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * Filter, which Flashcard to fetch.
+     */
+    where?: FlashcardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Flashcards to fetch.
+     */
+    orderBy?: FlashcardOrderByWithRelationInput | FlashcardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Flashcards.
+     */
+    cursor?: FlashcardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Flashcards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Flashcards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Flashcards.
+     */
+    distinct?: FlashcardScalarFieldEnum | FlashcardScalarFieldEnum[]
+  }
+
+  /**
+   * Flashcard findFirstOrThrow
+   */
+  export type FlashcardFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * Filter, which Flashcard to fetch.
+     */
+    where?: FlashcardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Flashcards to fetch.
+     */
+    orderBy?: FlashcardOrderByWithRelationInput | FlashcardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Flashcards.
+     */
+    cursor?: FlashcardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Flashcards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Flashcards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Flashcards.
+     */
+    distinct?: FlashcardScalarFieldEnum | FlashcardScalarFieldEnum[]
+  }
+
+  /**
+   * Flashcard findMany
+   */
+  export type FlashcardFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * Filter, which Flashcards to fetch.
+     */
+    where?: FlashcardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Flashcards to fetch.
+     */
+    orderBy?: FlashcardOrderByWithRelationInput | FlashcardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Flashcards.
+     */
+    cursor?: FlashcardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Flashcards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Flashcards.
+     */
+    skip?: number
+    distinct?: FlashcardScalarFieldEnum | FlashcardScalarFieldEnum[]
+  }
+
+  /**
+   * Flashcard create
+   */
+  export type FlashcardCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Flashcard.
+     */
+    data: XOR<FlashcardCreateInput, FlashcardUncheckedCreateInput>
+  }
+
+  /**
+   * Flashcard createMany
+   */
+  export type FlashcardCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Flashcards.
+     */
+    data: FlashcardCreateManyInput | FlashcardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Flashcard createManyAndReturn
+   */
+  export type FlashcardCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * The data used to create many Flashcards.
+     */
+    data: FlashcardCreateManyInput | FlashcardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Flashcard update
+   */
+  export type FlashcardUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Flashcard.
+     */
+    data: XOR<FlashcardUpdateInput, FlashcardUncheckedUpdateInput>
+    /**
+     * Choose, which Flashcard to update.
+     */
+    where: FlashcardWhereUniqueInput
+  }
+
+  /**
+   * Flashcard updateMany
+   */
+  export type FlashcardUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Flashcards.
+     */
+    data: XOR<FlashcardUpdateManyMutationInput, FlashcardUncheckedUpdateManyInput>
+    /**
+     * Filter which Flashcards to update
+     */
+    where?: FlashcardWhereInput
+    /**
+     * Limit how many Flashcards to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Flashcard updateManyAndReturn
+   */
+  export type FlashcardUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * The data used to update Flashcards.
+     */
+    data: XOR<FlashcardUpdateManyMutationInput, FlashcardUncheckedUpdateManyInput>
+    /**
+     * Filter which Flashcards to update
+     */
+    where?: FlashcardWhereInput
+    /**
+     * Limit how many Flashcards to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Flashcard upsert
+   */
+  export type FlashcardUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Flashcard to update in case it exists.
+     */
+    where: FlashcardWhereUniqueInput
+    /**
+     * In case the Flashcard found by the `where` argument doesn't exist, create a new Flashcard with this data.
+     */
+    create: XOR<FlashcardCreateInput, FlashcardUncheckedCreateInput>
+    /**
+     * In case the Flashcard was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FlashcardUpdateInput, FlashcardUncheckedUpdateInput>
+  }
+
+  /**
+   * Flashcard delete
+   */
+  export type FlashcardDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
+     * Filter which Flashcard to delete.
+     */
+    where: FlashcardWhereUniqueInput
+  }
+
+  /**
+   * Flashcard deleteMany
+   */
+  export type FlashcardDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Flashcards to delete
+     */
+    where?: FlashcardWhereInput
+    /**
+     * Limit how many Flashcards to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Flashcard.deck
+   */
+  export type Flashcard$deckArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    where?: DeckWhereInput
+    orderBy?: DeckOrderByWithRelationInput | DeckOrderByWithRelationInput[]
+    cursor?: DeckWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeckScalarFieldEnum | DeckScalarFieldEnum[]
+  }
+
+  /**
+   * Flashcard without action
+   */
+  export type FlashcardDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model User
@@ -1041,6 +3473,8 @@ export namespace Prisma {
     refreshToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deck?: boolean | User$deckArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1071,10 +3505,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deck?: boolean | User$deckArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      deck: Prisma.$DeckPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
@@ -1476,6 +3918,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    deck<T extends User$deckArgs<ExtArgs> = {}>(args?: Subset<T, User$deckArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1528,6 +3971,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1546,6 +3993,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1563,6 +4014,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1612,6 +4067,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1660,6 +4119,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1702,6 +4165,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1750,6 +4217,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1817,6 +4288,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1843,6 +4318,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -1863,6 +4342,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.deck
+   */
+  export type User$deckArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    where?: DeckWhereInput
+    orderBy?: DeckOrderByWithRelationInput | DeckOrderByWithRelationInput[]
+    cursor?: DeckWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeckScalarFieldEnum | DeckScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1874,6 +4377,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -1889,6 +4396,28 @@ export namespace Prisma {
   };
 
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const DeckScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DeckScalarFieldEnum = (typeof DeckScalarFieldEnum)[keyof typeof DeckScalarFieldEnum]
+
+
+  export const FlashcardScalarFieldEnum: {
+    id: 'id',
+    question: 'question',
+    answer: 'answer',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FlashcardScalarFieldEnum = (typeof FlashcardScalarFieldEnum)[keyof typeof FlashcardScalarFieldEnum]
 
 
   export const UserScalarFieldEnum: {
@@ -1977,6 +4506,119 @@ export namespace Prisma {
    */
 
 
+  export type DeckWhereInput = {
+    AND?: DeckWhereInput | DeckWhereInput[]
+    OR?: DeckWhereInput[]
+    NOT?: DeckWhereInput | DeckWhereInput[]
+    id?: StringFilter<"Deck"> | string
+    title?: StringFilter<"Deck"> | string
+    userId?: StringFilter<"Deck"> | string
+    createdAt?: DateTimeFilter<"Deck"> | Date | string
+    updatedAt?: DateTimeFilter<"Deck"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    flashcards?: FlashcardListRelationFilter
+  }
+
+  export type DeckOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    flashcards?: FlashcardOrderByRelationAggregateInput
+  }
+
+  export type DeckWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DeckWhereInput | DeckWhereInput[]
+    OR?: DeckWhereInput[]
+    NOT?: DeckWhereInput | DeckWhereInput[]
+    title?: StringFilter<"Deck"> | string
+    userId?: StringFilter<"Deck"> | string
+    createdAt?: DateTimeFilter<"Deck"> | Date | string
+    updatedAt?: DateTimeFilter<"Deck"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    flashcards?: FlashcardListRelationFilter
+  }, "id">
+
+  export type DeckOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DeckCountOrderByAggregateInput
+    _max?: DeckMaxOrderByAggregateInput
+    _min?: DeckMinOrderByAggregateInput
+  }
+
+  export type DeckScalarWhereWithAggregatesInput = {
+    AND?: DeckScalarWhereWithAggregatesInput | DeckScalarWhereWithAggregatesInput[]
+    OR?: DeckScalarWhereWithAggregatesInput[]
+    NOT?: DeckScalarWhereWithAggregatesInput | DeckScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Deck"> | string
+    title?: StringWithAggregatesFilter<"Deck"> | string
+    userId?: StringWithAggregatesFilter<"Deck"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Deck"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Deck"> | Date | string
+  }
+
+  export type FlashcardWhereInput = {
+    AND?: FlashcardWhereInput | FlashcardWhereInput[]
+    OR?: FlashcardWhereInput[]
+    NOT?: FlashcardWhereInput | FlashcardWhereInput[]
+    id?: StringFilter<"Flashcard"> | string
+    question?: StringFilter<"Flashcard"> | string
+    answer?: StringFilter<"Flashcard"> | string
+    createdAt?: DateTimeFilter<"Flashcard"> | Date | string
+    updatedAt?: DateTimeFilter<"Flashcard"> | Date | string
+    deck?: DeckListRelationFilter
+  }
+
+  export type FlashcardOrderByWithRelationInput = {
+    id?: SortOrder
+    question?: SortOrder
+    answer?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deck?: DeckOrderByRelationAggregateInput
+  }
+
+  export type FlashcardWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FlashcardWhereInput | FlashcardWhereInput[]
+    OR?: FlashcardWhereInput[]
+    NOT?: FlashcardWhereInput | FlashcardWhereInput[]
+    question?: StringFilter<"Flashcard"> | string
+    answer?: StringFilter<"Flashcard"> | string
+    createdAt?: DateTimeFilter<"Flashcard"> | Date | string
+    updatedAt?: DateTimeFilter<"Flashcard"> | Date | string
+    deck?: DeckListRelationFilter
+  }, "id">
+
+  export type FlashcardOrderByWithAggregationInput = {
+    id?: SortOrder
+    question?: SortOrder
+    answer?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FlashcardCountOrderByAggregateInput
+    _max?: FlashcardMaxOrderByAggregateInput
+    _min?: FlashcardMinOrderByAggregateInput
+  }
+
+  export type FlashcardScalarWhereWithAggregatesInput = {
+    AND?: FlashcardScalarWhereWithAggregatesInput | FlashcardScalarWhereWithAggregatesInput[]
+    OR?: FlashcardScalarWhereWithAggregatesInput[]
+    NOT?: FlashcardScalarWhereWithAggregatesInput | FlashcardScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Flashcard"> | string
+    question?: StringWithAggregatesFilter<"Flashcard"> | string
+    answer?: StringWithAggregatesFilter<"Flashcard"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Flashcard"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Flashcard"> | Date | string
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -1987,6 +4629,7 @@ export namespace Prisma {
     refreshToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    deck?: DeckListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -1996,6 +4639,7 @@ export namespace Prisma {
     refreshToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deck?: DeckOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -2008,6 +4652,7 @@ export namespace Prisma {
     refreshToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    deck?: DeckListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -2034,6 +4679,125 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type DeckCreateInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDeckInput
+    flashcards?: FlashcardCreateNestedManyWithoutDeckInput
+  }
+
+  export type DeckUncheckedCreateInput = {
+    id?: string
+    title: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flashcards?: FlashcardUncheckedCreateNestedManyWithoutDeckInput
+  }
+
+  export type DeckUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDeckNestedInput
+    flashcards?: FlashcardUpdateManyWithoutDeckNestedInput
+  }
+
+  export type DeckUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flashcards?: FlashcardUncheckedUpdateManyWithoutDeckNestedInput
+  }
+
+  export type DeckCreateManyInput = {
+    id?: string
+    title: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeckUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeckUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlashcardCreateInput = {
+    id?: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deck?: DeckCreateNestedManyWithoutFlashcardsInput
+  }
+
+  export type FlashcardUncheckedCreateInput = {
+    id?: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deck?: DeckUncheckedCreateNestedManyWithoutFlashcardsInput
+  }
+
+  export type FlashcardUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deck?: DeckUpdateManyWithoutFlashcardsNestedInput
+  }
+
+  export type FlashcardUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deck?: DeckUncheckedUpdateManyWithoutFlashcardsNestedInput
+  }
+
+  export type FlashcardCreateManyInput = {
+    id?: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlashcardUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlashcardUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -2041,6 +4805,7 @@ export namespace Prisma {
     refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deck?: DeckCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -2050,6 +4815,7 @@ export namespace Prisma {
     refreshToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    deck?: DeckUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -2059,6 +4825,7 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deck?: DeckUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -2068,6 +4835,7 @@ export namespace Prisma {
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deck?: DeckUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -2112,6 +4880,122 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type FlashcardListRelationFilter = {
+    every?: FlashcardWhereInput
+    some?: FlashcardWhereInput
+    none?: FlashcardWhereInput
+  }
+
+  export type FlashcardOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DeckCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeckMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeckMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type DeckListRelationFilter = {
+    every?: DeckWhereInput
+    some?: DeckWhereInput
+    none?: DeckWhereInput
+  }
+
+  export type DeckOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FlashcardCountOrderByAggregateInput = {
+    id?: SortOrder
+    question?: SortOrder
+    answer?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FlashcardMaxOrderByAggregateInput = {
+    id?: SortOrder
+    question?: SortOrder
+    answer?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FlashcardMinOrderByAggregateInput = {
+    id?: SortOrder
+    question?: SortOrder
+    answer?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -2125,17 +5009,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type SortOrderInput = {
@@ -2170,24 +5043,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -2206,30 +5061,148 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+  export type UserCreateNestedOneWithoutDeckInput = {
+    create?: XOR<UserCreateWithoutDeckInput, UserUncheckedCreateWithoutDeckInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDeckInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FlashcardCreateNestedManyWithoutDeckInput = {
+    create?: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput> | FlashcardCreateWithoutDeckInput[] | FlashcardUncheckedCreateWithoutDeckInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutDeckInput | FlashcardCreateOrConnectWithoutDeckInput[]
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+  }
+
+  export type FlashcardUncheckedCreateNestedManyWithoutDeckInput = {
+    create?: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput> | FlashcardCreateWithoutDeckInput[] | FlashcardUncheckedCreateWithoutDeckInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutDeckInput | FlashcardCreateOrConnectWithoutDeckInput[]
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type UserUpdateOneRequiredWithoutDeckNestedInput = {
+    create?: XOR<UserCreateWithoutDeckInput, UserUncheckedCreateWithoutDeckInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDeckInput
+    upsert?: UserUpsertWithoutDeckInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDeckInput, UserUpdateWithoutDeckInput>, UserUncheckedUpdateWithoutDeckInput>
+  }
+
+  export type FlashcardUpdateManyWithoutDeckNestedInput = {
+    create?: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput> | FlashcardCreateWithoutDeckInput[] | FlashcardUncheckedCreateWithoutDeckInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutDeckInput | FlashcardCreateOrConnectWithoutDeckInput[]
+    upsert?: FlashcardUpsertWithWhereUniqueWithoutDeckInput | FlashcardUpsertWithWhereUniqueWithoutDeckInput[]
+    set?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    disconnect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    delete?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    update?: FlashcardUpdateWithWhereUniqueWithoutDeckInput | FlashcardUpdateWithWhereUniqueWithoutDeckInput[]
+    updateMany?: FlashcardUpdateManyWithWhereWithoutDeckInput | FlashcardUpdateManyWithWhereWithoutDeckInput[]
+    deleteMany?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+  }
+
+  export type FlashcardUncheckedUpdateManyWithoutDeckNestedInput = {
+    create?: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput> | FlashcardCreateWithoutDeckInput[] | FlashcardUncheckedCreateWithoutDeckInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutDeckInput | FlashcardCreateOrConnectWithoutDeckInput[]
+    upsert?: FlashcardUpsertWithWhereUniqueWithoutDeckInput | FlashcardUpsertWithWhereUniqueWithoutDeckInput[]
+    set?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    disconnect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    delete?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    update?: FlashcardUpdateWithWhereUniqueWithoutDeckInput | FlashcardUpdateWithWhereUniqueWithoutDeckInput[]
+    updateMany?: FlashcardUpdateManyWithWhereWithoutDeckInput | FlashcardUpdateManyWithWhereWithoutDeckInput[]
+    deleteMany?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+  }
+
+  export type DeckCreateNestedManyWithoutFlashcardsInput = {
+    create?: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput> | DeckCreateWithoutFlashcardsInput[] | DeckUncheckedCreateWithoutFlashcardsInput[]
+    connectOrCreate?: DeckCreateOrConnectWithoutFlashcardsInput | DeckCreateOrConnectWithoutFlashcardsInput[]
+    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+  }
+
+  export type DeckUncheckedCreateNestedManyWithoutFlashcardsInput = {
+    create?: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput> | DeckCreateWithoutFlashcardsInput[] | DeckUncheckedCreateWithoutFlashcardsInput[]
+    connectOrCreate?: DeckCreateOrConnectWithoutFlashcardsInput | DeckCreateOrConnectWithoutFlashcardsInput[]
+    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+  }
+
+  export type DeckUpdateManyWithoutFlashcardsNestedInput = {
+    create?: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput> | DeckCreateWithoutFlashcardsInput[] | DeckUncheckedCreateWithoutFlashcardsInput[]
+    connectOrCreate?: DeckCreateOrConnectWithoutFlashcardsInput | DeckCreateOrConnectWithoutFlashcardsInput[]
+    upsert?: DeckUpsertWithWhereUniqueWithoutFlashcardsInput | DeckUpsertWithWhereUniqueWithoutFlashcardsInput[]
+    set?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    disconnect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    delete?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    update?: DeckUpdateWithWhereUniqueWithoutFlashcardsInput | DeckUpdateWithWhereUniqueWithoutFlashcardsInput[]
+    updateMany?: DeckUpdateManyWithWhereWithoutFlashcardsInput | DeckUpdateManyWithWhereWithoutFlashcardsInput[]
+    deleteMany?: DeckScalarWhereInput | DeckScalarWhereInput[]
+  }
+
+  export type DeckUncheckedUpdateManyWithoutFlashcardsNestedInput = {
+    create?: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput> | DeckCreateWithoutFlashcardsInput[] | DeckUncheckedCreateWithoutFlashcardsInput[]
+    connectOrCreate?: DeckCreateOrConnectWithoutFlashcardsInput | DeckCreateOrConnectWithoutFlashcardsInput[]
+    upsert?: DeckUpsertWithWhereUniqueWithoutFlashcardsInput | DeckUpsertWithWhereUniqueWithoutFlashcardsInput[]
+    set?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    disconnect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    delete?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    update?: DeckUpdateWithWhereUniqueWithoutFlashcardsInput | DeckUpdateWithWhereUniqueWithoutFlashcardsInput[]
+    updateMany?: DeckUpdateManyWithWhereWithoutFlashcardsInput | DeckUpdateManyWithWhereWithoutFlashcardsInput[]
+    deleteMany?: DeckScalarWhereInput | DeckScalarWhereInput[]
+  }
+
+  export type DeckCreateNestedManyWithoutUserInput = {
+    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
+    createMany?: DeckCreateManyUserInputEnvelope
+    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+  }
+
+  export type DeckUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
+    createMany?: DeckCreateManyUserInputEnvelope
+    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type DeckUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
+    upsert?: DeckUpsertWithWhereUniqueWithoutUserInput | DeckUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DeckCreateManyUserInputEnvelope
+    set?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    disconnect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    delete?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    update?: DeckUpdateWithWhereUniqueWithoutUserInput | DeckUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DeckUpdateManyWithWhereWithoutUserInput | DeckUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DeckScalarWhereInput | DeckScalarWhereInput[]
+  }
+
+  export type DeckUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
+    upsert?: DeckUpsertWithWhereUniqueWithoutUserInput | DeckUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DeckCreateManyUserInputEnvelope
+    set?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    disconnect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    delete?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+    update?: DeckUpdateWithWhereUniqueWithoutUserInput | DeckUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DeckUpdateManyWithWhereWithoutUserInput | DeckUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DeckScalarWhereInput | DeckScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -2244,20 +5217,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -2299,6 +5258,34 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -2327,18 +5314,272 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+  export type UserCreateWithoutDeckInput = {
+    id?: string
+    email: string
+    password: string
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateWithoutDeckInput = {
+    id?: string
+    email: string
+    password: string
+    refreshToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserCreateOrConnectWithoutDeckInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDeckInput, UserUncheckedCreateWithoutDeckInput>
+  }
+
+  export type FlashcardCreateWithoutDeckInput = {
+    id?: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlashcardUncheckedCreateWithoutDeckInput = {
+    id?: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlashcardCreateOrConnectWithoutDeckInput = {
+    where: FlashcardWhereUniqueInput
+    create: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput>
+  }
+
+  export type UserUpsertWithoutDeckInput = {
+    update: XOR<UserUpdateWithoutDeckInput, UserUncheckedUpdateWithoutDeckInput>
+    create: XOR<UserCreateWithoutDeckInput, UserUncheckedCreateWithoutDeckInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDeckInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDeckInput, UserUncheckedUpdateWithoutDeckInput>
+  }
+
+  export type UserUpdateWithoutDeckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateWithoutDeckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlashcardUpsertWithWhereUniqueWithoutDeckInput = {
+    where: FlashcardWhereUniqueInput
+    update: XOR<FlashcardUpdateWithoutDeckInput, FlashcardUncheckedUpdateWithoutDeckInput>
+    create: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput>
+  }
+
+  export type FlashcardUpdateWithWhereUniqueWithoutDeckInput = {
+    where: FlashcardWhereUniqueInput
+    data: XOR<FlashcardUpdateWithoutDeckInput, FlashcardUncheckedUpdateWithoutDeckInput>
+  }
+
+  export type FlashcardUpdateManyWithWhereWithoutDeckInput = {
+    where: FlashcardScalarWhereInput
+    data: XOR<FlashcardUpdateManyMutationInput, FlashcardUncheckedUpdateManyWithoutDeckInput>
+  }
+
+  export type FlashcardScalarWhereInput = {
+    AND?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+    OR?: FlashcardScalarWhereInput[]
+    NOT?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+    id?: StringFilter<"Flashcard"> | string
+    question?: StringFilter<"Flashcard"> | string
+    answer?: StringFilter<"Flashcard"> | string
+    createdAt?: DateTimeFilter<"Flashcard"> | Date | string
+    updatedAt?: DateTimeFilter<"Flashcard"> | Date | string
+  }
+
+  export type DeckCreateWithoutFlashcardsInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDeckInput
+  }
+
+  export type DeckUncheckedCreateWithoutFlashcardsInput = {
+    id?: string
+    title: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeckCreateOrConnectWithoutFlashcardsInput = {
+    where: DeckWhereUniqueInput
+    create: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput>
+  }
+
+  export type DeckUpsertWithWhereUniqueWithoutFlashcardsInput = {
+    where: DeckWhereUniqueInput
+    update: XOR<DeckUpdateWithoutFlashcardsInput, DeckUncheckedUpdateWithoutFlashcardsInput>
+    create: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput>
+  }
+
+  export type DeckUpdateWithWhereUniqueWithoutFlashcardsInput = {
+    where: DeckWhereUniqueInput
+    data: XOR<DeckUpdateWithoutFlashcardsInput, DeckUncheckedUpdateWithoutFlashcardsInput>
+  }
+
+  export type DeckUpdateManyWithWhereWithoutFlashcardsInput = {
+    where: DeckScalarWhereInput
+    data: XOR<DeckUpdateManyMutationInput, DeckUncheckedUpdateManyWithoutFlashcardsInput>
+  }
+
+  export type DeckScalarWhereInput = {
+    AND?: DeckScalarWhereInput | DeckScalarWhereInput[]
+    OR?: DeckScalarWhereInput[]
+    NOT?: DeckScalarWhereInput | DeckScalarWhereInput[]
+    id?: StringFilter<"Deck"> | string
+    title?: StringFilter<"Deck"> | string
+    userId?: StringFilter<"Deck"> | string
+    createdAt?: DateTimeFilter<"Deck"> | Date | string
+    updatedAt?: DateTimeFilter<"Deck"> | Date | string
+  }
+
+  export type DeckCreateWithoutUserInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flashcards?: FlashcardCreateNestedManyWithoutDeckInput
+  }
+
+  export type DeckUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flashcards?: FlashcardUncheckedCreateNestedManyWithoutDeckInput
+  }
+
+  export type DeckCreateOrConnectWithoutUserInput = {
+    where: DeckWhereUniqueInput
+    create: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
+  }
+
+  export type DeckCreateManyUserInputEnvelope = {
+    data: DeckCreateManyUserInput | DeckCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DeckUpsertWithWhereUniqueWithoutUserInput = {
+    where: DeckWhereUniqueInput
+    update: XOR<DeckUpdateWithoutUserInput, DeckUncheckedUpdateWithoutUserInput>
+    create: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
+  }
+
+  export type DeckUpdateWithWhereUniqueWithoutUserInput = {
+    where: DeckWhereUniqueInput
+    data: XOR<DeckUpdateWithoutUserInput, DeckUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DeckUpdateManyWithWhereWithoutUserInput = {
+    where: DeckScalarWhereInput
+    data: XOR<DeckUpdateManyMutationInput, DeckUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FlashcardUpdateWithoutDeckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlashcardUncheckedUpdateWithoutDeckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlashcardUncheckedUpdateManyWithoutDeckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeckUpdateWithoutFlashcardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDeckNestedInput
+  }
+
+  export type DeckUncheckedUpdateWithoutFlashcardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeckUncheckedUpdateManyWithoutFlashcardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeckCreateManyUserInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeckUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flashcards?: FlashcardUpdateManyWithoutDeckNestedInput
+  }
+
+  export type DeckUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flashcards?: FlashcardUncheckedUpdateManyWithoutDeckNestedInput
+  }
+
+  export type DeckUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

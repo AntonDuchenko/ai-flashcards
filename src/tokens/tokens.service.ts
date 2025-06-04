@@ -31,7 +31,7 @@ export class TokensService {
         },
         {
           secret: this.configService.get<string>('JWT_SECRET'),
-          expiresIn: '15m',
+          expiresIn: this.configService.get<string>('ACCESS_TOKEN_EXPIRES_IN'),
         },
       ),
       this.generateToken(
@@ -41,7 +41,7 @@ export class TokensService {
         },
         {
           secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-          expiresIn: '7d',
+          expiresIn: this.configService.get<string>('REFRESH_TOKEN_EXPIRES_IN'),
         },
       ),
     ]);
@@ -54,20 +54,17 @@ export class TokensService {
     };
   }
 
-  async updateRefreshToken(
-    userId: string,
-    refreshToken: string | null,
-  ): Promise<void> {
+  async updateRefreshToken(userId: string, refreshToken: string | null): Promise<void> {
     if (refreshToken) {
       const hashedRefreshToken = await this.hashData(refreshToken);
 
       await this.usersService.updateUser(userId, {
         refreshToken: hashedRefreshToken,
       });
+    } else {
+      await this.usersService.updateUser(userId, {
+        refreshToken: null,
+      });
     }
-
-    await this.usersService.updateUser(userId, {
-      refreshToken: null,
-    });
   }
 }

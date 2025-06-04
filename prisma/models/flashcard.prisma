@@ -1,0 +1,8 @@
+model Flashcard {
+  id        String   @id @default(uuid())
+  question  String
+  answer    String
+  deck      Deck[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

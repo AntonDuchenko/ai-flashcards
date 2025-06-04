@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 import { TokensModule } from './tokens/tokens.module';
 import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { FlashcardsModule } from './flashcards/flashcards.module';
+import { DeckModule } from './deck/deck.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { PrismaModule } from './prisma/prisma.module';
     TokensModule,
     UsersModule,
     PrismaModule,
+    FlashcardsModule,
+    DeckModule,
   ],
 })
 export class AppModule {
