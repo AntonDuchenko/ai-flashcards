@@ -42,12 +42,12 @@ export class AuthController {
     res.cookie('access_token', tokens.accessToken, {
       httpOnly: true,
       secure: false,
-      sameSite: 'none',
+      sameSite: 'lax',
     });
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: false,
-      sameSite: 'none',
+      sameSite: 'lax',
     });
 
     return res.status(201).json({

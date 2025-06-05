@@ -33,6 +33,9 @@ export class DeckService {
           id: userId,
         },
       },
+      include: {
+        flashcards: true,
+      },
     });
   }
 }
