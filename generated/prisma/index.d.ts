@@ -3223,6 +3223,7 @@ export namespace Prisma {
     email: number
     password: number
     refreshToken: number
+    learnedWords: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3252,6 +3253,7 @@ export namespace Prisma {
     email?: true
     password?: true
     refreshToken?: true
+    learnedWords?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3334,6 +3336,7 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken: string | null
+    learnedWords: string[]
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -3360,6 +3363,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
+    learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deck?: boolean | User$deckArgs<ExtArgs>
@@ -3371,6 +3375,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
+    learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -3380,6 +3385,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
+    learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -3389,11 +3395,12 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
+    learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "learnedWords" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     deck?: boolean | User$deckArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -3411,6 +3418,7 @@ export namespace Prisma {
       email: string
       password: string
       refreshToken: string | null
+      learnedWords: string[]
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -3841,6 +3849,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly refreshToken: FieldRef<"User", 'String'>
+    readonly learnedWords: FieldRef<"User", 'String[]'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -4317,6 +4326,7 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     refreshToken: 'refreshToken',
+    learnedWords: 'learnedWords',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4572,6 +4582,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     refreshToken?: StringNullableFilter<"User"> | string | null
+    learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deck?: DeckListRelationFilter
@@ -4582,6 +4593,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
+    learnedWords?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deck?: DeckOrderByRelationAggregateInput
@@ -4595,6 +4607,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     refreshToken?: StringNullableFilter<"User"> | string | null
+    learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     deck?: DeckListRelationFilter
@@ -4605,6 +4618,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
+    learnedWords?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -4620,6 +4634,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -4761,6 +4776,7 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     deck?: DeckCreateNestedManyWithoutUserInput
@@ -4771,6 +4787,7 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     deck?: DeckUncheckedCreateNestedManyWithoutUserInput
@@ -4781,6 +4798,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deck?: DeckUpdateManyWithoutUserNestedInput
@@ -4791,6 +4809,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deck?: DeckUncheckedUpdateManyWithoutUserNestedInput
@@ -4801,6 +4820,7 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4810,6 +4830,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4819,6 +4840,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5022,6 +5044,14 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type DeckListRelationFilter = {
     every?: DeckWhereInput
     some?: DeckWhereInput
@@ -5042,6 +5072,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrder
+    learnedWords?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5108,6 +5139,10 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDeckInput, UserUpdateWithoutDeckInput>, UserUncheckedUpdateWithoutDeckInput>
   }
 
+  export type UserCreatelearnedWordsInput = {
+    set: string[]
+  }
+
   export type DeckCreateNestedManyWithoutUserInput = {
     create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
@@ -5124,6 +5159,11 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type UserUpdatelearnedWordsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type DeckUpdateManyWithoutUserNestedInput = {
@@ -5308,6 +5348,7 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5317,6 +5358,7 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5342,6 +5384,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5351,6 +5394,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

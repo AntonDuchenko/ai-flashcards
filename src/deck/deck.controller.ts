@@ -18,8 +18,6 @@ export class DeckController {
     @Req() req: Request & { user: { sub: string } },
     @Body() body: { englishLvl: EnglishLvl; topic: string },
   ) {
-    console.log(req.user.sub);
-    
     return this.deckService.createDeck(req.user.sub, body);
   }
 }

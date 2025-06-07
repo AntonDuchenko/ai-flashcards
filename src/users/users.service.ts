@@ -12,8 +12,8 @@ export class UsersService {
     });
   }
 
-  async getProfile(userId: string) {
-    return await this.prismaService.user.findUnique({
+  async getUserById(userId: string) {
+    return this.prismaService.user.findUnique({
       where: { id: userId },
     });
   }
@@ -38,5 +38,24 @@ export class UsersService {
     });
 
     return updatedUser;
+  }
+
+  async setCorrectAnswer(
+    userId: string,
+    data: { englishWord: string; answersStatus: boolean }[],
+  ): Promise<User> {
+    const user = await this.getUserById(userId);
+
+    if (!user) throw new Error('User not found');
+
+    const learnedWords = data.reduce<string[]>((acc, { englishWord, answersStatus }) => {
+      if (answersStatus) {
+        return [...acc, englishWord];
+      } else {
+        return acc;
+      }
+    }, []);
+
+    return this.updateUser(userId, { learnedWords: [...user.learnedWords, ...learnedWords] });
   }
 }

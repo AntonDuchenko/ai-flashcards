@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AccessTokenGuard } from 'src/common/guards/jwt.guard';
 
@@ -14,6 +14,14 @@ export class UsersController {
 
   @Get('/profile')
   getProfile(@Req() req: Request & { user: { sub: string } }) {
-    return this.usersService.getProfile(req.user.sub);
+    return this.usersService.getUserById(req.user.sub);
+  }
+
+  @Post('/set-answers')
+  setCorrectAnswer(
+    @Req() req: Request & { user: { sub: string } },
+    @Body() body: { englishWord: string; answersStatus: boolean }[],
+  ) {
+    return this.usersService.setCorrectAnswer(req.user.sub, body);
   }
 }
