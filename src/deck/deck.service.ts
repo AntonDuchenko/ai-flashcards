@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from 'generated/prisma';
 import { FlashcardsService } from 'src/flashcards/flashcards.service';
+import { OpenAiService } from 'src/open-ai/open-ai.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -8,20 +9,27 @@ export class DeckService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly flashcardsService: FlashcardsService,
+    private readonly openAiService: OpenAiService,
   ) {}
 
-  async createDeck(deck: Prisma.DeckCreateInput) {
-    const flashcards = await this.flashcardsService.getRandomFlashcards(10);
+  async createDeck(
+    userId: string,
+    data: Omit<Prisma.DeckCreateInput, 'title' | 'flashcards' | 'user'>,
+  ) {
+    const flashcards = await this.openAiService.getRandomFlashcards(
+      data.englishLvl,
+      data.topic,
+      [],
+    );
 
     return this.prismaService.deck.create({
       data: {
-        ...deck,
-        flashcards: {
-          connect: flashcards.filter((f) => f !== null).map((f) => ({ id: f!.id })),
+        ...data,
+        user: {
+          connect: { id: userId },
         },
-      },
-      include: {
-        flashcards: true,
+        title: 'New Deck',
+        flashcards,
       },
     });
   }
@@ -32,9 +40,6 @@ export class DeckService {
         user: {
           id: userId,
         },
-      },
-      include: {
-        flashcards: true,
       },
     });
   }

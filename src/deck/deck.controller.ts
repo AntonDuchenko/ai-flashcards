@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { DeckService } from './deck.service';
 import { AccessTokenGuard } from 'src/common/guards';
+import { EnglishLvl } from 'generated/prisma';
 
 @UseGuards(AccessTokenGuard)
 @Controller('deck')
@@ -13,12 +14,12 @@ export class DeckController {
   }
 
   @Post()
-  createDeck(@Req() req: Request & { user: { sub: string } }) {
-    return this.deckService.createDeck({
-      title: 'New Deck',
-      user: {
-        connect: { id: req.user.sub },
-      },
-    });
+  createDeck(
+    @Req() req: Request & { user: { sub: string } },
+    @Body() body: { englishLvl: EnglishLvl; topic: string },
+  ) {
+    console.log(req.user.sub);
+    
+    return this.deckService.createDeck(req.user.sub, body);
   }
 }

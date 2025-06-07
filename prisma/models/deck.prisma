@@ -1,9 +1,20 @@
 model Deck {
-  id         String      @id @default(uuid())
+  id         String     @id @default(uuid())
   title      String
   userId     String
-  user       User        @relation(fields: [userId], references: [id])
-  flashcards Flashcard[]
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  englishLvl EnglishLvl
+  topic      String
+  user       User       @relation(fields: [userId], references: [id])
+  flashcards Json
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+enum EnglishLvl {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
 }

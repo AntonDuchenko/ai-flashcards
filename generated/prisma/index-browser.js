@@ -124,6 +124,9 @@ exports.Prisma.DeckScalarFieldEnum = {
   id: 'id',
   title: 'title',
   userId: 'userId',
+  englishLvl: 'englishLvl',
+  topic: 'topic',
+  flashcards: 'flashcards',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -150,16 +153,33 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.EnglishLvl = exports.$Enums.EnglishLvl = {
+  A1: 'A1',
+  A2: 'A2',
+  B1: 'B1',
+  B2: 'B2',
+  C1: 'C1',
+  C2: 'C2'
+};
 
 exports.Prisma.ModelName = {
   Deck: 'Deck',

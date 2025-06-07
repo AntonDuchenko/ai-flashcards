@@ -1,18 +1,28 @@
 model Deck {
-  id         String      @id @default(uuid())
+  id         String     @id @default(uuid())
   title      String
-  user       User        @relation(fields: [userId], references: [id])
-  flashcards Flashcard[]
   userId     String
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  englishLvl EnglishLvl
+  topic      String
+  user       User       @relation(fields: [userId], references: [id])
+  flashcards Json
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+enum EnglishLvl {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
 }
 
 model Flashcard {
   id        String   @id @default(uuid())
   question  String
   answer    String
-  deck      Deck[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

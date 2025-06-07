@@ -51,7 +51,7 @@ export class AuthController {
     });
 
     return res.status(201).json({
-      message: 'Login successful',
+      message: 'Registration successful',
     });
   }
 
