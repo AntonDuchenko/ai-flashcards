@@ -10,6 +10,7 @@ import { FlashcardsModule } from './flashcards/flashcards.module';
 import { DeckModule } from './deck/deck.module';
 import { OpenAiModule } from './open-ai/open-ai.module';
 import { InterestsModule } from './interests/interests.module';
+import { PingModule } from './ping/ping.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { InterestsModule } from './interests/interests.module';
     DeckModule,
     OpenAiModule,
     InterestsModule,
+    PingModule,
   ],
 })
 export class AppModule {
