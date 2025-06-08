@@ -8,13 +8,23 @@ import { AuthResponse } from './types/auth.response.type';
 import { UsersService } from 'src/users/users.service';
 import { TokensService } from 'src/tokens/tokens.service';
 import { compare } from 'bcryptjs';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly tokenService: TokensService,
+    private readonly configService: ConfigService,
   ) {}
+
+  getCookieOptions() {
+    return {
+      httpOnly: true,
+      secure: this.configService.getOrThrow<boolean>('COOKIE_SECURE'),
+      sameSite: this.configService.getOrThrow<'lax' | 'none' | 'strict'>('COOKIE_SAMESITE'),
+    };
+  }
 
   async login(email: string, password: string): Promise<AuthResponse> {
     const currentUser = await this.usersService.getUserByEmail(email);
