@@ -15,12 +15,12 @@ export class AuthController {
     res.cookie('access_token', tokens.accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'none',
     });
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'none',
     });
 
     return res.status(200).json({
@@ -36,12 +36,12 @@ export class AuthController {
     res.cookie('access_token', tokens.accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'none',
     });
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'none',
     });
 
     return res.status(201).json({
@@ -54,8 +54,8 @@ export class AuthController {
   async logout(@Res() res: Response, @Req() req: Request & { user: { userId: string } }) {
     await this.authService.logout(req.user.userId);
 
-    res.clearCookie('access_token', { httpOnly: true, sameSite: 'strict' });
-    res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'strict' });
+    res.clearCookie('access_token', { httpOnly: true, sameSite: 'none' });
+    res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'none' });
 
     return res.status(200).json({
       message: 'Logout successful',
