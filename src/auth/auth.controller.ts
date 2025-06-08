@@ -8,22 +8,19 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  async login(
-    @Body() body: { email: string; password: string },
-    @Res() res: Response,
-  ) {
+  async login(@Body() body: { email: string; password: string }, @Res() res: Response) {
     const { email, password } = body;
     const tokens = await this.authService.login(email, password);
 
     res.cookie('access_token', tokens.accessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'strict',
     });
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'strict',
     });
 
     return res.status(200).json({
@@ -32,22 +29,19 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(
-    @Body() body: { email: string; password: string },
-    @Res() res: Response,
-  ) {
+  async register(@Body() body: { email: string; password: string }, @Res() res: Response) {
     const { email, password } = body;
     const tokens = await this.authService.register(email, password);
 
     res.cookie('access_token', tokens.accessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'strict',
     });
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'strict',
     });
 
     return res.status(201).json({
@@ -57,14 +51,11 @@ export class AuthController {
 
   @UseGuards(AccessTokenGuard)
   @Post('logout')
-  async logout(
-    @Res() res: Response,
-    @Req() req: Request & { user: { userId: string } },
-  ) {
+  async logout(@Res() res: Response, @Req() req: Request & { user: { userId: string } }) {
     await this.authService.logout(req.user.userId);
 
-    res.clearCookie('access_token', { httpOnly: true, sameSite: 'lax' });
-    res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'lax' });
+    res.clearCookie('access_token', { httpOnly: true, sameSite: 'strict' });
+    res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'strict' });
 
     return res.status(200).json({
       message: 'Logout successful',
