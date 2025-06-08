@@ -125,7 +125,6 @@ exports.Prisma.DeckScalarFieldEnum = {
   title: 'title',
   userId: 'userId',
   englishLvl: 'englishLvl',
-  topic: 'topic',
   flashcards: 'flashcards',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -139,11 +138,17 @@ exports.Prisma.FlashcardScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.InterestScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   password: 'password',
   refreshToken: 'refreshToken',
+  englishLvl: 'englishLvl',
   learnedWords: 'learnedWords',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -185,6 +190,7 @@ exports.EnglishLvl = exports.$Enums.EnglishLvl = {
 exports.Prisma.ModelName = {
   Deck: 'Deck',
   Flashcard: 'Flashcard',
+  Interest: 'Interest',
   User: 'User'
 };
 

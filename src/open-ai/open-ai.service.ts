@@ -18,7 +18,11 @@ export class OpenAiService {
     });
   }
 
-  async getRandomFlashcards(level: string, topic: string, learnedWords: string[]): Promise<Flashcard[]> {
+  async getRandomFlashcards(
+    level: string,
+    interests: string[],
+    learnedWords: string[],
+  ): Promise<Flashcard[]> {
     const excludedWords = learnedWords.map((w) => `"${w}"`).join(', ');
     const hasExcluded = learnedWords.length > 0;
 
@@ -31,7 +35,7 @@ If a list of "learnedWords" is provided, do not include any of those words in th
       },
       {
         role: 'user',
-        content: `Generate 10 English flashcards for CEFR level "${level}" on the topic "${topic}". 
+        content: `Generate 10 English flashcards for CEFR level "${level}" on the interests "${interests.map((i) => `"${i}"`).join(', ')}". 
 
 ${hasExcluded ? `Exclude the following words: [${excludedWords}].` : ''}
 

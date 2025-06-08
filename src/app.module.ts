@@ -9,6 +9,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { FlashcardsModule } from './flashcards/flashcards.module';
 import { DeckModule } from './deck/deck.module';
 import { OpenAiModule } from './open-ai/open-ai.module';
+import { InterestsModule } from './interests/interests.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { OpenAiModule } from './open-ai/open-ai.module';
     FlashcardsModule,
     DeckModule,
     OpenAiModule,
+    InterestsModule,
   ],
 })
 export class AppModule {

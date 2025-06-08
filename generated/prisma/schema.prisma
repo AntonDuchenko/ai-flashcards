@@ -3,7 +3,6 @@ model Deck {
   title      String
   userId     String
   englishLvl EnglishLvl
-  topic      String
   user       User       @relation(fields: [userId], references: [id])
   flashcards Json
   createdAt  DateTime   @default(now())
@@ -27,15 +26,23 @@ model Flashcard {
   updatedAt DateTime @updatedAt
 }
 
+model Interest {
+  id    String @id @default(cuid())
+  users User[]
+  name  String @unique
+}
+
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
+  id           String      @id @default(uuid())
+  email        String      @unique
   password     String
   refreshToken String?
+  englishLvl   EnglishLvl?
   deck         Deck[]
+  interests    Interest[]
   learnedWords String[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }
 
 generator client {

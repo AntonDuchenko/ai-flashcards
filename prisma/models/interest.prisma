@@ -1,0 +1,5 @@
+model Interest {
+  id    String @id @default(uuid())
+  users User[]
+  name  String @unique
+}

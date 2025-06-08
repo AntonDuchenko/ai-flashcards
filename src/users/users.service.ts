@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, User } from 'generated/prisma';
+import { EnglishLvl, Interest, Prisma, User } from 'generated/prisma';
+import { DeckService } from 'src/deck/deck.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService,
+    private readonly deckService: DeckService
+  ) {}
 
   async getUserByEmail(email: string) {
     return await this.prismaService.user.findUnique({
@@ -57,5 +60,31 @@ export class UsersService {
     }, []);
 
     return this.updateUser(userId, { learnedWords: [...user.learnedWords, ...learnedWords] });
+  }
+
+  async completeRegistration(
+    userId: string,
+    data: {
+      englishLvl: EnglishLvl;
+      interests: Interest[];
+    },
+  ) {
+    const interestIds = data.interests.map((interest) => ({
+      id: interest.id,
+    }));
+
+    await this.updateUser(userId, {
+      englishLvl: data.englishLvl,
+      interests: {
+        set: interestIds,
+      },
+    });
+
+    await this.deckService.createDeck({
+      userId,
+      englishLvl: data.englishLvl,
+      interests: data.interests.map((interest) => interest.name),
+      learnedWords: [],
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from 'generated/prisma';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { EnglishLvl, Prisma } from 'generated/prisma';
 import { OpenAiService } from 'src/open-ai/open-ai.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
@@ -9,30 +10,28 @@ export class DeckService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly openAiService: OpenAiService,
-    private readonly usersService: UsersService,
   ) {}
 
-  async createDeck(
-    userId: string,
-    data: Omit<Prisma.DeckCreateInput, 'title' | 'flashcards' | 'user'>,
-  ) {
-    const user = await this.usersService.getUserById(userId);
-
-    if (!user) throw new Error('User not found');
-
+  @Cron(CronExpression.EVERY_DAY_AT_5AM)
+  async createDeck(data: {
+    userId: string;
+    englishLvl: EnglishLvl;
+    interests: string[];
+    learnedWords: string[];
+  }) {
     const flashcards = await this.openAiService.getRandomFlashcards(
       data.englishLvl,
-      data.topic,
-      user.learnedWords,
+      data.interests,
+      data.learnedWords,
     );
 
     return this.prismaService.deck.create({
       data: {
-        ...data,
+        englishLvl: data.englishLvl,
         user: {
-          connect: { id: userId },
+          connect: { id: data.userId },
         },
-        title: 'New Deck',
+        title: 'Daily deck',
         flashcards,
       },
     });

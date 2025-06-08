@@ -3,7 +3,6 @@ model Deck {
   title      String
   userId     String
   englishLvl EnglishLvl
-  topic      String
   user       User       @relation(fields: [userId], references: [id])
   flashcards Json
   createdAt  DateTime   @default(now())
