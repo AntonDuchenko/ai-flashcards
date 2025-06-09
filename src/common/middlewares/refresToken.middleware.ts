@@ -1,17 +1,16 @@
-import {
-  Injectable,
-  NestMiddleware,
-} from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { JwtService, TokenExpiredError } from '@nestjs/jwt';
 import { Request, Response, NextFunction } from 'express';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RefreshTokenMiddleware implements NestMiddleware {
   constructor(
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
+    private readonly configService: ConfigService,
   ) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
@@ -20,13 +19,12 @@ export class RefreshTokenMiddleware implements NestMiddleware {
 
     try {
       this.jwtService.verify(accessToken, {
-        secret: process.env.JWT_SECRET,
+        secret: this.configService.getOrThrow<string>('JWT_SECRET'),
       });
 
       return next();
     } catch (err: any) {
-      const isExpired =
-        err.name === 'TokenExpiredError' || err instanceof TokenExpiredError;
+      const isExpired = err.name === 'TokenExpiredError' || err instanceof TokenExpiredError;
 
       if (!isExpired || !refreshToken) {
         return next();
@@ -34,7 +32,7 @@ export class RefreshTokenMiddleware implements NestMiddleware {
 
       try {
         const payload = this.jwtService.verify(refreshToken, {
-          secret: process.env.JWT_REFRESH_SECRET,
+          secret: this.configService.getOrThrow<string>('JWT_REFRESH_SECRET'),
         });
 
         const user = await this.prisma.user.findUnique({
@@ -53,15 +51,15 @@ export class RefreshTokenMiddleware implements NestMiddleware {
         const newAccessToken = this.jwtService.sign(
           { sub: payload.sub },
           {
-            secret: process.env.JWT_SECRET,
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
+            secret: this.configService.getOrThrow<string>('JWT_SECRET'),
+            expiresIn: this.configService.getOrThrow<string>('ACCESS_TOKEN_EXPIRES_IN'),
           },
         );
 
         res.cookie('access_token', newAccessToken, {
           httpOnly: true,
-          sameSite: 'lax',
-          secure: false,
+          sameSite: this.configService.getOrThrow<'lax' | 'none' | 'strict'>('COOKIE_SAMESITE'),
+          secure: this.configService.getOrThrow<boolean>('COOKIE_SECURE'),
         });
 
         req.cookies.access_token = newAccessToken;
