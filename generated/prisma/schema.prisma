@@ -27,22 +27,24 @@ model Flashcard {
 }
 
 model Interest {
-  id    String @id @default(cuid())
+  id    String @id @default(uuid())
   users User[]
   name  String @unique
 }
 
 model User {
-  id           String      @id @default(uuid())
-  email        String      @unique
-  password     String
-  refreshToken String?
-  englishLvl   EnglishLvl?
-  deck         Deck[]
-  interests    Interest[]
-  learnedWords String[]
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  id            String      @id @default(uuid())
+  email         String      @unique
+  password      String
+  refreshToken  String?
+  dailyComplete Boolean     @default(false)
+  daysStreak    Int         @default(0)
+  englishLvl    EnglishLvl?
+  deck          Deck[]
+  interests     Interest[]
+  learnedWords  String[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 generator client {

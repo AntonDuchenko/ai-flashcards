@@ -4345,8 +4345,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    daysStreak: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    daysStreak: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -4354,6 +4364,8 @@ export namespace Prisma {
     email: string | null
     password: string | null
     refreshToken: string | null
+    dailyComplete: boolean | null
+    daysStreak: number | null
     englishLvl: $Enums.EnglishLvl | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4364,6 +4376,8 @@ export namespace Prisma {
     email: string | null
     password: string | null
     refreshToken: string | null
+    dailyComplete: boolean | null
+    daysStreak: number | null
     englishLvl: $Enums.EnglishLvl | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4374,6 +4388,8 @@ export namespace Prisma {
     email: number
     password: number
     refreshToken: number
+    dailyComplete: number
+    daysStreak: number
     englishLvl: number
     learnedWords: number
     createdAt: number
@@ -4382,11 +4398,21 @@ export namespace Prisma {
   }
 
 
+  export type UserAvgAggregateInputType = {
+    daysStreak?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    daysStreak?: true
+  }
+
   export type UserMinAggregateInputType = {
     id?: true
     email?: true
     password?: true
     refreshToken?: true
+    dailyComplete?: true
+    daysStreak?: true
     englishLvl?: true
     createdAt?: true
     updatedAt?: true
@@ -4397,6 +4423,8 @@ export namespace Prisma {
     email?: true
     password?: true
     refreshToken?: true
+    dailyComplete?: true
+    daysStreak?: true
     englishLvl?: true
     createdAt?: true
     updatedAt?: true
@@ -4407,6 +4435,8 @@ export namespace Prisma {
     email?: true
     password?: true
     refreshToken?: true
+    dailyComplete?: true
+    daysStreak?: true
     englishLvl?: true
     learnedWords?: true
     createdAt?: true
@@ -4452,6 +4482,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -4482,6 +4524,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -4491,11 +4535,15 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken: string | null
+    dailyComplete: boolean
+    daysStreak: number
     englishLvl: $Enums.EnglishLvl | null
     learnedWords: string[]
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -4519,6 +4567,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
+    dailyComplete?: boolean
+    daysStreak?: boolean
     englishLvl?: boolean
     learnedWords?: boolean
     createdAt?: boolean
@@ -4533,6 +4583,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
+    dailyComplete?: boolean
+    daysStreak?: boolean
     englishLvl?: boolean
     learnedWords?: boolean
     createdAt?: boolean
@@ -4544,6 +4596,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
+    dailyComplete?: boolean
+    daysStreak?: boolean
     englishLvl?: boolean
     learnedWords?: boolean
     createdAt?: boolean
@@ -4555,13 +4609,15 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
+    dailyComplete?: boolean
+    daysStreak?: boolean
     englishLvl?: boolean
     learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "englishLvl" | "learnedWords" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "dailyComplete" | "daysStreak" | "englishLvl" | "learnedWords" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     deck?: boolean | User$deckArgs<ExtArgs>
     interests?: boolean | User$interestsArgs<ExtArgs>
@@ -4581,6 +4637,8 @@ export namespace Prisma {
       email: string
       password: string
       refreshToken: string | null
+      dailyComplete: boolean
+      daysStreak: number
       englishLvl: $Enums.EnglishLvl | null
       learnedWords: string[]
       createdAt: Date
@@ -5014,6 +5072,8 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly refreshToken: FieldRef<"User", 'String'>
+    readonly dailyComplete: FieldRef<"User", 'Boolean'>
+    readonly daysStreak: FieldRef<"User", 'Int'>
     readonly englishLvl: FieldRef<"User", 'EnglishLvl'>
     readonly learnedWords: FieldRef<"User", 'String[]'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -5523,6 +5583,8 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     refreshToken: 'refreshToken',
+    dailyComplete: 'dailyComplete',
+    daysStreak: 'daysStreak',
     englishLvl: 'englishLvl',
     learnedWords: 'learnedWords',
     createdAt: 'createdAt',
@@ -5634,6 +5696,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -5644,6 +5713,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -5815,6 +5898,8 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     refreshToken?: StringNullableFilter<"User"> | string | null
+    dailyComplete?: BoolFilter<"User"> | boolean
+    daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -5828,6 +5913,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
+    dailyComplete?: SortOrder
+    daysStreak?: SortOrder
     englishLvl?: SortOrderInput | SortOrder
     learnedWords?: SortOrder
     createdAt?: SortOrder
@@ -5844,6 +5931,8 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     refreshToken?: StringNullableFilter<"User"> | string | null
+    dailyComplete?: BoolFilter<"User"> | boolean
+    daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -5857,13 +5946,17 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
+    dailyComplete?: SortOrder
+    daysStreak?: SortOrder
     englishLvl?: SortOrderInput | SortOrder
     learnedWords?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -5874,6 +5967,8 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    dailyComplete?: BoolWithAggregatesFilter<"User"> | boolean
+    daysStreak?: IntWithAggregatesFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableWithAggregatesFilter<"User"> | $Enums.EnglishLvl | null
     learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -6049,6 +6144,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
@@ -6062,6 +6159,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
@@ -6075,6 +6174,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6088,6 +6189,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6101,6 +6204,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
@@ -6112,6 +6217,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6123,6 +6230,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6350,6 +6459,22 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type EnumEnglishLvlNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel> | null
     in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel> | null
@@ -6395,10 +6520,16 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrder
+    dailyComplete?: SortOrder
+    daysStreak?: SortOrder
     englishLvl?: SortOrder
     learnedWords?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    daysStreak?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -6406,6 +6537,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrder
+    dailyComplete?: SortOrder
+    daysStreak?: SortOrder
     englishLvl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6416,9 +6549,15 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrder
+    dailyComplete?: SortOrder
+    daysStreak?: SortOrder
     englishLvl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    daysStreak?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6437,6 +6576,30 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumEnglishLvlNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6545,6 +6708,18 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableEnumEnglishLvlFieldUpdateOperationsInput = {
@@ -6731,6 +6906,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedEnumEnglishLvlNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel> | null
     in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel> | null
@@ -6766,6 +6946,41 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumEnglishLvlNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel> | null
     in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel> | null
@@ -6781,6 +6996,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
@@ -6793,6 +7010,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
@@ -6821,6 +7040,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6833,6 +7054,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6845,6 +7068,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
@@ -6857,6 +7082,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
@@ -6893,6 +7120,8 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     refreshToken?: StringNullableFilter<"User"> | string | null
+    dailyComplete?: BoolFilter<"User"> | boolean
+    daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -7000,6 +7229,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7012,6 +7243,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7024,6 +7257,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
