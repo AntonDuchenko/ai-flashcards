@@ -14,6 +14,7 @@ import * as Joi from 'joi';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './common/filters';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       useClass: AllExceptionsFilter,
     },
   ],
+  controllers: [AppController],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
