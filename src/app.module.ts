@@ -11,6 +11,9 @@ import { DeckModule } from './deck/deck.module';
 import { OpenAiModule } from './open-ai/open-ai.module';
 import { InterestsModule } from './interests/interests.module';
 import * as Joi from 'joi';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './common/filters';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -27,6 +30,7 @@ import * as Joi from 'joi';
         PORT: Joi.number().default(3000),
       }),
     }),
+    ScheduleModule.forRoot(),
     AuthModule,
     TokensModule,
     UsersModule,
@@ -35,6 +39,13 @@ import * as Joi from 'joi';
     DeckModule,
     OpenAiModule,
     InterestsModule,
+  ],
+  providers: [
+    AllExceptionsFilter,
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
   ],
 })
 export class AppModule {

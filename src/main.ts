@@ -5,7 +5,10 @@ import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['log', 'error', 'warn'],
+    cors: true,
+  });
 
   const config = app.get(ConfigService);
 

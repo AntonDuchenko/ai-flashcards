@@ -98,31 +98,47 @@ export class UsersService {
     });
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_5AM)
+  @Cron(CronExpression.EVERY_DAY_AT_5AM, {
+    timeZone: 'Europe/Kyiv',
+  })
   async createDailyDeckForEverybody() {
-    const users = await this.getAllUsers();
+    try {
+      const users = await this.getAllUsers();
 
-    for (const user of users) {
-      if (user.englishLvl === null || user.interests.length === 0) continue;
+      for (const user of users) {
+        if (user.englishLvl === null || user.interests.length === 0) continue;
 
-      await this.deckService.createDeck({
-        userId: user.id,
-        englishLvl: user.englishLvl,
-        interests: user.interests.map((interest) => interest.name),
-        learnedWords: user.learnedWords,
-      });
+        await this.deckService.createDeck({
+          userId: user.id,
+          englishLvl: user.englishLvl,
+          interests: user.interests.map((interest) => interest.name),
+          learnedWords: user.learnedWords,
+        });
 
-      await this.updateUser(user.id, { dailyComplete: false });
+        await this.updateUser(user.id, { dailyComplete: false });
+      }
+
+      console.log('✅ Daily decks created');
+    } catch (error) {
+      console.error('❌ Cron daily decks job failed:', error);
     }
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_4AM)
+  @Cron(CronExpression.EVERY_DAY_AT_4AM, {
+    timeZone: 'Europe/Kyiv',
+  })
   async resetStreak() {
-    const users = await this.getAllUsers();
+    try {
+      const users = await this.getAllUsers();
 
-    for (const user of users) {
-      if (!user.dailyComplete) continue;
-      await this.updateUser(user.id, { daysStreak: 0 });
+      for (const user of users) {
+        if (!user.dailyComplete) continue;
+        await this.updateUser(user.id, { daysStreak: 0 });
+
+        console.log('✅ Streak reseted');
+      }
+    } catch (error) {
+      console.error('❌ Cron reset streak job failed:', error);
     }
   }
 }
