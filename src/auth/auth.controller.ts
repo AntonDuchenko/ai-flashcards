@@ -21,7 +21,7 @@ export class AuthController {
     res.cookie('access_token', tokens.accessToken, options);
     res.cookie('refresh_token', tokens.refreshToken, {
       ...options,
-      maxAge: this.configService.get<number>('REFRESH_TOKEN_EXPIRES_IN'),
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
     return res.status(200).json({
@@ -38,7 +38,7 @@ export class AuthController {
     res.cookie('access_token', tokens.accessToken, options);
     res.cookie('refresh_token', tokens.refreshToken, {
       ...options,
-      maxAge: this.configService.get<number>('REFRESH_TOKEN_EXPIRES_IN'),
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
     return res.status(201).json({
