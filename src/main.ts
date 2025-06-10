@@ -3,10 +3,12 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
-import crypto from 'crypto';
+import { randomUUID } from 'crypto';
 
-if (!global.crypto) {
-  global.crypto = crypto as any;
+if (!globalThis.crypto) {
+  globalThis.crypto = {
+    randomUUID,
+  } as Crypto;
 }
 
 async function bootstrap() {
