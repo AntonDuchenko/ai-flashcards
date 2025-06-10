@@ -19,7 +19,10 @@ export class AuthController {
     const options = this.authService.getCookieOptions();
 
     res.cookie('access_token', tokens.accessToken, options);
-    res.cookie('refresh_token', tokens.refreshToken, options);
+    res.cookie('refresh_token', tokens.refreshToken, {
+      ...options,
+      maxAge: this.configService.get<number>('REFRESH_TOKEN_EXPIRES_IN'),
+    });
 
     return res.status(200).json({
       message: 'Login successful',
@@ -33,7 +36,10 @@ export class AuthController {
     const options = this.authService.getCookieOptions();
 
     res.cookie('access_token', tokens.accessToken, options);
-    res.cookie('refresh_token', tokens.refreshToken, options);
+    res.cookie('refresh_token', tokens.refreshToken, {
+      ...options,
+      maxAge: this.configService.get<number>('REFRESH_TOKEN_EXPIRES_IN'),
+    });
 
     return res.status(201).json({
       message: 'Registration successful',
