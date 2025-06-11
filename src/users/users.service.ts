@@ -20,6 +20,9 @@ export class UsersService {
   async getUserById(userId: string) {
     return this.prismaService.user.findUnique({
       where: { id: userId },
+      include: {
+        learnedWords: true,
+      },
     });
   }
 
@@ -27,6 +30,8 @@ export class UsersService {
     return await this.prismaService.user.findMany({
       include: {
         interests: true,
+        learnedWords: true,
+        dailyDeck: true,
       },
     });
   }
@@ -51,22 +56,18 @@ export class UsersService {
 
   async setCorrectAnswer(
     userId: string,
-    data: { englishWord: string; answersStatus: boolean }[],
+    data: { wordId: string; correct: boolean; answerTime: number }[],
   ): Promise<User> {
     const user = await this.getUserById(userId);
 
     if (!user) throw new Error('User not found');
 
-    const learnedWords = data.reduce<string[]>((acc, { englishWord, answersStatus }) => {
-      if (answersStatus) {
-        return [...acc, englishWord];
-      } else {
-        return acc;
-      }
-    }, []);
+    const learnedWordIds = data.filter((item) => item.correct).map((item) => ({ id: item.wordId }));
 
     return this.updateUser(userId, {
-      learnedWords: [...user.learnedWords, ...learnedWords],
+      learnedWords: {
+        connect: learnedWordIds,
+      },
       dailyComplete: true,
       daysStreak: user.daysStreak + 1,
     });
@@ -108,11 +109,19 @@ export class UsersService {
       for (const user of users) {
         if (user.englishLvl === null || user.interests.length === 0) continue;
 
+        if (!user.dailyComplete) {
+          await this.resetStreak(user.id);
+          continue;
+        }
+
+        if (!user.dailyDeck) continue;
+
+        await this.deckService.deleteDeck(user.dailyDeck.id);
         await this.deckService.createDeck({
           userId: user.id,
           englishLvl: user.englishLvl,
           interests: user.interests.map((interest) => interest.name),
-          learnedWords: user.learnedWords,
+          learnedWords: user.learnedWords.map((card) => card.translation),
         });
 
         await this.updateUser(user.id, { dailyComplete: false });
@@ -124,21 +133,9 @@ export class UsersService {
     }
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_4AM, {
-    timeZone: 'Europe/Kyiv',
-  })
-  async resetStreak() {
-    try {
-      const users = await this.getAllUsers();
+  async resetStreak(userId: string) {
+    await this.updateUser(userId, { daysStreak: 0 });
 
-      for (const user of users) {
-        if (!user.dailyComplete) continue;
-        await this.updateUser(user.id, { daysStreak: 0 });
-
-        console.log('✅ Streak reseted');
-      }
-    } catch (error) {
-      console.error('❌ Cron reset streak job failed:', error);
-    }
+    console.log('✅ Streak reseted for user', userId);
   }
 }

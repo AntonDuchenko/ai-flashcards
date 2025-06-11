@@ -54,7 +54,7 @@ export class UsersController {
   @Post('/set-answers')
   setCorrectAnswer(
     @Req() req: Request & { user: { sub: string } },
-    @Body() body: { englishWord: string; answersStatus: boolean }[],
+    @Body() body: { wordId: string; correct: boolean; answerTime: number }[],
   ) {
     return this.usersService.setCorrectAnswer(req.user.sub, body);
   }

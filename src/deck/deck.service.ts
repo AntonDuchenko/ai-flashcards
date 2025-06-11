@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { EnglishLvl, Prisma } from 'generated/prisma';
+import { FlashcardsService } from 'src/flashcards/flashcards.service';
 import { OpenAiService } from 'src/open-ai/open-ai.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-
 
 @Injectable()
 export class DeckService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly openAiService: OpenAiService,
+    private readonly flashcardsService: FlashcardsService,
   ) {}
 
   async createDeck(data: {
@@ -17,22 +18,35 @@ export class DeckService {
     interests: string[];
     learnedWords: string[];
   }) {
-    const flashcards = await this.openAiService.getRandomFlashcards(
+    const deck = await this.prismaService.deck.create({
+      data: {
+        englishLvl: data.englishLvl,
+        title: 'Daily deck',
+        user: {
+          connect: { id: data.userId },
+        },
+      },
+    });
+
+    const aiFlashcards = await this.openAiService.getRandomFlashcards(
       data.englishLvl,
       data.interests,
       data.learnedWords,
     );
 
-    return this.prismaService.deck.create({
-      data: {
-        englishLvl: data.englishLvl,
-        user: {
-          connect: { id: data.userId },
-        },
-        title: 'Daily deck',
-        flashcards,
-      },
-    });
+    const flashcardsData = aiFlashcards.map((card) => ({
+      ...card,
+      userId: data.userId,
+      deckId: deck.id,
+    }));
+
+    await this.flashcardsService.createManyFlashcards(flashcardsData);
+
+    return deck;
+  }
+
+  async deleteDeck(deckId: string) {
+    return this.prismaService.deck.delete({ where: { id: deckId } });
   }
 
   getUserDecks(userId: string) {

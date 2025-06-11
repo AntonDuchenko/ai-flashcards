@@ -125,15 +125,19 @@ exports.Prisma.DeckScalarFieldEnum = {
   title: 'title',
   userId: 'userId',
   englishLvl: 'englishLvl',
-  flashcards: 'flashcards',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.FlashcardScalarFieldEnum = {
   id: 'id',
-  question: 'question',
-  answer: 'answer',
+  word: 'word',
+  translation: 'translation',
+  userId: 'userId',
+  deckId: 'deckId',
+  repetition: 'repetition',
+  easinessFactor: 'easinessFactor',
+  dueDate: 'dueDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -151,7 +155,6 @@ exports.Prisma.UserScalarFieldEnum = {
   dailyComplete: 'dailyComplete',
   daysStreak: 'daysStreak',
   englishLvl: 'englishLvl',
-  learnedWords: 'learnedWords',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -161,19 +164,9 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
-};
-
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {

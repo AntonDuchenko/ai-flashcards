@@ -1159,6 +1159,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type DeckCountOutputType
+   */
+
+  export type DeckCountOutputType = {
+    flashcards: number
+  }
+
+  export type DeckCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    flashcards?: boolean | DeckCountOutputTypeCountFlashcardsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DeckCountOutputType without action
+   */
+  export type DeckCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeckCountOutputType
+     */
+    select?: DeckCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DeckCountOutputType without action
+   */
+  export type DeckCountOutputTypeCountFlashcardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FlashcardWhereInput
+  }
+
+
+  /**
    * Count Type InterestCountOutputType
    */
 
@@ -1194,13 +1225,13 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    deck: number
     interests: number
+    learnedWords: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    deck?: boolean | UserCountOutputTypeCountDeckArgs
     interests?: boolean | UserCountOutputTypeCountInterestsArgs
+    learnedWords?: boolean | UserCountOutputTypeCountLearnedWordsArgs
   }
 
   // Custom InputTypes
@@ -1217,15 +1248,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountDeckArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DeckWhereInput
+  export type UserCountOutputTypeCountInterestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InterestWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountInterestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: InterestWhereInput
+  export type UserCountOutputTypeCountLearnedWordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FlashcardWhereInput
   }
 
 
@@ -1266,7 +1297,6 @@ export namespace Prisma {
     title: number
     userId: number
     englishLvl: number
-    flashcards: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1296,7 +1326,6 @@ export namespace Prisma {
     title?: true
     userId?: true
     englishLvl?: true
-    flashcards?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1379,7 +1408,6 @@ export namespace Prisma {
     title: string
     userId: string
     englishLvl: $Enums.EnglishLvl
-    flashcards: JsonValue
     createdAt: Date
     updatedAt: Date
     _count: DeckCountAggregateOutputType | null
@@ -1406,10 +1434,11 @@ export namespace Prisma {
     title?: boolean
     userId?: boolean
     englishLvl?: boolean
-    flashcards?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    flashcards?: boolean | Deck$flashcardsArgs<ExtArgs>
+    _count?: boolean | DeckCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["deck"]>
 
   export type DeckSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1417,7 +1446,6 @@ export namespace Prisma {
     title?: boolean
     userId?: boolean
     englishLvl?: boolean
-    flashcards?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -1428,7 +1456,6 @@ export namespace Prisma {
     title?: boolean
     userId?: boolean
     englishLvl?: boolean
-    flashcards?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -1439,14 +1466,15 @@ export namespace Prisma {
     title?: boolean
     userId?: boolean
     englishLvl?: boolean
-    flashcards?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DeckOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "userId" | "englishLvl" | "flashcards" | "createdAt" | "updatedAt", ExtArgs["result"]["deck"]>
+  export type DeckOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "userId" | "englishLvl" | "createdAt" | "updatedAt", ExtArgs["result"]["deck"]>
   export type DeckInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    flashcards?: boolean | Deck$flashcardsArgs<ExtArgs>
+    _count?: boolean | DeckCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DeckIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -1459,13 +1487,13 @@ export namespace Prisma {
     name: "Deck"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      flashcards: Prisma.$FlashcardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       userId: string
       englishLvl: $Enums.EnglishLvl
-      flashcards: Prisma.JsonValue
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["deck"]>
@@ -1863,6 +1891,7 @@ export namespace Prisma {
   export interface Prisma__DeckClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    flashcards<T extends Deck$flashcardsArgs<ExtArgs> = {}>(args?: Subset<T, Deck$flashcardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1896,7 +1925,6 @@ export namespace Prisma {
     readonly title: FieldRef<"Deck", 'String'>
     readonly userId: FieldRef<"Deck", 'String'>
     readonly englishLvl: FieldRef<"Deck", 'EnglishLvl'>
-    readonly flashcards: FieldRef<"Deck", 'Json'>
     readonly createdAt: FieldRef<"Deck", 'DateTime'>
     readonly updatedAt: FieldRef<"Deck", 'DateTime'>
   }
@@ -2295,6 +2323,30 @@ export namespace Prisma {
   }
 
   /**
+   * Deck.flashcards
+   */
+  export type Deck$flashcardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    where?: FlashcardWhereInput
+    orderBy?: FlashcardOrderByWithRelationInput | FlashcardOrderByWithRelationInput[]
+    cursor?: FlashcardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FlashcardScalarFieldEnum | FlashcardScalarFieldEnum[]
+  }
+
+  /**
    * Deck without action
    */
   export type DeckDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2319,56 +2371,108 @@ export namespace Prisma {
 
   export type AggregateFlashcard = {
     _count: FlashcardCountAggregateOutputType | null
+    _avg: FlashcardAvgAggregateOutputType | null
+    _sum: FlashcardSumAggregateOutputType | null
     _min: FlashcardMinAggregateOutputType | null
     _max: FlashcardMaxAggregateOutputType | null
   }
 
+  export type FlashcardAvgAggregateOutputType = {
+    repetition: number | null
+    easinessFactor: number | null
+  }
+
+  export type FlashcardSumAggregateOutputType = {
+    repetition: number | null
+    easinessFactor: number | null
+  }
+
   export type FlashcardMinAggregateOutputType = {
     id: string | null
-    question: string | null
-    answer: string | null
+    word: string | null
+    translation: string | null
+    userId: string | null
+    deckId: string | null
+    repetition: number | null
+    easinessFactor: number | null
+    dueDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type FlashcardMaxAggregateOutputType = {
     id: string | null
-    question: string | null
-    answer: string | null
+    word: string | null
+    translation: string | null
+    userId: string | null
+    deckId: string | null
+    repetition: number | null
+    easinessFactor: number | null
+    dueDate: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type FlashcardCountAggregateOutputType = {
     id: number
-    question: number
-    answer: number
+    word: number
+    translation: number
+    userId: number
+    deckId: number
+    repetition: number
+    easinessFactor: number
+    dueDate: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
+  export type FlashcardAvgAggregateInputType = {
+    repetition?: true
+    easinessFactor?: true
+  }
+
+  export type FlashcardSumAggregateInputType = {
+    repetition?: true
+    easinessFactor?: true
+  }
+
   export type FlashcardMinAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    word?: true
+    translation?: true
+    userId?: true
+    deckId?: true
+    repetition?: true
+    easinessFactor?: true
+    dueDate?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type FlashcardMaxAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    word?: true
+    translation?: true
+    userId?: true
+    deckId?: true
+    repetition?: true
+    easinessFactor?: true
+    dueDate?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type FlashcardCountAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    word?: true
+    translation?: true
+    userId?: true
+    deckId?: true
+    repetition?: true
+    easinessFactor?: true
+    dueDate?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2412,6 +2516,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: FlashcardAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FlashcardSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: FlashcardMinAggregateInputType
@@ -2442,17 +2558,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: FlashcardCountAggregateInputType | true
+    _avg?: FlashcardAvgAggregateInputType
+    _sum?: FlashcardSumAggregateInputType
     _min?: FlashcardMinAggregateInputType
     _max?: FlashcardMaxAggregateInputType
   }
 
   export type FlashcardGroupByOutputType = {
     id: string
-    question: string
-    answer: string
+    word: string
+    translation: string
+    userId: string
+    deckId: string | null
+    repetition: number
+    easinessFactor: number
+    dueDate: Date
     createdAt: Date
     updatedAt: Date
     _count: FlashcardCountAggregateOutputType | null
+    _avg: FlashcardAvgAggregateOutputType | null
+    _sum: FlashcardSumAggregateOutputType | null
     _min: FlashcardMinAggregateOutputType | null
     _max: FlashcardMaxAggregateOutputType | null
   }
@@ -2473,45 +2598,91 @@ export namespace Prisma {
 
   export type FlashcardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    word?: boolean
+    translation?: boolean
+    userId?: boolean
+    deckId?: boolean
+    repetition?: boolean
+    easinessFactor?: boolean
+    dueDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    deck?: boolean | Flashcard$deckArgs<ExtArgs>
   }, ExtArgs["result"]["flashcard"]>
 
   export type FlashcardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    word?: boolean
+    translation?: boolean
+    userId?: boolean
+    deckId?: boolean
+    repetition?: boolean
+    easinessFactor?: boolean
+    dueDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    deck?: boolean | Flashcard$deckArgs<ExtArgs>
   }, ExtArgs["result"]["flashcard"]>
 
   export type FlashcardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    word?: boolean
+    translation?: boolean
+    userId?: boolean
+    deckId?: boolean
+    repetition?: boolean
+    easinessFactor?: boolean
+    dueDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    deck?: boolean | Flashcard$deckArgs<ExtArgs>
   }, ExtArgs["result"]["flashcard"]>
 
   export type FlashcardSelectScalar = {
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    word?: boolean
+    translation?: boolean
+    userId?: boolean
+    deckId?: boolean
+    repetition?: boolean
+    easinessFactor?: boolean
+    dueDate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FlashcardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "answer" | "createdAt" | "updatedAt", ExtArgs["result"]["flashcard"]>
+  export type FlashcardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "word" | "translation" | "userId" | "deckId" | "repetition" | "easinessFactor" | "dueDate" | "createdAt" | "updatedAt", ExtArgs["result"]["flashcard"]>
+  export type FlashcardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    deck?: boolean | Flashcard$deckArgs<ExtArgs>
+  }
+  export type FlashcardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    deck?: boolean | Flashcard$deckArgs<ExtArgs>
+  }
+  export type FlashcardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    deck?: boolean | Flashcard$deckArgs<ExtArgs>
+  }
 
   export type $FlashcardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Flashcard"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      deck: Prisma.$DeckPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      question: string
-      answer: string
+      word: string
+      translation: string
+      userId: string
+      deckId: string | null
+      repetition: number
+      easinessFactor: number
+      dueDate: Date
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["flashcard"]>
@@ -2908,6 +3079,8 @@ export namespace Prisma {
    */
   export interface Prisma__FlashcardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deck<T extends Flashcard$deckArgs<ExtArgs> = {}>(args?: Subset<T, Flashcard$deckArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2938,8 +3111,13 @@ export namespace Prisma {
    */
   interface FlashcardFieldRefs {
     readonly id: FieldRef<"Flashcard", 'String'>
-    readonly question: FieldRef<"Flashcard", 'String'>
-    readonly answer: FieldRef<"Flashcard", 'String'>
+    readonly word: FieldRef<"Flashcard", 'String'>
+    readonly translation: FieldRef<"Flashcard", 'String'>
+    readonly userId: FieldRef<"Flashcard", 'String'>
+    readonly deckId: FieldRef<"Flashcard", 'String'>
+    readonly repetition: FieldRef<"Flashcard", 'Int'>
+    readonly easinessFactor: FieldRef<"Flashcard", 'Int'>
+    readonly dueDate: FieldRef<"Flashcard", 'DateTime'>
     readonly createdAt: FieldRef<"Flashcard", 'DateTime'>
     readonly updatedAt: FieldRef<"Flashcard", 'DateTime'>
   }
@@ -2959,6 +3137,10 @@ export namespace Prisma {
      */
     omit?: FlashcardOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
      * Filter, which Flashcard to fetch.
      */
     where: FlashcardWhereUniqueInput
@@ -2977,6 +3159,10 @@ export namespace Prisma {
      */
     omit?: FlashcardOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
      * Filter, which Flashcard to fetch.
      */
     where: FlashcardWhereUniqueInput
@@ -2994,6 +3180,10 @@ export namespace Prisma {
      * Omit specific fields from the Flashcard
      */
     omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
     /**
      * Filter, which Flashcard to fetch.
      */
@@ -3043,6 +3233,10 @@ export namespace Prisma {
      */
     omit?: FlashcardOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
      * Filter, which Flashcard to fetch.
      */
     where?: FlashcardWhereInput
@@ -3091,6 +3285,10 @@ export namespace Prisma {
      */
     omit?: FlashcardOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
      * Filter, which Flashcards to fetch.
      */
     where?: FlashcardWhereInput
@@ -3134,6 +3332,10 @@ export namespace Prisma {
      */
     omit?: FlashcardOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
      * The data needed to create a Flashcard.
      */
     data: XOR<FlashcardCreateInput, FlashcardUncheckedCreateInput>
@@ -3167,6 +3369,10 @@ export namespace Prisma {
      */
     data: FlashcardCreateManyInput | FlashcardCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3181,6 +3387,10 @@ export namespace Prisma {
      * Omit specific fields from the Flashcard
      */
     omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
     /**
      * The data needed to update a Flashcard.
      */
@@ -3233,6 +3443,10 @@ export namespace Prisma {
      * Limit how many Flashcards to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3247,6 +3461,10 @@ export namespace Prisma {
      * Omit specific fields from the Flashcard
      */
     omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
     /**
      * The filter to search for the Flashcard to update in case it exists.
      */
@@ -3274,6 +3492,10 @@ export namespace Prisma {
      */
     omit?: FlashcardOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    /**
      * Filter which Flashcard to delete.
      */
     where: FlashcardWhereUniqueInput
@@ -3294,6 +3516,25 @@ export namespace Prisma {
   }
 
   /**
+   * Flashcard.deck
+   */
+  export type Flashcard$deckArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deck
+     */
+    select?: DeckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deck
+     */
+    omit?: DeckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeckInclude<ExtArgs> | null
+    where?: DeckWhereInput
+  }
+
+  /**
    * Flashcard without action
    */
   export type FlashcardDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3305,6 +3546,10 @@ export namespace Prisma {
      * Omit specific fields from the Flashcard
      */
     omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
   }
 
 
@@ -4391,7 +4636,6 @@ export namespace Prisma {
     dailyComplete: number
     daysStreak: number
     englishLvl: number
-    learnedWords: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4438,7 +4682,6 @@ export namespace Prisma {
     dailyComplete?: true
     daysStreak?: true
     englishLvl?: true
-    learnedWords?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4538,7 +4781,6 @@ export namespace Prisma {
     dailyComplete: boolean
     daysStreak: number
     englishLvl: $Enums.EnglishLvl | null
-    learnedWords: string[]
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -4570,11 +4812,11 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: boolean
     englishLvl?: boolean
-    learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    deck?: boolean | User$deckArgs<ExtArgs>
+    dailyDeck?: boolean | User$dailyDeckArgs<ExtArgs>
     interests?: boolean | User$interestsArgs<ExtArgs>
+    learnedWords?: boolean | User$learnedWordsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4586,7 +4828,6 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: boolean
     englishLvl?: boolean
-    learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -4599,7 +4840,6 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: boolean
     englishLvl?: boolean
-    learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -4612,15 +4852,15 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: boolean
     englishLvl?: boolean
-    learnedWords?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "dailyComplete" | "daysStreak" | "englishLvl" | "learnedWords" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "dailyComplete" | "daysStreak" | "englishLvl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    deck?: boolean | User$deckArgs<ExtArgs>
+    dailyDeck?: boolean | User$dailyDeckArgs<ExtArgs>
     interests?: boolean | User$interestsArgs<ExtArgs>
+    learnedWords?: boolean | User$learnedWordsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4629,8 +4869,9 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      deck: Prisma.$DeckPayload<ExtArgs>[]
+      dailyDeck: Prisma.$DeckPayload<ExtArgs> | null
       interests: Prisma.$InterestPayload<ExtArgs>[]
+      learnedWords: Prisma.$FlashcardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4640,7 +4881,6 @@ export namespace Prisma {
       dailyComplete: boolean
       daysStreak: number
       englishLvl: $Enums.EnglishLvl | null
-      learnedWords: string[]
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -5037,8 +5277,9 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    deck<T extends User$deckArgs<ExtArgs> = {}>(args?: Subset<T, User$deckArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dailyDeck<T extends User$dailyDeckArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyDeckArgs<ExtArgs>>): Prisma__DeckClient<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     interests<T extends User$interestsArgs<ExtArgs> = {}>(args?: Subset<T, User$interestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    learnedWords<T extends User$learnedWordsArgs<ExtArgs> = {}>(args?: Subset<T, User$learnedWordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5075,7 +5316,6 @@ export namespace Prisma {
     readonly dailyComplete: FieldRef<"User", 'Boolean'>
     readonly daysStreak: FieldRef<"User", 'Int'>
     readonly englishLvl: FieldRef<"User", 'EnglishLvl'>
-    readonly learnedWords: FieldRef<"User", 'String[]'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -5466,9 +5706,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.deck
+   * User.dailyDeck
    */
-  export type User$deckArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$dailyDeckArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Deck
      */
@@ -5482,11 +5722,6 @@ export namespace Prisma {
      */
     include?: DeckInclude<ExtArgs> | null
     where?: DeckWhereInput
-    orderBy?: DeckOrderByWithRelationInput | DeckOrderByWithRelationInput[]
-    cursor?: DeckWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DeckScalarFieldEnum | DeckScalarFieldEnum[]
   }
 
   /**
@@ -5511,6 +5746,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InterestScalarFieldEnum | InterestScalarFieldEnum[]
+  }
+
+  /**
+   * User.learnedWords
+   */
+  export type User$learnedWordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Flashcard
+     */
+    select?: FlashcardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Flashcard
+     */
+    omit?: FlashcardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FlashcardInclude<ExtArgs> | null
+    where?: FlashcardWhereInput
+    orderBy?: FlashcardOrderByWithRelationInput | FlashcardOrderByWithRelationInput[]
+    cursor?: FlashcardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FlashcardScalarFieldEnum | FlashcardScalarFieldEnum[]
   }
 
   /**
@@ -5551,7 +5810,6 @@ export namespace Prisma {
     title: 'title',
     userId: 'userId',
     englishLvl: 'englishLvl',
-    flashcards: 'flashcards',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5561,8 +5819,13 @@ export namespace Prisma {
 
   export const FlashcardScalarFieldEnum: {
     id: 'id',
-    question: 'question',
-    answer: 'answer',
+    word: 'word',
+    translation: 'translation',
+    userId: 'userId',
+    deckId: 'deckId',
+    repetition: 'repetition',
+    easinessFactor: 'easinessFactor',
+    dueDate: 'dueDate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5586,7 +5849,6 @@ export namespace Prisma {
     dailyComplete: 'dailyComplete',
     daysStreak: 'daysStreak',
     englishLvl: 'englishLvl',
-    learnedWords: 'learnedWords',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5602,28 +5864,12 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -5668,20 +5914,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -5696,13 +5928,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -5713,6 +5938,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -5741,10 +5973,10 @@ export namespace Prisma {
     title?: StringFilter<"Deck"> | string
     userId?: StringFilter<"Deck"> | string
     englishLvl?: EnumEnglishLvlFilter<"Deck"> | $Enums.EnglishLvl
-    flashcards?: JsonFilter<"Deck">
     createdAt?: DateTimeFilter<"Deck"> | Date | string
     updatedAt?: DateTimeFilter<"Deck"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    flashcards?: FlashcardListRelationFilter
   }
 
   export type DeckOrderByWithRelationInput = {
@@ -5752,32 +5984,31 @@ export namespace Prisma {
     title?: SortOrder
     userId?: SortOrder
     englishLvl?: SortOrder
-    flashcards?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    flashcards?: FlashcardOrderByRelationAggregateInput
   }
 
   export type DeckWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId?: string
     AND?: DeckWhereInput | DeckWhereInput[]
     OR?: DeckWhereInput[]
     NOT?: DeckWhereInput | DeckWhereInput[]
     title?: StringFilter<"Deck"> | string
-    userId?: StringFilter<"Deck"> | string
     englishLvl?: EnumEnglishLvlFilter<"Deck"> | $Enums.EnglishLvl
-    flashcards?: JsonFilter<"Deck">
     createdAt?: DateTimeFilter<"Deck"> | Date | string
     updatedAt?: DateTimeFilter<"Deck"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+    flashcards?: FlashcardListRelationFilter
+  }, "id" | "userId">
 
   export type DeckOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
     englishLvl?: SortOrder
-    flashcards?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: DeckCountOrderByAggregateInput
@@ -5793,7 +6024,6 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Deck"> | string
     userId?: StringWithAggregatesFilter<"Deck"> | string
     englishLvl?: EnumEnglishLvlWithAggregatesFilter<"Deck"> | $Enums.EnglishLvl
-    flashcards?: JsonWithAggregatesFilter<"Deck">
     createdAt?: DateTimeWithAggregatesFilter<"Deck"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Deck"> | Date | string
   }
@@ -5803,18 +6033,32 @@ export namespace Prisma {
     OR?: FlashcardWhereInput[]
     NOT?: FlashcardWhereInput | FlashcardWhereInput[]
     id?: StringFilter<"Flashcard"> | string
-    question?: StringFilter<"Flashcard"> | string
-    answer?: StringFilter<"Flashcard"> | string
+    word?: StringFilter<"Flashcard"> | string
+    translation?: StringFilter<"Flashcard"> | string
+    userId?: StringFilter<"Flashcard"> | string
+    deckId?: StringNullableFilter<"Flashcard"> | string | null
+    repetition?: IntFilter<"Flashcard"> | number
+    easinessFactor?: IntFilter<"Flashcard"> | number
+    dueDate?: DateTimeFilter<"Flashcard"> | Date | string
     createdAt?: DateTimeFilter<"Flashcard"> | Date | string
     updatedAt?: DateTimeFilter<"Flashcard"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    deck?: XOR<DeckNullableScalarRelationFilter, DeckWhereInput> | null
   }
 
   export type FlashcardOrderByWithRelationInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    word?: SortOrder
+    translation?: SortOrder
+    userId?: SortOrder
+    deckId?: SortOrderInput | SortOrder
+    repetition?: SortOrder
+    easinessFactor?: SortOrder
+    dueDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    deck?: DeckOrderByWithRelationInput
   }
 
   export type FlashcardWhereUniqueInput = Prisma.AtLeast<{
@@ -5822,21 +6066,35 @@ export namespace Prisma {
     AND?: FlashcardWhereInput | FlashcardWhereInput[]
     OR?: FlashcardWhereInput[]
     NOT?: FlashcardWhereInput | FlashcardWhereInput[]
-    question?: StringFilter<"Flashcard"> | string
-    answer?: StringFilter<"Flashcard"> | string
+    word?: StringFilter<"Flashcard"> | string
+    translation?: StringFilter<"Flashcard"> | string
+    userId?: StringFilter<"Flashcard"> | string
+    deckId?: StringNullableFilter<"Flashcard"> | string | null
+    repetition?: IntFilter<"Flashcard"> | number
+    easinessFactor?: IntFilter<"Flashcard"> | number
+    dueDate?: DateTimeFilter<"Flashcard"> | Date | string
     createdAt?: DateTimeFilter<"Flashcard"> | Date | string
     updatedAt?: DateTimeFilter<"Flashcard"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    deck?: XOR<DeckNullableScalarRelationFilter, DeckWhereInput> | null
   }, "id">
 
   export type FlashcardOrderByWithAggregationInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    word?: SortOrder
+    translation?: SortOrder
+    userId?: SortOrder
+    deckId?: SortOrderInput | SortOrder
+    repetition?: SortOrder
+    easinessFactor?: SortOrder
+    dueDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FlashcardCountOrderByAggregateInput
+    _avg?: FlashcardAvgOrderByAggregateInput
     _max?: FlashcardMaxOrderByAggregateInput
     _min?: FlashcardMinOrderByAggregateInput
+    _sum?: FlashcardSumOrderByAggregateInput
   }
 
   export type FlashcardScalarWhereWithAggregatesInput = {
@@ -5844,8 +6102,13 @@ export namespace Prisma {
     OR?: FlashcardScalarWhereWithAggregatesInput[]
     NOT?: FlashcardScalarWhereWithAggregatesInput | FlashcardScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Flashcard"> | string
-    question?: StringWithAggregatesFilter<"Flashcard"> | string
-    answer?: StringWithAggregatesFilter<"Flashcard"> | string
+    word?: StringWithAggregatesFilter<"Flashcard"> | string
+    translation?: StringWithAggregatesFilter<"Flashcard"> | string
+    userId?: StringWithAggregatesFilter<"Flashcard"> | string
+    deckId?: StringNullableWithAggregatesFilter<"Flashcard"> | string | null
+    repetition?: IntWithAggregatesFilter<"Flashcard"> | number
+    easinessFactor?: IntWithAggregatesFilter<"Flashcard"> | number
+    dueDate?: DateTimeWithAggregatesFilter<"Flashcard"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Flashcard"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Flashcard"> | Date | string
   }
@@ -5901,11 +6164,11 @@ export namespace Prisma {
     dailyComplete?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
-    learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    deck?: DeckListRelationFilter
+    dailyDeck?: XOR<DeckNullableScalarRelationFilter, DeckWhereInput> | null
     interests?: InterestListRelationFilter
+    learnedWords?: FlashcardListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5916,11 +6179,11 @@ export namespace Prisma {
     dailyComplete?: SortOrder
     daysStreak?: SortOrder
     englishLvl?: SortOrderInput | SortOrder
-    learnedWords?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    deck?: DeckOrderByRelationAggregateInput
+    dailyDeck?: DeckOrderByWithRelationInput
     interests?: InterestOrderByRelationAggregateInput
+    learnedWords?: FlashcardOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5934,11 +6197,11 @@ export namespace Prisma {
     dailyComplete?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
-    learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    deck?: DeckListRelationFilter
+    dailyDeck?: XOR<DeckNullableScalarRelationFilter, DeckWhereInput> | null
     interests?: InterestListRelationFilter
+    learnedWords?: FlashcardListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -5949,7 +6212,6 @@ export namespace Prisma {
     dailyComplete?: SortOrder
     daysStreak?: SortOrder
     englishLvl?: SortOrderInput | SortOrder
-    learnedWords?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -5970,7 +6232,6 @@ export namespace Prisma {
     dailyComplete?: BoolWithAggregatesFilter<"User"> | boolean
     daysStreak?: IntWithAggregatesFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableWithAggregatesFilter<"User"> | $Enums.EnglishLvl | null
-    learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -5979,10 +6240,10 @@ export namespace Prisma {
     id?: string
     title: string
     englishLvl: $Enums.EnglishLvl
-    flashcards: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutDeckInput
+    user: UserCreateNestedOneWithoutDailyDeckInput
+    flashcards?: FlashcardCreateNestedManyWithoutDeckInput
   }
 
   export type DeckUncheckedCreateInput = {
@@ -5990,19 +6251,19 @@ export namespace Prisma {
     title: string
     userId: string
     englishLvl: $Enums.EnglishLvl
-    flashcards: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    flashcards?: FlashcardUncheckedCreateNestedManyWithoutDeckInput
   }
 
   export type DeckUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
-    flashcards?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutDeckNestedInput
+    user?: UserUpdateOneRequiredWithoutDailyDeckNestedInput
+    flashcards?: FlashcardUpdateManyWithoutDeckNestedInput
   }
 
   export type DeckUncheckedUpdateInput = {
@@ -6010,9 +6271,9 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
-    flashcards?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flashcards?: FlashcardUncheckedUpdateManyWithoutDeckNestedInput
   }
 
   export type DeckCreateManyInput = {
@@ -6020,7 +6281,6 @@ export namespace Prisma {
     title: string
     userId: string
     englishLvl: $Enums.EnglishLvl
-    flashcards: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6029,7 +6289,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
-    flashcards?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6039,63 +6298,95 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
-    flashcards?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FlashcardCreateInput = {
     id?: string
-    question: string
-    answer: string
+    word: string
+    translation: string
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutLearnedWordsInput
+    deck?: DeckCreateNestedOneWithoutFlashcardsInput
   }
 
   export type FlashcardUncheckedCreateInput = {
     id?: string
-    question: string
-    answer: string
+    word: string
+    translation: string
+    userId: string
+    deckId?: string | null
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FlashcardUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLearnedWordsNestedInput
+    deck?: DeckUpdateOneWithoutFlashcardsNestedInput
   }
 
   export type FlashcardUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    deckId?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FlashcardCreateManyInput = {
     id?: string
-    question: string
-    answer: string
+    word: string
+    translation: string
+    userId: string
+    deckId?: string | null
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type FlashcardUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FlashcardUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    deckId?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6147,11 +6438,11 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
-    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    deck?: DeckCreateNestedManyWithoutUserInput
+    dailyDeck?: DeckCreateNestedOneWithoutUserInput
     interests?: InterestCreateNestedManyWithoutUsersInput
+    learnedWords?: FlashcardCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6162,11 +6453,11 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
-    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    deck?: DeckUncheckedCreateNestedManyWithoutUserInput
+    dailyDeck?: DeckUncheckedCreateNestedOneWithoutUserInput
     interests?: InterestUncheckedCreateNestedManyWithoutUsersInput
+    learnedWords?: FlashcardUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6177,11 +6468,11 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deck?: DeckUpdateManyWithoutUserNestedInput
+    dailyDeck?: DeckUpdateOneWithoutUserNestedInput
     interests?: InterestUpdateManyWithoutUsersNestedInput
+    learnedWords?: FlashcardUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6192,11 +6483,11 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deck?: DeckUncheckedUpdateManyWithoutUserNestedInput
+    dailyDeck?: DeckUncheckedUpdateOneWithoutUserNestedInput
     interests?: InterestUncheckedUpdateManyWithoutUsersNestedInput
+    learnedWords?: FlashcardUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6207,7 +6498,6 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
-    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6220,7 +6510,6 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6233,7 +6522,6 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6259,29 +6547,6 @@ export namespace Prisma {
     notIn?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
     not?: NestedEnumEnglishLvlFilter<$PrismaModel> | $Enums.EnglishLvl
   }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6299,12 +6564,21 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type FlashcardListRelationFilter = {
+    every?: FlashcardWhereInput
+    some?: FlashcardWhereInput
+    none?: FlashcardWhereInput
+  }
+
+  export type FlashcardOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type DeckCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
     englishLvl?: SortOrder
-    flashcards?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6354,32 +6628,6 @@ export namespace Prisma {
     _min?: NestedEnumEnglishLvlFilter<$PrismaModel>
     _max?: NestedEnumEnglishLvlFilter<$PrismaModel>
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
-  }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6395,28 +6643,123 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type DeckNullableScalarRelationFilter = {
+    is?: DeckWhereInput | null
+    isNot?: DeckWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type FlashcardCountOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    word?: SortOrder
+    translation?: SortOrder
+    userId?: SortOrder
+    deckId?: SortOrder
+    repetition?: SortOrder
+    easinessFactor?: SortOrder
+    dueDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
+  export type FlashcardAvgOrderByAggregateInput = {
+    repetition?: SortOrder
+    easinessFactor?: SortOrder
+  }
+
   export type FlashcardMaxOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    word?: SortOrder
+    translation?: SortOrder
+    userId?: SortOrder
+    deckId?: SortOrder
+    repetition?: SortOrder
+    easinessFactor?: SortOrder
+    dueDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type FlashcardMinOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    word?: SortOrder
+    translation?: SortOrder
+    userId?: SortOrder
+    deckId?: SortOrder
+    repetition?: SortOrder
+    easinessFactor?: SortOrder
+    dueDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type FlashcardSumOrderByAggregateInput = {
+    repetition?: SortOrder
+    easinessFactor?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UserListRelationFilter = {
@@ -6444,35 +6787,9 @@ export namespace Prisma {
     name?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type EnumEnglishLvlNullableFilter<$PrismaModel = never> = {
@@ -6482,33 +6799,10 @@ export namespace Prisma {
     not?: NestedEnumEnglishLvlNullableFilter<$PrismaModel> | $Enums.EnglishLvl | null
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
-  export type DeckListRelationFilter = {
-    every?: DeckWhereInput
-    some?: DeckWhereInput
-    none?: DeckWhereInput
-  }
-
   export type InterestListRelationFilter = {
     every?: InterestWhereInput
     some?: InterestWhereInput
     none?: InterestWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
-  export type DeckOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type InterestOrderByRelationAggregateInput = {
@@ -6523,7 +6817,6 @@ export namespace Prisma {
     dailyComplete?: SortOrder
     daysStreak?: SortOrder
     englishLvl?: SortOrder
-    learnedWords?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6560,46 +6853,12 @@ export namespace Prisma {
     daysStreak?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumEnglishLvlNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6612,10 +6871,24 @@ export namespace Prisma {
     _max?: NestedEnumEnglishLvlNullableFilter<$PrismaModel>
   }
 
-  export type UserCreateNestedOneWithoutDeckInput = {
-    create?: XOR<UserCreateWithoutDeckInput, UserUncheckedCreateWithoutDeckInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDeckInput
+  export type UserCreateNestedOneWithoutDailyDeckInput = {
+    create?: XOR<UserCreateWithoutDailyDeckInput, UserUncheckedCreateWithoutDailyDeckInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyDeckInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type FlashcardCreateNestedManyWithoutDeckInput = {
+    create?: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput> | FlashcardCreateWithoutDeckInput[] | FlashcardUncheckedCreateWithoutDeckInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutDeckInput | FlashcardCreateOrConnectWithoutDeckInput[]
+    createMany?: FlashcardCreateManyDeckInputEnvelope
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+  }
+
+  export type FlashcardUncheckedCreateNestedManyWithoutDeckInput = {
+    create?: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput> | FlashcardCreateWithoutDeckInput[] | FlashcardUncheckedCreateWithoutDeckInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutDeckInput | FlashcardCreateOrConnectWithoutDeckInput[]
+    createMany?: FlashcardCreateManyDeckInputEnvelope
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6630,12 +6903,82 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type UserUpdateOneRequiredWithoutDeckNestedInput = {
-    create?: XOR<UserCreateWithoutDeckInput, UserUncheckedCreateWithoutDeckInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDeckInput
-    upsert?: UserUpsertWithoutDeckInput
+  export type UserUpdateOneRequiredWithoutDailyDeckNestedInput = {
+    create?: XOR<UserCreateWithoutDailyDeckInput, UserUncheckedCreateWithoutDailyDeckInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyDeckInput
+    upsert?: UserUpsertWithoutDailyDeckInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDeckInput, UserUpdateWithoutDeckInput>, UserUncheckedUpdateWithoutDeckInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyDeckInput, UserUpdateWithoutDailyDeckInput>, UserUncheckedUpdateWithoutDailyDeckInput>
+  }
+
+  export type FlashcardUpdateManyWithoutDeckNestedInput = {
+    create?: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput> | FlashcardCreateWithoutDeckInput[] | FlashcardUncheckedCreateWithoutDeckInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutDeckInput | FlashcardCreateOrConnectWithoutDeckInput[]
+    upsert?: FlashcardUpsertWithWhereUniqueWithoutDeckInput | FlashcardUpsertWithWhereUniqueWithoutDeckInput[]
+    createMany?: FlashcardCreateManyDeckInputEnvelope
+    set?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    disconnect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    delete?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    update?: FlashcardUpdateWithWhereUniqueWithoutDeckInput | FlashcardUpdateWithWhereUniqueWithoutDeckInput[]
+    updateMany?: FlashcardUpdateManyWithWhereWithoutDeckInput | FlashcardUpdateManyWithWhereWithoutDeckInput[]
+    deleteMany?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+  }
+
+  export type FlashcardUncheckedUpdateManyWithoutDeckNestedInput = {
+    create?: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput> | FlashcardCreateWithoutDeckInput[] | FlashcardUncheckedCreateWithoutDeckInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutDeckInput | FlashcardCreateOrConnectWithoutDeckInput[]
+    upsert?: FlashcardUpsertWithWhereUniqueWithoutDeckInput | FlashcardUpsertWithWhereUniqueWithoutDeckInput[]
+    createMany?: FlashcardCreateManyDeckInputEnvelope
+    set?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    disconnect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    delete?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    update?: FlashcardUpdateWithWhereUniqueWithoutDeckInput | FlashcardUpdateWithWhereUniqueWithoutDeckInput[]
+    updateMany?: FlashcardUpdateManyWithWhereWithoutDeckInput | FlashcardUpdateManyWithWhereWithoutDeckInput[]
+    deleteMany?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutLearnedWordsInput = {
+    create?: XOR<UserCreateWithoutLearnedWordsInput, UserUncheckedCreateWithoutLearnedWordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLearnedWordsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DeckCreateNestedOneWithoutFlashcardsInput = {
+    create?: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput>
+    connectOrCreate?: DeckCreateOrConnectWithoutFlashcardsInput
+    connect?: DeckWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutLearnedWordsNestedInput = {
+    create?: XOR<UserCreateWithoutLearnedWordsInput, UserUncheckedCreateWithoutLearnedWordsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLearnedWordsInput
+    upsert?: UserUpsertWithoutLearnedWordsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLearnedWordsInput, UserUpdateWithoutLearnedWordsInput>, UserUncheckedUpdateWithoutLearnedWordsInput>
+  }
+
+  export type DeckUpdateOneWithoutFlashcardsNestedInput = {
+    create?: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput>
+    connectOrCreate?: DeckCreateOrConnectWithoutFlashcardsInput
+    upsert?: DeckUpsertWithoutFlashcardsInput
+    disconnect?: DeckWhereInput | boolean
+    delete?: DeckWhereInput | boolean
+    connect?: DeckWhereUniqueInput
+    update?: XOR<XOR<DeckUpdateToOneWithWhereWithoutFlashcardsInput, DeckUpdateWithoutFlashcardsInput>, DeckUncheckedUpdateWithoutFlashcardsInput>
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type UserCreateNestedManyWithoutInterestsInput = {
@@ -6676,15 +7019,10 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type UserCreatelearnedWordsInput = {
-    set: string[]
-  }
-
-  export type DeckCreateNestedManyWithoutUserInput = {
-    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
-    createMany?: DeckCreateManyUserInputEnvelope
-    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+  export type DeckCreateNestedOneWithoutUserInput = {
+    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DeckCreateOrConnectWithoutUserInput
+    connect?: DeckWhereUniqueInput
   }
 
   export type InterestCreateNestedManyWithoutUsersInput = {
@@ -6693,11 +7031,17 @@ export namespace Prisma {
     connect?: InterestWhereUniqueInput | InterestWhereUniqueInput[]
   }
 
-  export type DeckUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
-    createMany?: DeckCreateManyUserInputEnvelope
-    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
+  export type FlashcardCreateNestedManyWithoutUserInput = {
+    create?: XOR<FlashcardCreateWithoutUserInput, FlashcardUncheckedCreateWithoutUserInput> | FlashcardCreateWithoutUserInput[] | FlashcardUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutUserInput | FlashcardCreateOrConnectWithoutUserInput[]
+    createMany?: FlashcardCreateManyUserInputEnvelope
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+  }
+
+  export type DeckUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DeckCreateOrConnectWithoutUserInput
+    connect?: DeckWhereUniqueInput
   }
 
   export type InterestUncheckedCreateNestedManyWithoutUsersInput = {
@@ -6706,43 +7050,29 @@ export namespace Prisma {
     connect?: InterestWhereUniqueInput | InterestWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type FlashcardUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FlashcardCreateWithoutUserInput, FlashcardUncheckedCreateWithoutUserInput> | FlashcardCreateWithoutUserInput[] | FlashcardUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutUserInput | FlashcardCreateOrConnectWithoutUserInput[]
+    createMany?: FlashcardCreateManyUserInputEnvelope
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type NullableEnumEnglishLvlFieldUpdateOperationsInput = {
     set?: $Enums.EnglishLvl | null
   }
 
-  export type UserUpdatelearnedWordsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type DeckUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
-    upsert?: DeckUpsertWithWhereUniqueWithoutUserInput | DeckUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DeckCreateManyUserInputEnvelope
-    set?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
-    disconnect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
-    delete?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
-    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
-    update?: DeckUpdateWithWhereUniqueWithoutUserInput | DeckUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DeckUpdateManyWithWhereWithoutUserInput | DeckUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DeckScalarWhereInput | DeckScalarWhereInput[]
+  export type DeckUpdateOneWithoutUserNestedInput = {
+    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DeckCreateOrConnectWithoutUserInput
+    upsert?: DeckUpsertWithoutUserInput
+    disconnect?: DeckWhereInput | boolean
+    delete?: DeckWhereInput | boolean
+    connect?: DeckWhereUniqueInput
+    update?: XOR<XOR<DeckUpdateToOneWithWhereWithoutUserInput, DeckUpdateWithoutUserInput>, DeckUncheckedUpdateWithoutUserInput>
   }
 
   export type InterestUpdateManyWithoutUsersNestedInput = {
@@ -6758,18 +7088,28 @@ export namespace Prisma {
     deleteMany?: InterestScalarWhereInput | InterestScalarWhereInput[]
   }
 
-  export type DeckUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
-    upsert?: DeckUpsertWithWhereUniqueWithoutUserInput | DeckUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DeckCreateManyUserInputEnvelope
-    set?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
-    disconnect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
-    delete?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
-    connect?: DeckWhereUniqueInput | DeckWhereUniqueInput[]
-    update?: DeckUpdateWithWhereUniqueWithoutUserInput | DeckUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DeckUpdateManyWithWhereWithoutUserInput | DeckUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DeckScalarWhereInput | DeckScalarWhereInput[]
+  export type FlashcardUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FlashcardCreateWithoutUserInput, FlashcardUncheckedCreateWithoutUserInput> | FlashcardCreateWithoutUserInput[] | FlashcardUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutUserInput | FlashcardCreateOrConnectWithoutUserInput[]
+    upsert?: FlashcardUpsertWithWhereUniqueWithoutUserInput | FlashcardUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FlashcardCreateManyUserInputEnvelope
+    set?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    disconnect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    delete?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    update?: FlashcardUpdateWithWhereUniqueWithoutUserInput | FlashcardUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FlashcardUpdateManyWithWhereWithoutUserInput | FlashcardUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+  }
+
+  export type DeckUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
+    connectOrCreate?: DeckCreateOrConnectWithoutUserInput
+    upsert?: DeckUpsertWithoutUserInput
+    disconnect?: DeckWhereInput | boolean
+    delete?: DeckWhereInput | boolean
+    connect?: DeckWhereUniqueInput
+    update?: XOR<XOR<DeckUpdateToOneWithWhereWithoutUserInput, DeckUpdateWithoutUserInput>, DeckUncheckedUpdateWithoutUserInput>
   }
 
   export type InterestUncheckedUpdateManyWithoutUsersNestedInput = {
@@ -6783,6 +7123,20 @@ export namespace Prisma {
     update?: InterestUpdateWithWhereUniqueWithoutUsersInput | InterestUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: InterestUpdateManyWithWhereWithoutUsersInput | InterestUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: InterestScalarWhereInput | InterestScalarWhereInput[]
+  }
+
+  export type FlashcardUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FlashcardCreateWithoutUserInput, FlashcardUncheckedCreateWithoutUserInput> | FlashcardCreateWithoutUserInput[] | FlashcardUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FlashcardCreateOrConnectWithoutUserInput | FlashcardCreateOrConnectWithoutUserInput[]
+    upsert?: FlashcardUpsertWithWhereUniqueWithoutUserInput | FlashcardUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FlashcardCreateManyUserInputEnvelope
+    set?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    disconnect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    delete?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+    update?: FlashcardUpdateWithWhereUniqueWithoutUserInput | FlashcardUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FlashcardUpdateManyWithWhereWithoutUserInput | FlashcardUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -6854,29 +7208,6 @@ export namespace Prisma {
     _min?: NestedEnumEnglishLvlFilter<$PrismaModel>
     _max?: NestedEnumEnglishLvlFilter<$PrismaModel>
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6904,18 +7235,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedEnumEnglishLvlNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel> | null
-    in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumEnglishLvlNullableFilter<$PrismaModel> | $Enums.EnglishLvl | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6946,14 +7265,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -6981,6 +7292,26 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumEnglishLvlNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel> | null
+    in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumEnglishLvlNullableFilter<$PrismaModel> | $Enums.EnglishLvl | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedEnumEnglishLvlNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel> | null
     in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel> | null
@@ -6991,7 +7322,7 @@ export namespace Prisma {
     _max?: NestedEnumEnglishLvlNullableFilter<$PrismaModel>
   }
 
-  export type UserCreateWithoutDeckInput = {
+  export type UserCreateWithoutDailyDeckInput = {
     id?: string
     email: string
     password: string
@@ -6999,13 +7330,13 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
-    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     interests?: InterestCreateNestedManyWithoutUsersInput
+    learnedWords?: FlashcardCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutDeckInput = {
+  export type UserUncheckedCreateWithoutDailyDeckInput = {
     id?: string
     email: string
     password: string
@@ -7013,29 +7344,63 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
-    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     interests?: InterestUncheckedCreateNestedManyWithoutUsersInput
+    learnedWords?: FlashcardUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutDeckInput = {
+  export type UserCreateOrConnectWithoutDailyDeckInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutDeckInput, UserUncheckedCreateWithoutDeckInput>
+    create: XOR<UserCreateWithoutDailyDeckInput, UserUncheckedCreateWithoutDailyDeckInput>
   }
 
-  export type UserUpsertWithoutDeckInput = {
-    update: XOR<UserUpdateWithoutDeckInput, UserUncheckedUpdateWithoutDeckInput>
-    create: XOR<UserCreateWithoutDeckInput, UserUncheckedCreateWithoutDeckInput>
+  export type FlashcardCreateWithoutDeckInput = {
+    id?: string
+    word: string
+    translation: string
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutLearnedWordsInput
+  }
+
+  export type FlashcardUncheckedCreateWithoutDeckInput = {
+    id?: string
+    word: string
+    translation: string
+    userId: string
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlashcardCreateOrConnectWithoutDeckInput = {
+    where: FlashcardWhereUniqueInput
+    create: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput>
+  }
+
+  export type FlashcardCreateManyDeckInputEnvelope = {
+    data: FlashcardCreateManyDeckInput | FlashcardCreateManyDeckInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutDailyDeckInput = {
+    update: XOR<UserUpdateWithoutDailyDeckInput, UserUncheckedUpdateWithoutDailyDeckInput>
+    create: XOR<UserCreateWithoutDailyDeckInput, UserUncheckedCreateWithoutDailyDeckInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutDeckInput = {
+  export type UserUpdateToOneWithWhereWithoutDailyDeckInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutDeckInput, UserUncheckedUpdateWithoutDeckInput>
+    data: XOR<UserUpdateWithoutDailyDeckInput, UserUncheckedUpdateWithoutDailyDeckInput>
   }
 
-  export type UserUpdateWithoutDeckInput = {
+  export type UserUpdateWithoutDailyDeckInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -7043,13 +7408,13 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interests?: InterestUpdateManyWithoutUsersNestedInput
+    learnedWords?: FlashcardUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutDeckInput = {
+  export type UserUncheckedUpdateWithoutDailyDeckInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
@@ -7057,10 +7422,166 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interests?: InterestUncheckedUpdateManyWithoutUsersNestedInput
+    learnedWords?: FlashcardUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type FlashcardUpsertWithWhereUniqueWithoutDeckInput = {
+    where: FlashcardWhereUniqueInput
+    update: XOR<FlashcardUpdateWithoutDeckInput, FlashcardUncheckedUpdateWithoutDeckInput>
+    create: XOR<FlashcardCreateWithoutDeckInput, FlashcardUncheckedCreateWithoutDeckInput>
+  }
+
+  export type FlashcardUpdateWithWhereUniqueWithoutDeckInput = {
+    where: FlashcardWhereUniqueInput
+    data: XOR<FlashcardUpdateWithoutDeckInput, FlashcardUncheckedUpdateWithoutDeckInput>
+  }
+
+  export type FlashcardUpdateManyWithWhereWithoutDeckInput = {
+    where: FlashcardScalarWhereInput
+    data: XOR<FlashcardUpdateManyMutationInput, FlashcardUncheckedUpdateManyWithoutDeckInput>
+  }
+
+  export type FlashcardScalarWhereInput = {
+    AND?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+    OR?: FlashcardScalarWhereInput[]
+    NOT?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
+    id?: StringFilter<"Flashcard"> | string
+    word?: StringFilter<"Flashcard"> | string
+    translation?: StringFilter<"Flashcard"> | string
+    userId?: StringFilter<"Flashcard"> | string
+    deckId?: StringNullableFilter<"Flashcard"> | string | null
+    repetition?: IntFilter<"Flashcard"> | number
+    easinessFactor?: IntFilter<"Flashcard"> | number
+    dueDate?: DateTimeFilter<"Flashcard"> | Date | string
+    createdAt?: DateTimeFilter<"Flashcard"> | Date | string
+    updatedAt?: DateTimeFilter<"Flashcard"> | Date | string
+  }
+
+  export type UserCreateWithoutLearnedWordsInput = {
+    id?: string
+    email: string
+    password: string
+    refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
+    englishLvl?: $Enums.EnglishLvl | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dailyDeck?: DeckCreateNestedOneWithoutUserInput
+    interests?: InterestCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutLearnedWordsInput = {
+    id?: string
+    email: string
+    password: string
+    refreshToken?: string | null
+    dailyComplete?: boolean
+    daysStreak?: number
+    englishLvl?: $Enums.EnglishLvl | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dailyDeck?: DeckUncheckedCreateNestedOneWithoutUserInput
+    interests?: InterestUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutLearnedWordsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLearnedWordsInput, UserUncheckedCreateWithoutLearnedWordsInput>
+  }
+
+  export type DeckCreateWithoutFlashcardsInput = {
+    id?: string
+    title: string
+    englishLvl: $Enums.EnglishLvl
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDailyDeckInput
+  }
+
+  export type DeckUncheckedCreateWithoutFlashcardsInput = {
+    id?: string
+    title: string
+    userId: string
+    englishLvl: $Enums.EnglishLvl
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeckCreateOrConnectWithoutFlashcardsInput = {
+    where: DeckWhereUniqueInput
+    create: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput>
+  }
+
+  export type UserUpsertWithoutLearnedWordsInput = {
+    update: XOR<UserUpdateWithoutLearnedWordsInput, UserUncheckedUpdateWithoutLearnedWordsInput>
+    create: XOR<UserCreateWithoutLearnedWordsInput, UserUncheckedCreateWithoutLearnedWordsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLearnedWordsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLearnedWordsInput, UserUncheckedUpdateWithoutLearnedWordsInput>
+  }
+
+  export type UserUpdateWithoutLearnedWordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
+    englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dailyDeck?: DeckUpdateOneWithoutUserNestedInput
+    interests?: InterestUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLearnedWordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
+    englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dailyDeck?: DeckUncheckedUpdateOneWithoutUserNestedInput
+    interests?: InterestUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type DeckUpsertWithoutFlashcardsInput = {
+    update: XOR<DeckUpdateWithoutFlashcardsInput, DeckUncheckedUpdateWithoutFlashcardsInput>
+    create: XOR<DeckCreateWithoutFlashcardsInput, DeckUncheckedCreateWithoutFlashcardsInput>
+    where?: DeckWhereInput
+  }
+
+  export type DeckUpdateToOneWithWhereWithoutFlashcardsInput = {
+    where?: DeckWhereInput
+    data: XOR<DeckUpdateWithoutFlashcardsInput, DeckUncheckedUpdateWithoutFlashcardsInput>
+  }
+
+  export type DeckUpdateWithoutFlashcardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDailyDeckNestedInput
+  }
+
+  export type DeckUncheckedUpdateWithoutFlashcardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutInterestsInput = {
@@ -7071,10 +7592,10 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
-    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    deck?: DeckCreateNestedManyWithoutUserInput
+    dailyDeck?: DeckCreateNestedOneWithoutUserInput
+    learnedWords?: FlashcardCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInterestsInput = {
@@ -7085,10 +7606,10 @@ export namespace Prisma {
     dailyComplete?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
-    learnedWords?: UserCreatelearnedWordsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    deck?: DeckUncheckedCreateNestedManyWithoutUserInput
+    dailyDeck?: DeckUncheckedCreateNestedOneWithoutUserInput
+    learnedWords?: FlashcardUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInterestsInput = {
@@ -7123,7 +7644,6 @@ export namespace Prisma {
     dailyComplete?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
-    learnedWords?: StringNullableListFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
@@ -7132,28 +7652,23 @@ export namespace Prisma {
     id?: string
     title: string
     englishLvl: $Enums.EnglishLvl
-    flashcards: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    flashcards?: FlashcardCreateNestedManyWithoutDeckInput
   }
 
   export type DeckUncheckedCreateWithoutUserInput = {
     id?: string
     title: string
     englishLvl: $Enums.EnglishLvl
-    flashcards: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    flashcards?: FlashcardUncheckedCreateNestedManyWithoutDeckInput
   }
 
   export type DeckCreateOrConnectWithoutUserInput = {
     where: DeckWhereUniqueInput
     create: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
-  }
-
-  export type DeckCreateManyUserInputEnvelope = {
-    data: DeckCreateManyUserInput | DeckCreateManyUserInput[]
-    skipDuplicates?: boolean
   }
 
   export type InterestCreateWithoutUsersInput = {
@@ -7171,33 +7686,67 @@ export namespace Prisma {
     create: XOR<InterestCreateWithoutUsersInput, InterestUncheckedCreateWithoutUsersInput>
   }
 
-  export type DeckUpsertWithWhereUniqueWithoutUserInput = {
-    where: DeckWhereUniqueInput
-    update: XOR<DeckUpdateWithoutUserInput, DeckUncheckedUpdateWithoutUserInput>
-    create: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
+  export type FlashcardCreateWithoutUserInput = {
+    id?: string
+    word: string
+    translation: string
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deck?: DeckCreateNestedOneWithoutFlashcardsInput
   }
 
-  export type DeckUpdateWithWhereUniqueWithoutUserInput = {
-    where: DeckWhereUniqueInput
+  export type FlashcardUncheckedCreateWithoutUserInput = {
+    id?: string
+    word: string
+    translation: string
+    deckId?: string | null
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlashcardCreateOrConnectWithoutUserInput = {
+    where: FlashcardWhereUniqueInput
+    create: XOR<FlashcardCreateWithoutUserInput, FlashcardUncheckedCreateWithoutUserInput>
+  }
+
+  export type FlashcardCreateManyUserInputEnvelope = {
+    data: FlashcardCreateManyUserInput | FlashcardCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DeckUpsertWithoutUserInput = {
+    update: XOR<DeckUpdateWithoutUserInput, DeckUncheckedUpdateWithoutUserInput>
+    create: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput>
+    where?: DeckWhereInput
+  }
+
+  export type DeckUpdateToOneWithWhereWithoutUserInput = {
+    where?: DeckWhereInput
     data: XOR<DeckUpdateWithoutUserInput, DeckUncheckedUpdateWithoutUserInput>
   }
 
-  export type DeckUpdateManyWithWhereWithoutUserInput = {
-    where: DeckScalarWhereInput
-    data: XOR<DeckUpdateManyMutationInput, DeckUncheckedUpdateManyWithoutUserInput>
+  export type DeckUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flashcards?: FlashcardUpdateManyWithoutDeckNestedInput
   }
 
-  export type DeckScalarWhereInput = {
-    AND?: DeckScalarWhereInput | DeckScalarWhereInput[]
-    OR?: DeckScalarWhereInput[]
-    NOT?: DeckScalarWhereInput | DeckScalarWhereInput[]
-    id?: StringFilter<"Deck"> | string
-    title?: StringFilter<"Deck"> | string
-    userId?: StringFilter<"Deck"> | string
-    englishLvl?: EnumEnglishLvlFilter<"Deck"> | $Enums.EnglishLvl
-    flashcards?: JsonFilter<"Deck">
-    createdAt?: DateTimeFilter<"Deck"> | Date | string
-    updatedAt?: DateTimeFilter<"Deck"> | Date | string
+  export type DeckUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flashcards?: FlashcardUncheckedUpdateManyWithoutDeckNestedInput
   }
 
   export type InterestUpsertWithWhereUniqueWithoutUsersInput = {
@@ -7224,6 +7773,70 @@ export namespace Prisma {
     name?: StringFilter<"Interest"> | string
   }
 
+  export type FlashcardUpsertWithWhereUniqueWithoutUserInput = {
+    where: FlashcardWhereUniqueInput
+    update: XOR<FlashcardUpdateWithoutUserInput, FlashcardUncheckedUpdateWithoutUserInput>
+    create: XOR<FlashcardCreateWithoutUserInput, FlashcardUncheckedCreateWithoutUserInput>
+  }
+
+  export type FlashcardUpdateWithWhereUniqueWithoutUserInput = {
+    where: FlashcardWhereUniqueInput
+    data: XOR<FlashcardUpdateWithoutUserInput, FlashcardUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FlashcardUpdateManyWithWhereWithoutUserInput = {
+    where: FlashcardScalarWhereInput
+    data: XOR<FlashcardUpdateManyMutationInput, FlashcardUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FlashcardCreateManyDeckInput = {
+    id?: string
+    word: string
+    translation: string
+    userId: string
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlashcardUpdateWithoutDeckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLearnedWordsNestedInput
+  }
+
+  export type FlashcardUncheckedUpdateWithoutDeckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlashcardUncheckedUpdateManyWithoutDeckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserUpdateWithoutInterestsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -7232,10 +7845,10 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deck?: DeckUpdateManyWithoutUserNestedInput
+    dailyDeck?: DeckUpdateOneWithoutUserNestedInput
+    learnedWords?: FlashcardUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInterestsInput = {
@@ -7246,10 +7859,10 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deck?: DeckUncheckedUpdateManyWithoutUserNestedInput
+    dailyDeck?: DeckUncheckedUpdateOneWithoutUserNestedInput
+    learnedWords?: FlashcardUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutInterestsInput = {
@@ -7260,45 +7873,20 @@ export namespace Prisma {
     dailyComplete?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
-    learnedWords?: UserUpdatelearnedWordsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DeckCreateManyUserInput = {
+  export type FlashcardCreateManyUserInput = {
     id?: string
-    title: string
-    englishLvl: $Enums.EnglishLvl
-    flashcards: JsonNullValueInput | InputJsonValue
+    word: string
+    translation: string
+    deckId?: string | null
+    repetition?: number
+    easinessFactor?: number
+    dueDate?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type DeckUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
-    flashcards?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DeckUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
-    flashcards?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DeckUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    englishLvl?: EnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl
-    flashcards?: JsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InterestUpdateWithoutUsersInput = {
@@ -7314,6 +7902,42 @@ export namespace Prisma {
   export type InterestUncheckedUpdateManyWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FlashcardUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deck?: DeckUpdateOneWithoutFlashcardsNestedInput
+  }
+
+  export type FlashcardUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    deckId?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlashcardUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    word?: StringFieldUpdateOperationsInput | string
+    translation?: StringFieldUpdateOperationsInput | string
+    deckId?: NullableStringFieldUpdateOperationsInput | string | null
+    repetition?: IntFieldUpdateOperationsInput | number
+    easinessFactor?: IntFieldUpdateOperationsInput | number
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

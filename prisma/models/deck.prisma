@@ -1,12 +1,12 @@
 model Deck {
-  id         String     @id @default(uuid())
+  id         String      @id @default(uuid())
   title      String
-  userId     String
+  userId     String      @unique
   englishLvl EnglishLvl
-  user       User       @relation(fields: [userId], references: [id])
-  flashcards Json
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  user       User        @relation(fields: [userId], references: [id])
+  flashcards Flashcard[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 }
 
 enum EnglishLvl {

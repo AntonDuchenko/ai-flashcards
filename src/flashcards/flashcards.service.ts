@@ -5,13 +5,26 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FlashcardsService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async createFlashcard() {
+  async createFlashcard(userId: string, data: { word: string; translation: string }) {
     return await this.prismaService.flashcard.create({
       data: {
-        question: 'question',
-        answer: 'answer',
+        user: {
+          connect: { id: userId },
+        },
+        ...data,
       },
     });
+  }
+
+  async createManyFlashcards(
+    data: {
+      userId: string;
+      deckId: string;
+      word: string;
+      translation: string;
+    }[],
+  ) {
+    return this.prismaService.flashcard.createMany({ data });
   }
 
   async getAllFlashcards() {

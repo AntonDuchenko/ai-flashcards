@@ -2,12 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import OpenAI from 'openai';
 
-type Flashcard = {
-  word: string;
-  translation: string;
-  example: string;
-};
-
 @Injectable()
 export class OpenAiService {
   private client: OpenAI;
@@ -22,7 +16,12 @@ export class OpenAiService {
     level: string,
     interests: string[],
     learnedWords: string[],
-  ): Promise<Flashcard[]> {
+  ): Promise<
+    {
+      word: string;
+      translation: string;
+    }[]
+  > {
     const excludedWords = learnedWords.map((w) => `"${w}"`).join(', ');
     const hasExcluded = learnedWords.length > 0;
 
@@ -44,7 +43,6 @@ Return ONLY a JSON array in the following format:
   {
     "word": "string",           // English word
     "translation": "string",    // Russian translation
-    "example": "string"         // Simple English sentence with the word
   }
 ]
 
