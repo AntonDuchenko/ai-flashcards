@@ -2,6 +2,7 @@ model Deck {
   id         String      @id @default(uuid())
   title      String
   userId     String      @unique
+  type       DeckType
   englishLvl EnglishLvl
   user       User        @relation(fields: [userId], references: [id])
   flashcards Flashcard[]
@@ -16,4 +17,9 @@ enum EnglishLvl {
   B2
   C1
   C2
+}
+
+enum DeckType {
+  DAILY
+  REPEATING
 }

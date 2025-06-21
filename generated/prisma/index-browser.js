@@ -124,6 +124,7 @@ exports.Prisma.DeckScalarFieldEnum = {
   id: 'id',
   title: 'title',
   userId: 'userId',
+  type: 'type',
   englishLvl: 'englishLvl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -137,6 +138,7 @@ exports.Prisma.FlashcardScalarFieldEnum = {
   deckId: 'deckId',
   repetition: 'repetition',
   easinessFactor: 'easinessFactor',
+  interval: 'interval',
   dueDate: 'dueDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -173,6 +175,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.DeckType = exports.$Enums.DeckType = {
+  DAILY: 'DAILY',
+  REPEATING: 'REPEATING'
+};
+
 exports.EnglishLvl = exports.$Enums.EnglishLvl = {
   A1: 'A1',
   A2: 'A2',

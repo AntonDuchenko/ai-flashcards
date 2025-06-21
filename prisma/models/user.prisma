@@ -6,7 +6,7 @@ model User {
   dailyComplete Boolean     @default(false)
   daysStreak    Int         @default(0)
   englishLvl    EnglishLvl?
-  dailyDeck     Deck?
+  decks         Deck[]
   interests     Interest[]
   learnedWords  Flashcard[]
   createdAt     DateTime    @default(now())

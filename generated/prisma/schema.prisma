@@ -2,6 +2,7 @@ model Deck {
   id         String      @id @default(uuid())
   title      String
   userId     String      @unique
+  type       DeckType
   englishLvl EnglishLvl
   user       User        @relation(fields: [userId], references: [id])
   flashcards Flashcard[]
@@ -18,6 +19,11 @@ enum EnglishLvl {
   C2
 }
 
+enum DeckType {
+  DAILY
+  REPEATING
+}
+
 model Flashcard {
   id             String   @id @default(uuid())
   word           String
@@ -28,6 +34,7 @@ model Flashcard {
   deck           Deck?    @relation(fields: [deckId], references: [id])
   repetition     Int      @default(0)
   easinessFactor Int      @default(0)
+  interval       Int      @default(0)
   dueDate        DateTime @default(now())
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -47,7 +54,7 @@ model User {
   dailyComplete Boolean     @default(false)
   daysStreak    Int         @default(0)
   englishLvl    EnglishLvl?
-  dailyDeck     Deck?
+  decks         Deck[]
   interests     Interest[]
   learnedWords  Flashcard[]
   createdAt     DateTime    @default(now())

@@ -1,6 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+type Rating = 'again' | 'hard' | 'good' | 'easy';
+
+interface SchedulerConfig {
+  thresholds: { easy: number; good: number; hard: number }; // секунды
+  minEase: number; // минимальное значение EF
+  easyBonus: number; // множитель для "easy"
+  hardPenalty: number; // уменьшение EF при "hard"
+}
+
 @Injectable()
 export class FlashcardsService {
   constructor(private readonly prismaService: PrismaService) {}
@@ -27,6 +36,10 @@ export class FlashcardsService {
     return this.prismaService.flashcard.createMany({ data });
   }
 
+  async getFlashcardById(cardId: string) {
+    return await this.prismaService.flashcard.findUnique({ where: { id: cardId } });
+  }
+
   async getAllFlashcards() {
     return await this.prismaService.flashcard.findMany();
   }
@@ -48,5 +61,81 @@ export class FlashcardsService {
     );
 
     return Promise.all(promises);
+  }
+
+  classifyAnswer(
+    responseTime: number,
+    isCorrect: boolean,
+    t: SchedulerConfig['thresholds'],
+  ): Rating {
+    if (!isCorrect || responseTime > t.hard) return 'again';
+    if (responseTime > t.good) return 'hard';
+    if (responseTime > t.easy) return 'good';
+    return 'easy';
+  }
+
+  defaultConfig: SchedulerConfig = {
+    thresholds: { easy: 5, good: 12, hard: 25 },
+    minEase: 1.3,
+    easyBonus: 1.3,
+    hardPenalty: 0.05,
+  };
+
+  async reviewCard(
+    cardId: string,
+    responseTime: number,
+    isCorrect: boolean,
+    cfg: Partial<SchedulerConfig> = {},
+  ) {
+    const { thresholds, minEase, easyBonus, hardPenalty } = { ...this.defaultConfig, ...cfg };
+    const card = await this.getFlashcardById(cardId);
+
+    if (!card) return;
+
+    const rating = this.classifyAnswer(responseTime, isCorrect, thresholds);
+
+    let { easinessFactor, repetition } = card;
+    let interval = 1;
+
+    switch (rating) {
+      case 'again': {
+        // забыл / очень долго думал
+        interval = 1;
+        repetition = 0;
+        easinessFactor = Math.max(minEase, easinessFactor - 0.2);
+        break;
+      }
+      case 'hard': {
+        // вспомнил с трудом
+        interval = Math.max(1, Math.round(interval * 1.2));
+        easinessFactor = Math.max(minEase, easinessFactor - hardPenalty);
+        repetition += 1;
+        break;
+      }
+      case 'good': {
+        // нормальная скорость
+        interval = Math.round(interval * easinessFactor);
+        repetition += 1;
+        break;
+      }
+      case 'easy': {
+        // ответил быстро и уверенно
+        interval = Math.round(interval * easinessFactor * easyBonus);
+        easinessFactor += 0.15;
+        repetition += 1;
+        break;
+      }
+    }
+
+    const nextReview = new Date();
+    nextReview.setDate(nextReview.getDate() + interval);
+
+    return {
+      ...card,
+      interval,
+      easeFactor: +easinessFactor.toFixed(2),
+      repetition,
+      dueDate: nextReview,
+    };
   }
 }
