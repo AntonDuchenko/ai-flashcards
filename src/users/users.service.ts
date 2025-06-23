@@ -78,14 +78,10 @@ export class UsersService {
       await this.flashcardsService.updateFlashcard(word.id, word);
     }
 
-    return { message: 'Aswers saved' };
-    // return this.updateUser(userId, {
-    //   learnedWords: {
-    //     connect: learnedWordIds,
-    //   },
-    //   dailyComplete: true,
-    //   daysStreak: user.daysStreak + 1,
-    // });
+    return this.updateUser(userId, {
+      dailyComplete: true,
+      daysStreak: user.daysStreak + 1,
+    });
   }
 
   async completeRegistration(

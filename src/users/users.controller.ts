@@ -59,8 +59,8 @@ export class UsersController {
     return this.usersService.setCorrectAnswer(req.user.sub, body);
   }
 
-  @Post('/create-decks')
-  createDecksForEverybody() {
-    return this.usersService.createDecksForEverybody();
-  }
+  // @Post('/create-decks')
+  // createDecksForEverybody() {
+  //   return this.usersService.createDecksForEverybody();
+  // }
 }
