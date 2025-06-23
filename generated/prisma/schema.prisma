@@ -1,7 +1,7 @@
 model Deck {
   id         String      @id @default(uuid())
   title      String
-  userId     String      @unique
+  userId     String
   type       DeckType
   englishLvl EnglishLvl
   user       User        @relation(fields: [userId], references: [id])

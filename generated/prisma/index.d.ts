@@ -6066,18 +6066,18 @@ export namespace Prisma {
 
   export type DeckWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId?: string
     AND?: DeckWhereInput | DeckWhereInput[]
     OR?: DeckWhereInput[]
     NOT?: DeckWhereInput | DeckWhereInput[]
     title?: StringFilter<"Deck"> | string
+    userId?: StringFilter<"Deck"> | string
     type?: EnumDeckTypeFilter<"Deck"> | $Enums.DeckType
     englishLvl?: EnumEnglishLvlFilter<"Deck"> | $Enums.EnglishLvl
     createdAt?: DateTimeFilter<"Deck"> | Date | string
     updatedAt?: DateTimeFilter<"Deck"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     flashcards?: FlashcardListRelationFilter
-  }, "id" | "userId">
+  }, "id">
 
   export type DeckOrderByWithAggregationInput = {
     id?: SortOrder

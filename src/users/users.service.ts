@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { EnglishLvl, Interest, Prisma, User } from 'generated/prisma';
+import { EnglishLvl, Flashcard, Interest, Prisma, User } from 'generated/prisma';
 import { DeckService } from 'src/deck/deck.service';
 import { FlashcardsService } from 'src/flashcards/flashcards.service';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -24,6 +24,7 @@ export class UsersService {
       where: { id: userId },
       include: {
         learnedWords: true,
+        interests: true,
       },
     });
   }
@@ -59,25 +60,32 @@ export class UsersService {
   async setCorrectAnswer(
     userId: string,
     data: { wordId: string; correct: boolean; answerTime: number }[],
-  ): Promise<User> {
+  ) {
     const user = await this.getUserById(userId);
 
     if (!user) throw new Error('User not found');
-    await Promise.allSettled(
+    const result = await Promise.allSettled(
       data.map((card) =>
         this.flashcardsService.reviewCard(card.wordId, card.answerTime, card.correct),
       ),
     );
 
-    const learnedWordIds = data.filter((item) => item.correct).map((item) => ({ id: item.wordId }));
+    const fulfilledWords = result
+      .filter((item): item is PromiseFulfilledResult<Flashcard> => item.status === 'fulfilled')
+      .map((item) => item.value);
 
-    return this.updateUser(userId, {
-      learnedWords: {
-        connect: learnedWordIds,
-      },
-      dailyComplete: true,
-      daysStreak: user.daysStreak + 1,
-    });
+    for (const word of fulfilledWords) {
+      await this.flashcardsService.updateFlashcard(word.id, word);
+    }
+
+    return { message: 'Aswers saved' };
+    // return this.updateUser(userId, {
+    //   learnedWords: {
+    //     connect: learnedWordIds,
+    //   },
+    //   dailyComplete: true,
+    //   daysStreak: user.daysStreak + 1,
+    // });
   }
 
   async completeRegistration(
@@ -87,6 +95,11 @@ export class UsersService {
       interests: Interest[];
     },
   ) {
+    const user = await this.getUserById(userId);
+
+    if (user?.interests.length && user?.interests.length > 0)
+      throw new Error('User intrerests already set');
+
     const interestIds = data.interests.map((interest) => ({
       id: interest.id,
     }));

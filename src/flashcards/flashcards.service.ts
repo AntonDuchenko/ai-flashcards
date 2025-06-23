@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Flashcard } from 'generated/prisma';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 type Rating = 'again' | 'hard' | 'good' | 'easy';
@@ -22,6 +23,13 @@ export class FlashcardsService {
         },
         ...data,
       },
+    });
+  }
+
+  async updateFlashcard(cardId: string, data: Flashcard) {
+    return await this.prismaService.flashcard.update({
+      where: { id: cardId },
+      data,
     });
   }
 
@@ -86,11 +94,11 @@ export class FlashcardsService {
     responseTime: number,
     isCorrect: boolean,
     cfg: Partial<SchedulerConfig> = {},
-  ) {
+  ): Promise<Flashcard> {
     const { thresholds, minEase, easyBonus, hardPenalty } = { ...this.defaultConfig, ...cfg };
     const card = await this.getFlashcardById(cardId);
 
-    if (!card) return;
+    if (!card) throw new Error("Card doesn't exist");
 
     const rating = this.classifyAnswer(responseTime, isCorrect, thresholds);
 
@@ -133,7 +141,7 @@ export class FlashcardsService {
     return {
       ...card,
       interval,
-      easeFactor: +easinessFactor.toFixed(2),
+      easinessFactor: +easinessFactor.toFixed(2),
       repetition,
       dueDate: nextReview,
     };
