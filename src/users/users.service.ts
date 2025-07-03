@@ -62,26 +62,70 @@ export class UsersService {
     data: { wordId: string; correct: boolean; answerTime: number }[],
   ) {
     const user = await this.getUserById(userId);
-
     if (!user) throw new Error('User not found');
-    const result = await Promise.allSettled(
+
+    const results = await Promise.allSettled(
       data.map((card) =>
         this.flashcardsService.reviewCard(card.wordId, card.answerTime, card.correct),
       ),
     );
 
-    const fulfilledWords = result
-      .filter((item): item is PromiseFulfilledResult<Flashcard> => item.status === 'fulfilled')
-      .map((item) => item.value);
+    const fulfilled = results.filter(
+      (r): r is PromiseFulfilledResult<Flashcard> => r.status === 'fulfilled',
+    );
+    const failed = results.filter((r) => r.status === 'rejected');
 
-    for (const word of fulfilledWords) {
-      await this.flashcardsService.updateFlashcard(word.id, word);
+    for (const card of fulfilled) {
+      await this.flashcardsService.updateFlashcard(card.value.id, card.value);
     }
 
-    return this.updateUser(userId, {
-      dailyComplete: true,
-      daysStreak: user.daysStreak + 1,
-    });
+    if (failed.length > 0) {
+      console.warn(
+        'Some flashcards failed to update:',
+        failed.map((f) => f.reason),
+      );
+    }
+
+    if (fulfilled.length > 0) {
+      return this.updateUser(userId, {
+        dailyComplete: true,
+        daysStreak: user.daysStreak + 1,
+      });
+    }
+
+    return { message: 'No updates performed' };
+  }
+
+  async setReviewAnswer(
+    userId: string,
+    data: { wordId: string; correct: boolean; answerTime: number }[],
+  ) {
+    const user = await this.getUserById(userId);
+    if (!user) throw new Error('User not found');
+
+    const results = await Promise.allSettled(
+      data.map((card) =>
+        this.flashcardsService.reviewRepeatingCard(card.wordId, card.answerTime, card.correct),
+      ),
+    );
+
+    const fulfilled = results.filter(
+      (r): r is PromiseFulfilledResult<Flashcard> => r.status === 'fulfilled',
+    );
+    const failed = results.filter((r) => r.status === 'rejected');
+
+    for (const card of fulfilled) {
+      await this.flashcardsService.updateFlashcard(card.value.id, card.value);
+    }
+
+    if (failed.length > 0) {
+      console.warn(
+        'Some review cards failed to update:',
+        failed.map((f) => f.reason),
+      );
+    }
+
+    return { updated: fulfilled.length, failed: failed.length };
   }
 
   async completeRegistration(

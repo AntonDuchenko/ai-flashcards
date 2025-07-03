@@ -23,7 +23,6 @@ export class AuthService {
       httpOnly: true,
       secure: this.configService.getOrThrow<boolean>('COOKIE_SECURE'),
       sameSite: this.configService.getOrThrow<'lax' | 'none' | 'strict'>('COOKIE_SAMESITE'),
-      domain: 'ai-flashcard-frontend.vercel.app',
     };
   }
 

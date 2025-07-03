@@ -59,6 +59,14 @@ export class UsersController {
     return this.usersService.setCorrectAnswer(req.user.sub, body);
   }
 
+  @Post('/set-review-answers')
+  setReviewAnswer(
+    @Req() req: Request & { user: { sub: string } },
+    @Body() body: { wordId: string; correct: boolean; answerTime: number }[],
+  ) {
+    return this.usersService.setReviewAnswer(req.user.sub, body);
+  }
+
   // @Post('/create-decks')
   // createDecksForEverybody() {
   //   return this.usersService.createDecksForEverybody();
