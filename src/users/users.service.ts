@@ -64,6 +64,8 @@ export class UsersService {
     const user = await this.getUserById(userId);
     if (!user) throw new Error('User not found');
 
+    if (user.isDailyComplete) return { message: 'Daily already completed' };
+
     const results = await Promise.allSettled(
       data.map((card) =>
         this.flashcardsService.reviewCard(card.wordId, card.answerTime, card.correct),
@@ -88,7 +90,7 @@ export class UsersService {
 
     if (fulfilled.length > 0) {
       return this.updateUser(userId, {
-        dailyComplete: true,
+        isDailyComplete: true,
         daysStreak: user.daysStreak + 1,
       });
     }
@@ -102,6 +104,8 @@ export class UsersService {
   ) {
     const user = await this.getUserById(userId);
     if (!user) throw new Error('User not found');
+
+    if (user.isAnsweredInRepeating) return { message: 'User already answered' };
 
     const results = await Promise.allSettled(
       data.map((card) =>
@@ -123,6 +127,10 @@ export class UsersService {
         'Some review cards failed to update:',
         failed.map((f) => f.reason),
       );
+    }
+
+    if (fulfilled.length > 0) {
+      return this.updateUser(userId, { isAnsweredInRepeating: true });
     }
 
     return { updated: fulfilled.length, failed: failed.length };
@@ -170,7 +178,7 @@ export class UsersService {
       for (const user of users) {
         if (user.englishLvl === null || user.interests.length === 0) continue;
 
-        if (!user.dailyComplete) {
+        if (!user.isDailyComplete) {
           await this.resetStreak(user.id);
           continue;
         }
@@ -189,9 +197,9 @@ export class UsersService {
           learnedWords: user.learnedWords.map((card) => card.translation),
         });
 
-        await this.deckService.createReapitingDeck(user.id, user.englishLvl);
+        await this.deckService.createRepeatingDeck(user.id, user.englishLvl);
 
-        await this.updateUser(user.id, { dailyComplete: false });
+        await this.updateUser(user.id, { isDailyComplete: false });
       }
 
       console.log('✅ Daily decks created');

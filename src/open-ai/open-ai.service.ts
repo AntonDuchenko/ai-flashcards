@@ -34,19 +34,29 @@ If a list of "learnedWords" is provided, do not include any of those words in th
       },
       {
         role: 'user',
-        content: `Generate 10 English flashcards for CEFR level "${level}" on the interests "${interests.map((i) => `"${i}"`).join(', ')}". 
+        content: `Generate exactly 10 unique English flashcards for CEFR level "${level}" on the interests "${interests.map((i) => `"${i}"`).join(', ')}".
 
-${hasExcluded ? `Exclude the following words: [${excludedWords}].` : ''}
+Each flashcard must be a JSON object with the following structure:
+{
+  "word": "English word",             // must be a single English word
+  "translation": "Russian translation" // must be a short Russian translation
+}
 
-Return ONLY a JSON array in the following format:
+Return only a valid JSON array of 10 such objects. Example:
 [
-  {
-    "word": "string",           // English word
-    "translation": "string",    // Russian translation
-  }
+  { "word": "reluctant", "translation": "неохотный" },
+  ...
 ]
 
-Do not include any explanations or text outside of the JSON.`,
+${hasExcluded ? `Do NOT include any of the following words (case-insensitive): [${excludedWords}]. These words must be strictly excluded.` : ''}
+
+Rules you MUST follow:
+- Only return a JSON array and nothing else (no explanations or code blocks).
+- Do NOT include any of the excluded words.
+- Do NOT repeat the same word in the array.
+- All "word" values must be in English.
+- All "translation" values must be in Russian.
+- The array must contain exactly 10 valid flashcards.`,
       },
     ];
 

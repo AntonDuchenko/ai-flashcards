@@ -1,14 +1,15 @@
 model User {
-  id            String      @id @default(uuid())
-  email         String      @unique
-  password      String
-  refreshToken  String?
-  dailyComplete Boolean     @default(false)
-  daysStreak    Int         @default(0)
-  englishLvl    EnglishLvl?
-  decks         Deck[]
-  interests     Interest[]
-  learnedWords  Flashcard[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id                    String      @id @default(uuid())
+  email                 String      @unique
+  password              String
+  refreshToken          String?
+  isDailyComplete         Boolean     @default(false)
+  isAnsweredInRepeating Boolean     @default(false)
+  daysStreak            Int         @default(0)
+  englishLvl            EnglishLvl?
+  decks                 Deck[]
+  interests             Interest[]
+  learnedWords          Flashcard[]
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
 }

@@ -64,61 +64,43 @@ export class DeckService {
     });
   }
 
-  async createReapitingDeck(userId: string, englishLvl: EnglishLvl, limit = 15) {
+  async createRepeatingDeck(userId: string, englishLvl: EnglishLvl, limit = 15) {
     const now = new Date();
 
-    // 1️⃣ Найти или создать колоду типа REPEATING
+    // 1️⃣ Находим / создаём REPEATING-деку
     let deck = await this.prismaService.deck.findFirst({
       where: { userId, type: 'REPEATING' },
     });
-
     if (!deck) {
       deck = await this.prismaService.deck.create({
-        data: {
-          title: 'Repeating',
-          type: 'REPEATING',
-          userId,
-          englishLvl,
-        },
+        data: { title: 'Repeating', type: 'REPEATING', userId, englishLvl },
       });
     }
 
-    // 2️⃣ Очистить колоду от предыдущих карточек
+    // 2️⃣ Очищаем прошлые карточки
     await this.prismaService.flashcard.updateMany({
-      where: {
-        userId,
-        deckId: deck.id,
-      },
-      data: {
-        deckId: null,
-      },
+      where: { userId, deckId: deck.id },
+      data: { deckId: null },
     });
 
-    // 3️⃣ Выбрать до 15 самых просроченных карточек
+    // 3️⃣ Берём до 15 «просроченных» Learning-карточек  (repetition < 2)
     const overdueCards = await this.prismaService.flashcard.findMany({
       where: {
         userId,
+        deckId: null,
+        repetition: { lt: 2 }, // ← ключевая строка
         dueDate: { lte: now },
-        deckId: null, // только те, которые ещё не в колоде
       },
-      orderBy: {
-        dueDate: 'asc',
-      },
+      orderBy: { dueDate: 'asc' },
       take: limit,
-      select: {
-        id: true,
-      },
+      select: { id: true },
     });
 
-    // 4️⃣ Назначить их в REPEATING-деку
-    if (overdueCards.length > 0) {
+    // 4️⃣ Назначаем их в текущую REPEATING-деку
+    if (overdueCards.length) {
       await this.prismaService.flashcard.updateMany({
-        where: {
-          id: { in: overdueCards.map((card) => card.id) },
-        },
-        data: {
-          deckId: deck.id,
-        },
+        where: { id: { in: overdueCards.map((c) => c.id) } },
+        data: { deckId: deck.id },
       });
     }
 

@@ -99,7 +99,7 @@ export class FlashcardsService {
     isCorrect: boolean,
     cfg: Partial<SchedulerConfig> = {},
   ): Promise<Flashcard> {
-    const { thresholds, minEase, easyBonus, hardPenalty } = { ...this.defaultConfig, ...cfg };
+    const { thresholds, minEase, hardPenalty } = { ...this.defaultConfig, ...cfg };
     const card = await this.getFlashcardById(cardId);
 
     if (!card) throw new Error("Card doesn't exist");
@@ -158,12 +158,53 @@ export class FlashcardsService {
   ): Promise<Flashcard> {
     const { thresholds, minEase, easyBonus, hardPenalty } = { ...this.defaultConfig, ...cfg };
     const card = await this.getFlashcardById(cardId);
-
     if (!card) throw new Error("Card doesn't exist");
-    if (card.repetition < 2) throw new Error('Card is still in learning deck');
 
+    // ---------------------------------------------
+    // 1️⃣  Определяем режим: learning (<2) или SM-2
+    // ---------------------------------------------
+    if (card.repetition < 2) {
+      const rating = this.classifyAnswer(responseTime, isCorrect, thresholds);
+      let { easinessFactor, repetition } = card;
+      let interval = 1;
+
+      switch (rating) {
+        case 'again':
+          interval = this.nextLearningInterval(0);
+          repetition = 0;
+          break;
+        case 'hard':
+          interval = this.nextLearningInterval(1);
+          easinessFactor = Math.max(minEase, easinessFactor - hardPenalty);
+          repetition = 1;
+          break;
+        case 'good':
+          interval = this.nextLearningInterval(1);
+          repetition = 1;
+          break;
+        case 'easy':
+          interval = this.nextLearningInterval(2);
+          easinessFactor += 0.15;
+          repetition = 2; // ← переводим в review-фазу
+          break;
+      }
+
+      const nextReview = new Date();
+      nextReview.setDate(nextReview.getDate() + interval);
+
+      return {
+        ...card,
+        interval,
+        easinessFactor: +easinessFactor.toFixed(2),
+        repetition,
+        dueDate: nextReview,
+      };
+    }
+
+    // ---------------------------------------------
+    // 2️⃣  SM-2-логика (card.repetition >= 2) – как было
+    // ---------------------------------------------
     const rating = this.classifyAnswer(responseTime, isCorrect, thresholds);
-
     let { easinessFactor, repetition, interval } = card;
 
     switch (rating) {
@@ -172,18 +213,15 @@ export class FlashcardsService {
         interval = 0;
         easinessFactor = Math.max(minEase, easinessFactor - 0.2);
         break;
-
       case 'hard':
         interval = Math.max(1, Math.round(interval * 1.2));
         easinessFactor = Math.max(minEase, easinessFactor - hardPenalty);
         repetition += 1;
         break;
-
       case 'good':
         interval = Math.round(interval * easinessFactor);
         repetition += 1;
         break;
-
       case 'easy':
         interval = Math.round(interval * easinessFactor * easyBonus);
         easinessFactor += 0.15;

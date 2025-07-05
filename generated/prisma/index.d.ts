@@ -4660,7 +4660,8 @@ export namespace Prisma {
     email: string | null
     password: string | null
     refreshToken: string | null
-    dailyComplete: boolean | null
+    isDailyComplete: boolean | null
+    isAnsweredInRepeating: boolean | null
     daysStreak: number | null
     englishLvl: $Enums.EnglishLvl | null
     createdAt: Date | null
@@ -4672,7 +4673,8 @@ export namespace Prisma {
     email: string | null
     password: string | null
     refreshToken: string | null
-    dailyComplete: boolean | null
+    isDailyComplete: boolean | null
+    isAnsweredInRepeating: boolean | null
     daysStreak: number | null
     englishLvl: $Enums.EnglishLvl | null
     createdAt: Date | null
@@ -4684,7 +4686,8 @@ export namespace Prisma {
     email: number
     password: number
     refreshToken: number
-    dailyComplete: number
+    isDailyComplete: number
+    isAnsweredInRepeating: number
     daysStreak: number
     englishLvl: number
     createdAt: number
@@ -4706,7 +4709,8 @@ export namespace Prisma {
     email?: true
     password?: true
     refreshToken?: true
-    dailyComplete?: true
+    isDailyComplete?: true
+    isAnsweredInRepeating?: true
     daysStreak?: true
     englishLvl?: true
     createdAt?: true
@@ -4718,7 +4722,8 @@ export namespace Prisma {
     email?: true
     password?: true
     refreshToken?: true
-    dailyComplete?: true
+    isDailyComplete?: true
+    isAnsweredInRepeating?: true
     daysStreak?: true
     englishLvl?: true
     createdAt?: true
@@ -4730,7 +4735,8 @@ export namespace Prisma {
     email?: true
     password?: true
     refreshToken?: true
-    dailyComplete?: true
+    isDailyComplete?: true
+    isAnsweredInRepeating?: true
     daysStreak?: true
     englishLvl?: true
     createdAt?: true
@@ -4829,7 +4835,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken: string | null
-    dailyComplete: boolean
+    isDailyComplete: boolean
+    isAnsweredInRepeating: boolean
     daysStreak: number
     englishLvl: $Enums.EnglishLvl | null
     createdAt: Date
@@ -4860,7 +4867,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: boolean
     englishLvl?: boolean
     createdAt?: boolean
@@ -4876,7 +4884,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: boolean
     englishLvl?: boolean
     createdAt?: boolean
@@ -4888,7 +4897,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: boolean
     englishLvl?: boolean
     createdAt?: boolean
@@ -4900,14 +4910,15 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     refreshToken?: boolean
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: boolean
     englishLvl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "dailyComplete" | "daysStreak" | "englishLvl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "isDailyComplete" | "isAnsweredInRepeating" | "daysStreak" | "englishLvl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     decks?: boolean | User$decksArgs<ExtArgs>
     interests?: boolean | User$interestsArgs<ExtArgs>
@@ -4929,7 +4940,8 @@ export namespace Prisma {
       email: string
       password: string
       refreshToken: string | null
-      dailyComplete: boolean
+      isDailyComplete: boolean
+      isAnsweredInRepeating: boolean
       daysStreak: number
       englishLvl: $Enums.EnglishLvl | null
       createdAt: Date
@@ -5364,7 +5376,8 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly refreshToken: FieldRef<"User", 'String'>
-    readonly dailyComplete: FieldRef<"User", 'Boolean'>
+    readonly isDailyComplete: FieldRef<"User", 'Boolean'>
+    readonly isAnsweredInRepeating: FieldRef<"User", 'Boolean'>
     readonly daysStreak: FieldRef<"User", 'Int'>
     readonly englishLvl: FieldRef<"User", 'EnglishLvl'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -5904,7 +5917,8 @@ export namespace Prisma {
     email: 'email',
     password: 'password',
     refreshToken: 'refreshToken',
-    dailyComplete: 'dailyComplete',
+    isDailyComplete: 'isDailyComplete',
+    isAnsweredInRepeating: 'isAnsweredInRepeating',
     daysStreak: 'daysStreak',
     englishLvl: 'englishLvl',
     createdAt: 'createdAt',
@@ -6243,7 +6257,8 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     refreshToken?: StringNullableFilter<"User"> | string | null
-    dailyComplete?: BoolFilter<"User"> | boolean
+    isDailyComplete?: BoolFilter<"User"> | boolean
+    isAnsweredInRepeating?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -6258,7 +6273,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
-    dailyComplete?: SortOrder
+    isDailyComplete?: SortOrder
+    isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
     englishLvl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -6276,7 +6292,8 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     refreshToken?: StringNullableFilter<"User"> | string | null
-    dailyComplete?: BoolFilter<"User"> | boolean
+    isDailyComplete?: BoolFilter<"User"> | boolean
+    isAnsweredInRepeating?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -6291,7 +6308,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
-    dailyComplete?: SortOrder
+    isDailyComplete?: SortOrder
+    isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
     englishLvl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -6311,7 +6329,8 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
-    dailyComplete?: BoolWithAggregatesFilter<"User"> | boolean
+    isDailyComplete?: BoolWithAggregatesFilter<"User"> | boolean
+    isAnsweredInRepeating?: BoolWithAggregatesFilter<"User"> | boolean
     daysStreak?: IntWithAggregatesFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableWithAggregatesFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -6531,7 +6550,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -6546,7 +6566,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -6561,7 +6582,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6576,7 +6598,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6591,7 +6614,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -6603,7 +6627,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6615,7 +6640,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6945,7 +6971,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrder
-    dailyComplete?: SortOrder
+    isDailyComplete?: SortOrder
+    isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
     englishLvl?: SortOrder
     createdAt?: SortOrder
@@ -6961,7 +6988,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrder
-    dailyComplete?: SortOrder
+    isDailyComplete?: SortOrder
+    isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
     englishLvl?: SortOrder
     createdAt?: SortOrder
@@ -6973,7 +7001,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     refreshToken?: SortOrder
-    dailyComplete?: SortOrder
+    isDailyComplete?: SortOrder
+    isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
     englishLvl?: SortOrder
     createdAt?: SortOrder
@@ -7489,7 +7518,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -7503,7 +7533,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -7569,7 +7600,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7583,7 +7615,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7630,7 +7663,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -7644,7 +7678,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -7699,7 +7734,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7713,7 +7749,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7758,7 +7795,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -7772,7 +7810,8 @@ export namespace Prisma {
     email: string
     password: string
     refreshToken?: string | null
-    dailyComplete?: boolean
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
     daysStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
@@ -7810,7 +7849,8 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     refreshToken?: StringNullableFilter<"User"> | string | null
-    dailyComplete?: BoolFilter<"User"> | boolean
+    isDailyComplete?: BoolFilter<"User"> | boolean
+    isAnsweredInRepeating?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -8024,7 +8064,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8038,7 +8079,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8052,7 +8094,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
