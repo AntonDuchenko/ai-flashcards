@@ -16,54 +16,56 @@ export class OpenAiService {
     level: string,
     interests: string[],
     learnedWords: string[],
-  ): Promise<
-    {
-      word: string;
-      translation: string;
-    }[]
-  > {
-    const excludedWords = learnedWords.map((w) => `"${w}"`).join(', ');
+  ): Promise<{ word: string; translation: string }[]> {
     const hasExcluded = learnedWords.length > 0;
+    const excludedWords = learnedWords.map((w) => `"${w.toLowerCase()}"`).join(', ');
 
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
       {
         role: 'system',
-        content: `You are an assistant that generates English flashcards based on the user's CEFR level and topic. 
-You must only return a valid JSON array of flashcards. Each flashcard must follow the required structure.
-If a list of "learnedWords" is provided, do not include any of those words in the result.`,
+        content: `
+You are a STRICT generator of English-Russian flashcards.
+
+OUTPUT RULES:
+- Return ONLY a valid JSON array (no code blocks, no explanations).
+- Exactly 10 objects in the array.
+- Objects must be sorted alphabetically by the "word" field.
+- Each object must have the following structure:
+  {
+    "word": "<lowercase-english-word>",
+    "translation": "<single lowercase russian word>"
+  }
+
+CONTENT RULES:
+- "word":
+  - Only one single English word (letters only, no phrases or symbols).
+  - MUST NOT be in the list "forbiddenWords" (case-insensitive).
+- "translation":
+  - One short, lowercase Russian word.
+  - Must always be the same for the same English word (no synonyms or alternates).
+- Do not invent or fabricate new or obscure vocabulary.
+- All 10 words MUST be unique.
+`.trim(),
       },
       {
         role: 'user',
-        content: `Generate exactly 10 unique English flashcards for CEFR level "${level}" on the interests "${interests.map((i) => `"${i}"`).join(', ')}".
+        content: `
+Generate exactly 10 flashcards for CEFR level "${level}" on the topics: ${interests
+          .map((i) => `"${i}"`)
+          .join(', ')}.
 
-Each flashcard must be a JSON object with the following structure:
-{
-  "word": "English word",             // must be a single English word
-  "translation": "Russian translation" // must be a short Russian translation
-}
+forbiddenWords = [${excludedWords}]
 
-Return only a valid JSON array of 10 such objects. Example:
-[
-  { "word": "reluctant", "translation": "неохотный" },
-  ...
-]
-
-${hasExcluded ? `Do NOT include any of the following words (case-insensitive): [${excludedWords}]. These words must be strictly excluded.` : ''}
-
-Rules you MUST follow:
-- Only return a JSON array and nothing else (no explanations or code blocks).
-- Do NOT include any of the excluded words.
-- Do NOT repeat the same word in the array.
-- All "word" values must be in English.
-- All "translation" values must be in Russian.
-- The array must contain exactly 10 valid flashcards.`,
+Return only valid JSON as described above.
+`.trim(),
       },
     ];
 
     const completion = await this.client.chat.completions.create({
       model: 'gpt-4.1-mini',
       messages,
-      temperature: 0.2,
+      temperature: 0,
+      top_p: 0.3,
     });
 
     if (!completion.choices.length || !completion.choices[0].message?.content) {
