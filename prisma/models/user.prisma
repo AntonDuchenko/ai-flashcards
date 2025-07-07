@@ -3,7 +3,7 @@ model User {
   email                 String      @unique
   password              String
   refreshToken          String?
-  isDailyComplete         Boolean     @default(false)
+  isDailyComplete       Boolean     @default(false)
   isAnsweredInRepeating Boolean     @default(false)
   daysStreak            Int         @default(0)
   englishLvl            EnglishLvl?

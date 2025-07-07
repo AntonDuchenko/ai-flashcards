@@ -4,6 +4,8 @@ import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
 import { randomUUID } from 'crypto';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { ValidationError } from 'class-validator';
 
 if (!globalThis.crypto) {
   globalThis.crypto = {
@@ -26,6 +28,25 @@ async function bootstrap() {
     origin: frontendUrl,
     credentials: true,
   });
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      exceptionFactory: (validationErrors: ValidationError[] = []) => {
+        const errors = {};
+        validationErrors.forEach((error) => {
+          errors[error.property] = error.constraints ? Object.values(error.constraints) : [];
+        });
+
+        return new BadRequestException({
+          error: {
+            message: 'Validation Error',
+            errors,
+          },
+          status: 400,
+        });
+      },
+    }),
+  );
 
   app.use(cookieParser());
   app.use(helmet());

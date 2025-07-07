@@ -4,7 +4,6 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthResponse } from './types/auth.response.type';
 import { UsersService } from 'src/users/users.service';
 import { TokensService } from 'src/tokens/tokens.service';
 import { compare } from 'bcryptjs';
@@ -23,10 +22,11 @@ export class AuthService {
       httpOnly: true,
       secure: this.configService.getOrThrow<boolean>('COOKIE_SECURE'),
       sameSite: this.configService.getOrThrow<'lax' | 'none' | 'strict'>('COOKIE_SAMESITE'),
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     };
   }
 
-  async login(email: string, password: string): Promise<AuthResponse> {
+  async login(email: string, password: string) {
     const currentUser = await this.usersService.getUserByEmail(email);
 
     if (!currentUser) {
@@ -46,7 +46,7 @@ export class AuthService {
     return tokens;
   }
 
-  async register(email: string, password: string): Promise<AuthResponse> {
+  async register(email: string, password: string) {
     const existingUser = await this.usersService.getUserByEmail(email);
 
     if (existingUser) {

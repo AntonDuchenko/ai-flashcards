@@ -4,7 +4,7 @@ model Deck {
   userId     String
   type       DeckType
   englishLvl EnglishLvl
-  user       User        @relation(fields: [userId], references: [id])
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   flashcards Flashcard[]
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt

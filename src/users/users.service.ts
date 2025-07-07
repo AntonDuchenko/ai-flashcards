@@ -166,6 +166,8 @@ export class UsersService {
       interests: data.interests.map((interest) => interest.name),
       learnedWords: [],
     });
+
+    return { message: 'Registration completed' };
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_5AM, {

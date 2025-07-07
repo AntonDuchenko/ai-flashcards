@@ -4,7 +4,7 @@ model Flashcard {
   translation    String
   userId         String
   deckId         String?
-  user           User     @relation(fields: [userId], references: [id])
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   deck           Deck?    @relation(fields: [deckId], references: [id])
   repetition     Int      @default(0)
   easinessFactor Int      @default(0)
