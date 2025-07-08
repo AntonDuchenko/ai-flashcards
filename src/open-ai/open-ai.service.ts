@@ -17,8 +17,9 @@ export class OpenAiService {
     interests: string[],
     learnedWords: string[],
   ): Promise<{ word: string; translation: string }[]> {
-    const hasExcluded = learnedWords.length > 0;
-    const excludedWords = learnedWords.map((w) => `"${w.toLowerCase()}"`).join(', ');
+    const forbiddenWordsArray = learnedWords.map((w) => w.toLowerCase());
+
+    console.log(forbiddenWordsArray);
 
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
       {
@@ -39,12 +40,13 @@ OUTPUT RULES:
 CONTENT RULES:
 - "word":
   - Only one single English word (letters only, no phrases or symbols).
-  - MUST NOT be in the list "forbiddenWords" (case-insensitive).
+  - MUST NOT be in the forbiddenWords list (case-insensitive).
 - "translation":
   - One short, lowercase Russian word.
   - Must always be the same for the same English word (no synonyms or alternates).
 - Do not invent or fabricate new or obscure vocabulary.
-- All 10 words MUST be unique.
+- All 10 words MUST be strictly unique.
+- If any duplicates occur, retry and generate again.
 `.trim(),
       },
       {
@@ -54,7 +56,7 @@ Generate exactly 10 flashcards for CEFR level "${level}" on the topics: ${intere
           .map((i) => `"${i}"`)
           .join(', ')}.
 
-forbiddenWords = [${excludedWords}]
+forbiddenWords = [${forbiddenWordsArray.join(', ')}]
 
 Return only valid JSON as described above.
 `.trim(),
@@ -77,11 +79,24 @@ Return only valid JSON as described above.
 
     try {
       const cleaned = this.cleanJSON(rawContent);
-      const result = JSON.parse(cleaned);
+      const parsed = JSON.parse(cleaned);
 
-      return result;
+      const uniqueFlashcards = Array.from(
+        new Map(
+          parsed.map((card: { word: string; translation: string }) => [
+            card.word.toLowerCase(),
+            card,
+          ]),
+        ).values(),
+      ) as { word: string; translation: string }[];
+
+      if (uniqueFlashcards.length < 10) {
+        throw new Error('Duplicate words detected in OpenAI response');
+      }
+
+      return uniqueFlashcards;
     } catch (err) {
-      throw new Error('Failed to parse JSON from OpenAI response');
+      throw new Error('Failed to parse or validate JSON from OpenAI response');
     }
   }
 

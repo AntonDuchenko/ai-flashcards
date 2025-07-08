@@ -196,7 +196,7 @@ export class UsersService {
           type: 'DAILY',
           englishLvl: user.englishLvl,
           interests: user.interests.map((interest) => interest.name),
-          learnedWords: user.learnedWords.map((card) => card.translation),
+          learnedWords: user.learnedWords.map((card) => card.word),
         });
 
         await this.deckService.createRepeatingDeck(user.id, user.englishLvl);

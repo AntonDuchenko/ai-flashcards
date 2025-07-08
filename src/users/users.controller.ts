@@ -24,12 +24,11 @@ export class UsersController {
     });
   }
 
-  // TODO: check ides, because it can be null
   @Put('/profile')
   updateUser(
     @Req() req: RequestWithUser,
     @Body()
-    body: Partial<ProfileCompleteDto>,
+    body: ProfileCompleteDto,
   ) {
     const interestIds = body.interests?.map((interest) => ({
       id: interest.id,
@@ -67,8 +66,10 @@ export class UsersController {
     return this.usersService.setReviewAnswer(req.user.sub, body);
   }
 
-  // @Post('/create-decks')
-  // createDecksForEverybody() {
-  //   return this.usersService.createDecksForEverybody();
-  // }
+  // Method to create decks for all users manualy, use only in dev
+  // TODO: add protect, that can use only in dev
+  @Post('/create-decks')
+  createDecksForEverybody() {
+    return this.usersService.createDecksForEverybody();
+  }
 }
