@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { randomUUID } from 'crypto';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 if (!globalThis.crypto) {
   globalThis.crypto = {
@@ -23,6 +24,13 @@ async function bootstrap() {
   const nodeEnv = config.getOrThrow<'development' | 'production'>('NODE_ENV');
   const frontendUrl = config.getOrThrow<string>('FRONTEND_URL');
   const port = config.getOrThrow<number>('PORT');
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('AI flashcards')
+    .setVersion('1.0')
+    .build();
+  const documentFactory = () => SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('swagger', app, documentFactory);
 
   app.enableCors({
     origin: frontendUrl,

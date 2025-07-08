@@ -4,6 +4,7 @@ import { AccessTokenGuard } from 'src/common/guards/jwt.guard';
 import { ProfileCompleteDto, ProfileResponseDto, SetAnswersDto } from './dto';
 import { plainToInstance } from 'class-transformer';
 import { RequestWithUser } from 'src/common/types';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @UseGuards(AccessTokenGuard)
 @Controller('users')
@@ -15,6 +16,8 @@ export class UsersController {
     return this.usersService.getAllUsers();
   }
 
+  @ApiOperation({ summary: 'Get user profile' })
+  @ApiResponse({ status: 200, type: ProfileResponseDto })
   @Get('/profile')
   getProfile(@Req() req: RequestWithUser) {
     const user = this.usersService.getUserById(req.user.sub);
@@ -24,6 +27,8 @@ export class UsersController {
     });
   }
 
+  @ApiOperation({ summary: 'Update user profile' })
+  @ApiResponse({ status: 200, type: ProfileResponseDto })
   @Put('/profile')
   updateUser(
     @Req() req: RequestWithUser,
@@ -46,6 +51,12 @@ export class UsersController {
     });
   }
 
+  @ApiOperation({ summary: 'Complete user registration' })
+  @ApiResponse({
+    status: 200,
+    schema: { type: 'object', properties: { message: { type: 'string' } } },
+    example: { message: 'Registration completed' },
+  })
   @Post('profile/complete')
   completeRegistration(
     @Req() req: RequestWithUser,
@@ -55,15 +66,26 @@ export class UsersController {
     return this.usersService.completeRegistration(req.user.sub, body);
   }
 
-  // TODO: see the answers and create dtos and use plaintToInstance
+  @ApiOperation({ summary: 'Set answers' })
+  @ApiResponse({ status: 200, type: ProfileResponseDto })
   @Post('/set-answers')
   setCorrectAnswer(@Req() req: RequestWithUser, @Body() body: SetAnswersDto[]) {
-    return this.usersService.setCorrectAnswer(req.user.sub, body);
+    const updatedUser = this.usersService.setCorrectAnswer(req.user.sub, body);
+
+    return plainToInstance(ProfileResponseDto, updatedUser, {
+      excludeExtraneousValues: true,
+    });
   }
 
+  @ApiOperation({ summary: 'Set repeating deck answers' })
+  @ApiResponse({ status: 200, type: ProfileResponseDto })
   @Post('/set-review-answers')
   setReviewAnswer(@Req() req: RequestWithUser, @Body() body: SetAnswersDto[]) {
-    return this.usersService.setReviewAnswer(req.user.sub, body);
+    const updatedUser = this.usersService.setReviewAnswer(req.user.sub, body);
+
+    return plainToInstance(ProfileResponseDto, updatedUser, {
+      excludeExtraneousValues: true,
+    });
   }
 
   // Method to create decks for all users manualy, use only in dev
