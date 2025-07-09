@@ -1,6 +1,6 @@
 import { Exclude, Expose } from 'class-transformer';
 import { IsArray, IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
-import { EnglishLvl } from 'generated/prisma';
+import { DailyDeckCompletion, EnglishLvl } from 'generated/prisma';
 
 export class ProfileResponseDto {
   @IsString()
@@ -30,6 +30,10 @@ export class ProfileResponseDto {
   @IsNumber()
   @Expose()
   daysStreak: 0;
+
+  @IsArray()
+  @Expose()
+  dailyDeckCompletions: DailyDeckCompletion[];
 
   @IsEnum(EnglishLvl)
   @Expose()

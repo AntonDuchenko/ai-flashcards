@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { DeckService } from './deck.service';
 import { AccessTokenGuard } from 'src/common/guards';
-import { EnglishLvl } from 'generated/prisma';
 import { RequestWithUser } from 'src/common/types';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { DecksResponseDto } from './dto';

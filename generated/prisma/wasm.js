@@ -120,6 +120,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.DailyDeckCompletionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DeckScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -191,6 +199,7 @@ exports.EnglishLvl = exports.$Enums.EnglishLvl = {
 };
 
 exports.Prisma.ModelName = {
+  DailyDeckCompletion: 'DailyDeckCompletion',
   Deck: 'Deck',
   Flashcard: 'Flashcard',
   Interest: 'Interest',

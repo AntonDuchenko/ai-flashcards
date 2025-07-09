@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model DailyDeckCompletion
+ * 
+ */
+export type DailyDeckCompletion = $Result.DefaultSelection<Prisma.$DailyDeckCompletionPayload>
+/**
  * Model Deck
  * 
  */
@@ -74,8 +79,8 @@ export const DeckType: typeof $Enums.DeckType
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Decks
- * const decks = await prisma.deck.findMany()
+ * // Fetch zero or more DailyDeckCompletions
+ * const dailyDeckCompletions = await prisma.dailyDeckCompletion.findMany()
  * ```
  *
  *
@@ -95,8 +100,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Decks
-   * const decks = await prisma.deck.findMany()
+   * // Fetch zero or more DailyDeckCompletions
+   * const dailyDeckCompletions = await prisma.dailyDeckCompletion.findMany()
    * ```
    *
    *
@@ -193,6 +198,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.dailyDeckCompletion`: Exposes CRUD operations for the **DailyDeckCompletion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DailyDeckCompletions
+    * const dailyDeckCompletions = await prisma.dailyDeckCompletion.findMany()
+    * ```
+    */
+  get dailyDeckCompletion(): Prisma.DailyDeckCompletionDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.deck`: Exposes CRUD operations for the **Deck** model.
     * Example usage:
     * ```ts
@@ -671,6 +686,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    DailyDeckCompletion: 'DailyDeckCompletion',
     Deck: 'Deck',
     Flashcard: 'Flashcard',
     Interest: 'Interest',
@@ -693,10 +709,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "deck" | "flashcard" | "interest" | "user"
+      modelProps: "dailyDeckCompletion" | "deck" | "flashcard" | "interest" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      DailyDeckCompletion: {
+        payload: Prisma.$DailyDeckCompletionPayload<ExtArgs>
+        fields: Prisma.DailyDeckCompletionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DailyDeckCompletionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DailyDeckCompletionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>
+          }
+          findFirst: {
+            args: Prisma.DailyDeckCompletionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DailyDeckCompletionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>
+          }
+          findMany: {
+            args: Prisma.DailyDeckCompletionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>[]
+          }
+          create: {
+            args: Prisma.DailyDeckCompletionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>
+          }
+          createMany: {
+            args: Prisma.DailyDeckCompletionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DailyDeckCompletionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>[]
+          }
+          delete: {
+            args: Prisma.DailyDeckCompletionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>
+          }
+          update: {
+            args: Prisma.DailyDeckCompletionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>
+          }
+          deleteMany: {
+            args: Prisma.DailyDeckCompletionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DailyDeckCompletionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DailyDeckCompletionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>[]
+          }
+          upsert: {
+            args: Prisma.DailyDeckCompletionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyDeckCompletionPayload>
+          }
+          aggregate: {
+            args: Prisma.DailyDeckCompletionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDailyDeckCompletion>
+          }
+          groupBy: {
+            args: Prisma.DailyDeckCompletionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DailyDeckCompletionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DailyDeckCompletionCountArgs<ExtArgs>
+            result: $Utils.Optional<DailyDeckCompletionCountAggregateOutputType> | number
+          }
+        }
+      }
       Deck: {
         payload: Prisma.$DeckPayload<ExtArgs>
         fields: Prisma.DeckFieldRefs
@@ -1077,6 +1167,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    dailyDeckCompletion?: DailyDeckCompletionOmit
     deck?: DeckOmit
     flashcard?: FlashcardOmit
     interest?: InterestOmit
@@ -1240,12 +1331,14 @@ export namespace Prisma {
     decks: number
     interests: number
     learnedWords: number
+    dailyDeckCompletions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     decks?: boolean | UserCountOutputTypeCountDecksArgs
     interests?: boolean | UserCountOutputTypeCountInterestsArgs
     learnedWords?: boolean | UserCountOutputTypeCountLearnedWordsArgs
+    dailyDeckCompletions?: boolean | UserCountOutputTypeCountDailyDeckCompletionsArgs
   }
 
   // Custom InputTypes
@@ -1280,10 +1373,1075 @@ export namespace Prisma {
     where?: FlashcardWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDailyDeckCompletionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyDeckCompletionWhereInput
+  }
+
 
   /**
    * Models
    */
+
+  /**
+   * Model DailyDeckCompletion
+   */
+
+  export type AggregateDailyDeckCompletion = {
+    _count: DailyDeckCompletionCountAggregateOutputType | null
+    _min: DailyDeckCompletionMinAggregateOutputType | null
+    _max: DailyDeckCompletionMaxAggregateOutputType | null
+  }
+
+  export type DailyDeckCompletionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DailyDeckCompletionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DailyDeckCompletionCountAggregateOutputType = {
+    id: number
+    userId: number
+    date: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DailyDeckCompletionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DailyDeckCompletionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DailyDeckCompletionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DailyDeckCompletionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyDeckCompletion to aggregate.
+     */
+    where?: DailyDeckCompletionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyDeckCompletions to fetch.
+     */
+    orderBy?: DailyDeckCompletionOrderByWithRelationInput | DailyDeckCompletionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DailyDeckCompletionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyDeckCompletions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyDeckCompletions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DailyDeckCompletions
+    **/
+    _count?: true | DailyDeckCompletionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DailyDeckCompletionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DailyDeckCompletionMaxAggregateInputType
+  }
+
+  export type GetDailyDeckCompletionAggregateType<T extends DailyDeckCompletionAggregateArgs> = {
+        [P in keyof T & keyof AggregateDailyDeckCompletion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDailyDeckCompletion[P]>
+      : GetScalarType<T[P], AggregateDailyDeckCompletion[P]>
+  }
+
+
+
+
+  export type DailyDeckCompletionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyDeckCompletionWhereInput
+    orderBy?: DailyDeckCompletionOrderByWithAggregationInput | DailyDeckCompletionOrderByWithAggregationInput[]
+    by: DailyDeckCompletionScalarFieldEnum[] | DailyDeckCompletionScalarFieldEnum
+    having?: DailyDeckCompletionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DailyDeckCompletionCountAggregateInputType | true
+    _min?: DailyDeckCompletionMinAggregateInputType
+    _max?: DailyDeckCompletionMaxAggregateInputType
+  }
+
+  export type DailyDeckCompletionGroupByOutputType = {
+    id: string
+    userId: string
+    date: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: DailyDeckCompletionCountAggregateOutputType | null
+    _min: DailyDeckCompletionMinAggregateOutputType | null
+    _max: DailyDeckCompletionMaxAggregateOutputType | null
+  }
+
+  type GetDailyDeckCompletionGroupByPayload<T extends DailyDeckCompletionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DailyDeckCompletionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DailyDeckCompletionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DailyDeckCompletionGroupByOutputType[P]>
+            : GetScalarType<T[P], DailyDeckCompletionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DailyDeckCompletionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyDeckCompletion"]>
+
+  export type DailyDeckCompletionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyDeckCompletion"]>
+
+  export type DailyDeckCompletionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyDeckCompletion"]>
+
+  export type DailyDeckCompletionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DailyDeckCompletionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "createdAt" | "updatedAt", ExtArgs["result"]["dailyDeckCompletion"]>
+  export type DailyDeckCompletionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DailyDeckCompletionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DailyDeckCompletionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DailyDeckCompletionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DailyDeckCompletion"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      date: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dailyDeckCompletion"]>
+    composites: {}
+  }
+
+  type DailyDeckCompletionGetPayload<S extends boolean | null | undefined | DailyDeckCompletionDefaultArgs> = $Result.GetResult<Prisma.$DailyDeckCompletionPayload, S>
+
+  type DailyDeckCompletionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DailyDeckCompletionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DailyDeckCompletionCountAggregateInputType | true
+    }
+
+  export interface DailyDeckCompletionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DailyDeckCompletion'], meta: { name: 'DailyDeckCompletion' } }
+    /**
+     * Find zero or one DailyDeckCompletion that matches the filter.
+     * @param {DailyDeckCompletionFindUniqueArgs} args - Arguments to find a DailyDeckCompletion
+     * @example
+     * // Get one DailyDeckCompletion
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DailyDeckCompletionFindUniqueArgs>(args: SelectSubset<T, DailyDeckCompletionFindUniqueArgs<ExtArgs>>): Prisma__DailyDeckCompletionClient<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DailyDeckCompletion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DailyDeckCompletionFindUniqueOrThrowArgs} args - Arguments to find a DailyDeckCompletion
+     * @example
+     * // Get one DailyDeckCompletion
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DailyDeckCompletionFindUniqueOrThrowArgs>(args: SelectSubset<T, DailyDeckCompletionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DailyDeckCompletionClient<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DailyDeckCompletion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyDeckCompletionFindFirstArgs} args - Arguments to find a DailyDeckCompletion
+     * @example
+     * // Get one DailyDeckCompletion
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DailyDeckCompletionFindFirstArgs>(args?: SelectSubset<T, DailyDeckCompletionFindFirstArgs<ExtArgs>>): Prisma__DailyDeckCompletionClient<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DailyDeckCompletion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyDeckCompletionFindFirstOrThrowArgs} args - Arguments to find a DailyDeckCompletion
+     * @example
+     * // Get one DailyDeckCompletion
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DailyDeckCompletionFindFirstOrThrowArgs>(args?: SelectSubset<T, DailyDeckCompletionFindFirstOrThrowArgs<ExtArgs>>): Prisma__DailyDeckCompletionClient<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DailyDeckCompletions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyDeckCompletionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DailyDeckCompletions
+     * const dailyDeckCompletions = await prisma.dailyDeckCompletion.findMany()
+     * 
+     * // Get first 10 DailyDeckCompletions
+     * const dailyDeckCompletions = await prisma.dailyDeckCompletion.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dailyDeckCompletionWithIdOnly = await prisma.dailyDeckCompletion.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DailyDeckCompletionFindManyArgs>(args?: SelectSubset<T, DailyDeckCompletionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DailyDeckCompletion.
+     * @param {DailyDeckCompletionCreateArgs} args - Arguments to create a DailyDeckCompletion.
+     * @example
+     * // Create one DailyDeckCompletion
+     * const DailyDeckCompletion = await prisma.dailyDeckCompletion.create({
+     *   data: {
+     *     // ... data to create a DailyDeckCompletion
+     *   }
+     * })
+     * 
+     */
+    create<T extends DailyDeckCompletionCreateArgs>(args: SelectSubset<T, DailyDeckCompletionCreateArgs<ExtArgs>>): Prisma__DailyDeckCompletionClient<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DailyDeckCompletions.
+     * @param {DailyDeckCompletionCreateManyArgs} args - Arguments to create many DailyDeckCompletions.
+     * @example
+     * // Create many DailyDeckCompletions
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DailyDeckCompletionCreateManyArgs>(args?: SelectSubset<T, DailyDeckCompletionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DailyDeckCompletions and returns the data saved in the database.
+     * @param {DailyDeckCompletionCreateManyAndReturnArgs} args - Arguments to create many DailyDeckCompletions.
+     * @example
+     * // Create many DailyDeckCompletions
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DailyDeckCompletions and only return the `id`
+     * const dailyDeckCompletionWithIdOnly = await prisma.dailyDeckCompletion.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DailyDeckCompletionCreateManyAndReturnArgs>(args?: SelectSubset<T, DailyDeckCompletionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DailyDeckCompletion.
+     * @param {DailyDeckCompletionDeleteArgs} args - Arguments to delete one DailyDeckCompletion.
+     * @example
+     * // Delete one DailyDeckCompletion
+     * const DailyDeckCompletion = await prisma.dailyDeckCompletion.delete({
+     *   where: {
+     *     // ... filter to delete one DailyDeckCompletion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DailyDeckCompletionDeleteArgs>(args: SelectSubset<T, DailyDeckCompletionDeleteArgs<ExtArgs>>): Prisma__DailyDeckCompletionClient<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DailyDeckCompletion.
+     * @param {DailyDeckCompletionUpdateArgs} args - Arguments to update one DailyDeckCompletion.
+     * @example
+     * // Update one DailyDeckCompletion
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DailyDeckCompletionUpdateArgs>(args: SelectSubset<T, DailyDeckCompletionUpdateArgs<ExtArgs>>): Prisma__DailyDeckCompletionClient<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DailyDeckCompletions.
+     * @param {DailyDeckCompletionDeleteManyArgs} args - Arguments to filter DailyDeckCompletions to delete.
+     * @example
+     * // Delete a few DailyDeckCompletions
+     * const { count } = await prisma.dailyDeckCompletion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DailyDeckCompletionDeleteManyArgs>(args?: SelectSubset<T, DailyDeckCompletionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyDeckCompletions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyDeckCompletionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DailyDeckCompletions
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DailyDeckCompletionUpdateManyArgs>(args: SelectSubset<T, DailyDeckCompletionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyDeckCompletions and returns the data updated in the database.
+     * @param {DailyDeckCompletionUpdateManyAndReturnArgs} args - Arguments to update many DailyDeckCompletions.
+     * @example
+     * // Update many DailyDeckCompletions
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DailyDeckCompletions and only return the `id`
+     * const dailyDeckCompletionWithIdOnly = await prisma.dailyDeckCompletion.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DailyDeckCompletionUpdateManyAndReturnArgs>(args: SelectSubset<T, DailyDeckCompletionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DailyDeckCompletion.
+     * @param {DailyDeckCompletionUpsertArgs} args - Arguments to update or create a DailyDeckCompletion.
+     * @example
+     * // Update or create a DailyDeckCompletion
+     * const dailyDeckCompletion = await prisma.dailyDeckCompletion.upsert({
+     *   create: {
+     *     // ... data to create a DailyDeckCompletion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DailyDeckCompletion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DailyDeckCompletionUpsertArgs>(args: SelectSubset<T, DailyDeckCompletionUpsertArgs<ExtArgs>>): Prisma__DailyDeckCompletionClient<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DailyDeckCompletions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyDeckCompletionCountArgs} args - Arguments to filter DailyDeckCompletions to count.
+     * @example
+     * // Count the number of DailyDeckCompletions
+     * const count = await prisma.dailyDeckCompletion.count({
+     *   where: {
+     *     // ... the filter for the DailyDeckCompletions we want to count
+     *   }
+     * })
+    **/
+    count<T extends DailyDeckCompletionCountArgs>(
+      args?: Subset<T, DailyDeckCompletionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DailyDeckCompletionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DailyDeckCompletion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyDeckCompletionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DailyDeckCompletionAggregateArgs>(args: Subset<T, DailyDeckCompletionAggregateArgs>): Prisma.PrismaPromise<GetDailyDeckCompletionAggregateType<T>>
+
+    /**
+     * Group by DailyDeckCompletion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyDeckCompletionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DailyDeckCompletionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DailyDeckCompletionGroupByArgs['orderBy'] }
+        : { orderBy?: DailyDeckCompletionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DailyDeckCompletionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDailyDeckCompletionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DailyDeckCompletion model
+   */
+  readonly fields: DailyDeckCompletionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DailyDeckCompletion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DailyDeckCompletionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DailyDeckCompletion model
+   */
+  interface DailyDeckCompletionFieldRefs {
+    readonly id: FieldRef<"DailyDeckCompletion", 'String'>
+    readonly userId: FieldRef<"DailyDeckCompletion", 'String'>
+    readonly date: FieldRef<"DailyDeckCompletion", 'DateTime'>
+    readonly createdAt: FieldRef<"DailyDeckCompletion", 'DateTime'>
+    readonly updatedAt: FieldRef<"DailyDeckCompletion", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DailyDeckCompletion findUnique
+   */
+  export type DailyDeckCompletionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyDeckCompletion to fetch.
+     */
+    where: DailyDeckCompletionWhereUniqueInput
+  }
+
+  /**
+   * DailyDeckCompletion findUniqueOrThrow
+   */
+  export type DailyDeckCompletionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyDeckCompletion to fetch.
+     */
+    where: DailyDeckCompletionWhereUniqueInput
+  }
+
+  /**
+   * DailyDeckCompletion findFirst
+   */
+  export type DailyDeckCompletionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyDeckCompletion to fetch.
+     */
+    where?: DailyDeckCompletionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyDeckCompletions to fetch.
+     */
+    orderBy?: DailyDeckCompletionOrderByWithRelationInput | DailyDeckCompletionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyDeckCompletions.
+     */
+    cursor?: DailyDeckCompletionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyDeckCompletions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyDeckCompletions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyDeckCompletions.
+     */
+    distinct?: DailyDeckCompletionScalarFieldEnum | DailyDeckCompletionScalarFieldEnum[]
+  }
+
+  /**
+   * DailyDeckCompletion findFirstOrThrow
+   */
+  export type DailyDeckCompletionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyDeckCompletion to fetch.
+     */
+    where?: DailyDeckCompletionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyDeckCompletions to fetch.
+     */
+    orderBy?: DailyDeckCompletionOrderByWithRelationInput | DailyDeckCompletionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyDeckCompletions.
+     */
+    cursor?: DailyDeckCompletionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyDeckCompletions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyDeckCompletions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyDeckCompletions.
+     */
+    distinct?: DailyDeckCompletionScalarFieldEnum | DailyDeckCompletionScalarFieldEnum[]
+  }
+
+  /**
+   * DailyDeckCompletion findMany
+   */
+  export type DailyDeckCompletionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyDeckCompletions to fetch.
+     */
+    where?: DailyDeckCompletionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyDeckCompletions to fetch.
+     */
+    orderBy?: DailyDeckCompletionOrderByWithRelationInput | DailyDeckCompletionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DailyDeckCompletions.
+     */
+    cursor?: DailyDeckCompletionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyDeckCompletions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyDeckCompletions.
+     */
+    skip?: number
+    distinct?: DailyDeckCompletionScalarFieldEnum | DailyDeckCompletionScalarFieldEnum[]
+  }
+
+  /**
+   * DailyDeckCompletion create
+   */
+  export type DailyDeckCompletionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DailyDeckCompletion.
+     */
+    data: XOR<DailyDeckCompletionCreateInput, DailyDeckCompletionUncheckedCreateInput>
+  }
+
+  /**
+   * DailyDeckCompletion createMany
+   */
+  export type DailyDeckCompletionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DailyDeckCompletions.
+     */
+    data: DailyDeckCompletionCreateManyInput | DailyDeckCompletionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DailyDeckCompletion createManyAndReturn
+   */
+  export type DailyDeckCompletionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * The data used to create many DailyDeckCompletions.
+     */
+    data: DailyDeckCompletionCreateManyInput | DailyDeckCompletionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DailyDeckCompletion update
+   */
+  export type DailyDeckCompletionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DailyDeckCompletion.
+     */
+    data: XOR<DailyDeckCompletionUpdateInput, DailyDeckCompletionUncheckedUpdateInput>
+    /**
+     * Choose, which DailyDeckCompletion to update.
+     */
+    where: DailyDeckCompletionWhereUniqueInput
+  }
+
+  /**
+   * DailyDeckCompletion updateMany
+   */
+  export type DailyDeckCompletionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DailyDeckCompletions.
+     */
+    data: XOR<DailyDeckCompletionUpdateManyMutationInput, DailyDeckCompletionUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyDeckCompletions to update
+     */
+    where?: DailyDeckCompletionWhereInput
+    /**
+     * Limit how many DailyDeckCompletions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyDeckCompletion updateManyAndReturn
+   */
+  export type DailyDeckCompletionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * The data used to update DailyDeckCompletions.
+     */
+    data: XOR<DailyDeckCompletionUpdateManyMutationInput, DailyDeckCompletionUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyDeckCompletions to update
+     */
+    where?: DailyDeckCompletionWhereInput
+    /**
+     * Limit how many DailyDeckCompletions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DailyDeckCompletion upsert
+   */
+  export type DailyDeckCompletionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DailyDeckCompletion to update in case it exists.
+     */
+    where: DailyDeckCompletionWhereUniqueInput
+    /**
+     * In case the DailyDeckCompletion found by the `where` argument doesn't exist, create a new DailyDeckCompletion with this data.
+     */
+    create: XOR<DailyDeckCompletionCreateInput, DailyDeckCompletionUncheckedCreateInput>
+    /**
+     * In case the DailyDeckCompletion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DailyDeckCompletionUpdateInput, DailyDeckCompletionUncheckedUpdateInput>
+  }
+
+  /**
+   * DailyDeckCompletion delete
+   */
+  export type DailyDeckCompletionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    /**
+     * Filter which DailyDeckCompletion to delete.
+     */
+    where: DailyDeckCompletionWhereUniqueInput
+  }
+
+  /**
+   * DailyDeckCompletion deleteMany
+   */
+  export type DailyDeckCompletionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyDeckCompletions to delete
+     */
+    where?: DailyDeckCompletionWhereInput
+    /**
+     * Limit how many DailyDeckCompletions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyDeckCompletion without action
+   */
+  export type DailyDeckCompletionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model Deck
@@ -4876,6 +6034,7 @@ export namespace Prisma {
     decks?: boolean | User$decksArgs<ExtArgs>
     interests?: boolean | User$interestsArgs<ExtArgs>
     learnedWords?: boolean | User$learnedWordsArgs<ExtArgs>
+    dailyDeckCompletions?: boolean | User$dailyDeckCompletionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4923,6 +6082,7 @@ export namespace Prisma {
     decks?: boolean | User$decksArgs<ExtArgs>
     interests?: boolean | User$interestsArgs<ExtArgs>
     learnedWords?: boolean | User$learnedWordsArgs<ExtArgs>
+    dailyDeckCompletions?: boolean | User$dailyDeckCompletionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4934,6 +6094,7 @@ export namespace Prisma {
       decks: Prisma.$DeckPayload<ExtArgs>[]
       interests: Prisma.$InterestPayload<ExtArgs>[]
       learnedWords: Prisma.$FlashcardPayload<ExtArgs>[]
+      dailyDeckCompletions: Prisma.$DailyDeckCompletionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5343,6 +6504,7 @@ export namespace Prisma {
     decks<T extends User$decksArgs<ExtArgs> = {}>(args?: Subset<T, User$decksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     interests<T extends User$interestsArgs<ExtArgs> = {}>(args?: Subset<T, User$interestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     learnedWords<T extends User$learnedWordsArgs<ExtArgs> = {}>(args?: Subset<T, User$learnedWordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlashcardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dailyDeckCompletions<T extends User$dailyDeckCompletionsArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyDeckCompletionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyDeckCompletionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5842,6 +7004,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.dailyDeckCompletions
+   */
+  export type User$dailyDeckCompletionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyDeckCompletion
+     */
+    select?: DailyDeckCompletionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyDeckCompletion
+     */
+    omit?: DailyDeckCompletionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyDeckCompletionInclude<ExtArgs> | null
+    where?: DailyDeckCompletionWhereInput
+    orderBy?: DailyDeckCompletionOrderByWithRelationInput | DailyDeckCompletionOrderByWithRelationInput[]
+    cursor?: DailyDeckCompletionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyDeckCompletionScalarFieldEnum | DailyDeckCompletionScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5872,6 +7058,17 @@ export namespace Prisma {
   };
 
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const DailyDeckCompletionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    date: 'date',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DailyDeckCompletionScalarFieldEnum = (typeof DailyDeckCompletionScalarFieldEnum)[keyof typeof DailyDeckCompletionScalarFieldEnum]
 
 
   export const DeckScalarFieldEnum: {
@@ -5972,6 +7169,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DeckType'
    */
   export type EnumDeckTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeckType'>
@@ -5996,20 +7207,6 @@ export namespace Prisma {
    * Reference to a field of type 'EnglishLvl[]'
    */
   export type ListEnumEnglishLvlFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EnglishLvl[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -6050,6 +7247,62 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type DailyDeckCompletionWhereInput = {
+    AND?: DailyDeckCompletionWhereInput | DailyDeckCompletionWhereInput[]
+    OR?: DailyDeckCompletionWhereInput[]
+    NOT?: DailyDeckCompletionWhereInput | DailyDeckCompletionWhereInput[]
+    id?: StringFilter<"DailyDeckCompletion"> | string
+    userId?: StringFilter<"DailyDeckCompletion"> | string
+    date?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+    createdAt?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DailyDeckCompletionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DailyDeckCompletionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_date?: DailyDeckCompletionUserIdDateCompoundUniqueInput
+    AND?: DailyDeckCompletionWhereInput | DailyDeckCompletionWhereInput[]
+    OR?: DailyDeckCompletionWhereInput[]
+    NOT?: DailyDeckCompletionWhereInput | DailyDeckCompletionWhereInput[]
+    userId?: StringFilter<"DailyDeckCompletion"> | string
+    date?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+    createdAt?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_date">
+
+  export type DailyDeckCompletionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DailyDeckCompletionCountOrderByAggregateInput
+    _max?: DailyDeckCompletionMaxOrderByAggregateInput
+    _min?: DailyDeckCompletionMinOrderByAggregateInput
+  }
+
+  export type DailyDeckCompletionScalarWhereWithAggregatesInput = {
+    AND?: DailyDeckCompletionScalarWhereWithAggregatesInput | DailyDeckCompletionScalarWhereWithAggregatesInput[]
+    OR?: DailyDeckCompletionScalarWhereWithAggregatesInput[]
+    NOT?: DailyDeckCompletionScalarWhereWithAggregatesInput | DailyDeckCompletionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DailyDeckCompletion"> | string
+    userId?: StringWithAggregatesFilter<"DailyDeckCompletion"> | string
+    date?: DateTimeWithAggregatesFilter<"DailyDeckCompletion"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"DailyDeckCompletion"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DailyDeckCompletion"> | Date | string
+  }
 
   export type DeckWhereInput = {
     AND?: DeckWhereInput | DeckWhereInput[]
@@ -6266,6 +7519,7 @@ export namespace Prisma {
     decks?: DeckListRelationFilter
     interests?: InterestListRelationFilter
     learnedWords?: FlashcardListRelationFilter
+    dailyDeckCompletions?: DailyDeckCompletionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -6282,6 +7536,7 @@ export namespace Prisma {
     decks?: DeckOrderByRelationAggregateInput
     interests?: InterestOrderByRelationAggregateInput
     learnedWords?: FlashcardOrderByRelationAggregateInput
+    dailyDeckCompletions?: DailyDeckCompletionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -6301,6 +7556,7 @@ export namespace Prisma {
     decks?: DeckListRelationFilter
     interests?: InterestListRelationFilter
     learnedWords?: FlashcardListRelationFilter
+    dailyDeckCompletions?: DailyDeckCompletionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -6335,6 +7591,61 @@ export namespace Prisma {
     englishLvl?: EnumEnglishLvlNullableWithAggregatesFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type DailyDeckCompletionCreateInput = {
+    id?: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDailyDeckCompletionsInput
+  }
+
+  export type DailyDeckCompletionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyDeckCompletionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDailyDeckCompletionsNestedInput
+  }
+
+  export type DailyDeckCompletionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyDeckCompletionCreateManyInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyDeckCompletionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyDeckCompletionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DeckCreateInput = {
@@ -6559,6 +7870,7 @@ export namespace Prisma {
     decks?: DeckCreateNestedManyWithoutUserInput
     interests?: InterestCreateNestedManyWithoutUsersInput
     learnedWords?: FlashcardCreateNestedManyWithoutUserInput
+    dailyDeckCompletions?: DailyDeckCompletionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6575,6 +7887,7 @@ export namespace Prisma {
     decks?: DeckUncheckedCreateNestedManyWithoutUserInput
     interests?: InterestUncheckedCreateNestedManyWithoutUsersInput
     learnedWords?: FlashcardUncheckedCreateNestedManyWithoutUserInput
+    dailyDeckCompletions?: DailyDeckCompletionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6591,6 +7904,7 @@ export namespace Prisma {
     decks?: DeckUpdateManyWithoutUserNestedInput
     interests?: InterestUpdateManyWithoutUsersNestedInput
     learnedWords?: FlashcardUpdateManyWithoutUserNestedInput
+    dailyDeckCompletions?: DailyDeckCompletionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6607,6 +7921,7 @@ export namespace Prisma {
     decks?: DeckUncheckedUpdateManyWithoutUserNestedInput
     interests?: InterestUncheckedUpdateManyWithoutUsersNestedInput
     learnedWords?: FlashcardUncheckedUpdateManyWithoutUserNestedInput
+    dailyDeckCompletions?: DailyDeckCompletionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6663,20 +7978,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type EnumDeckTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.DeckType | EnumDeckTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumDeckTypeFilter<$PrismaModel> | $Enums.DeckType
-  }
-
-  export type EnumEnglishLvlFilter<$PrismaModel = never> = {
-    equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel>
-    in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
-    not?: NestedEnumEnglishLvlFilter<$PrismaModel> | $Enums.EnglishLvl
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -6691,6 +7992,81 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type DailyDeckCompletionUserIdDateCompoundUniqueInput = {
+    userId: string
+    date: Date | string
+  }
+
+  export type DailyDeckCompletionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyDeckCompletionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DailyDeckCompletionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type EnumDeckTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeckType | EnumDeckTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeckTypeFilter<$PrismaModel> | $Enums.DeckType
+  }
+
+  export type EnumEnglishLvlFilter<$PrismaModel = never> = {
+    equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel>
+    in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
+    not?: NestedEnumEnglishLvlFilter<$PrismaModel> | $Enums.EnglishLvl
   }
 
   export type FlashcardListRelationFilter = {
@@ -6733,24 +8109,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type EnumDeckTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.DeckType | EnumDeckTypeFieldRefInput<$PrismaModel>
     in?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
@@ -6769,20 +8127,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEnglishLvlFilter<$PrismaModel>
     _max?: NestedEnumEnglishLvlFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -6958,11 +8302,21 @@ export namespace Prisma {
     none?: InterestWhereInput
   }
 
+  export type DailyDeckCompletionListRelationFilter = {
+    every?: DailyDeckCompletionWhereInput
+    some?: DailyDeckCompletionWhereInput
+    none?: DailyDeckCompletionWhereInput
+  }
+
   export type DeckOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type InterestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DailyDeckCompletionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7031,6 +8385,28 @@ export namespace Prisma {
     _max?: NestedEnumEnglishLvlNullableFilter<$PrismaModel>
   }
 
+  export type UserCreateNestedOneWithoutDailyDeckCompletionsInput = {
+    create?: XOR<UserCreateWithoutDailyDeckCompletionsInput, UserUncheckedCreateWithoutDailyDeckCompletionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyDeckCompletionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type UserUpdateOneRequiredWithoutDailyDeckCompletionsNestedInput = {
+    create?: XOR<UserCreateWithoutDailyDeckCompletionsInput, UserUncheckedCreateWithoutDailyDeckCompletionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDailyDeckCompletionsInput
+    upsert?: UserUpsertWithoutDailyDeckCompletionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDailyDeckCompletionsInput, UserUpdateWithoutDailyDeckCompletionsInput>, UserUncheckedUpdateWithoutDailyDeckCompletionsInput>
+  }
+
   export type UserCreateNestedOneWithoutDecksInput = {
     create?: XOR<UserCreateWithoutDecksInput, UserUncheckedCreateWithoutDecksInput>
     connectOrCreate?: UserCreateOrConnectWithoutDecksInput
@@ -7051,20 +8427,12 @@ export namespace Prisma {
     connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
   export type EnumDeckTypeFieldUpdateOperationsInput = {
     set?: $Enums.DeckType
   }
 
   export type EnumEnglishLvlFieldUpdateOperationsInput = {
     set?: $Enums.EnglishLvl
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type UserUpdateOneRequiredWithoutDecksNestedInput = {
@@ -7203,6 +8571,13 @@ export namespace Prisma {
     connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
   }
 
+  export type DailyDeckCompletionCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyDeckCompletionCreateWithoutUserInput, DailyDeckCompletionUncheckedCreateWithoutUserInput> | DailyDeckCompletionCreateWithoutUserInput[] | DailyDeckCompletionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyDeckCompletionCreateOrConnectWithoutUserInput | DailyDeckCompletionCreateOrConnectWithoutUserInput[]
+    createMany?: DailyDeckCompletionCreateManyUserInputEnvelope
+    connect?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+  }
+
   export type DeckUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
@@ -7221,6 +8596,13 @@ export namespace Prisma {
     connectOrCreate?: FlashcardCreateOrConnectWithoutUserInput | FlashcardCreateOrConnectWithoutUserInput[]
     createMany?: FlashcardCreateManyUserInputEnvelope
     connect?: FlashcardWhereUniqueInput | FlashcardWhereUniqueInput[]
+  }
+
+  export type DailyDeckCompletionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyDeckCompletionCreateWithoutUserInput, DailyDeckCompletionUncheckedCreateWithoutUserInput> | DailyDeckCompletionCreateWithoutUserInput[] | DailyDeckCompletionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyDeckCompletionCreateOrConnectWithoutUserInput | DailyDeckCompletionCreateOrConnectWithoutUserInput[]
+    createMany?: DailyDeckCompletionCreateManyUserInputEnvelope
+    connect?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -7272,6 +8654,20 @@ export namespace Prisma {
     deleteMany?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
   }
 
+  export type DailyDeckCompletionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyDeckCompletionCreateWithoutUserInput, DailyDeckCompletionUncheckedCreateWithoutUserInput> | DailyDeckCompletionCreateWithoutUserInput[] | DailyDeckCompletionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyDeckCompletionCreateOrConnectWithoutUserInput | DailyDeckCompletionCreateOrConnectWithoutUserInput[]
+    upsert?: DailyDeckCompletionUpsertWithWhereUniqueWithoutUserInput | DailyDeckCompletionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyDeckCompletionCreateManyUserInputEnvelope
+    set?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+    disconnect?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+    delete?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+    connect?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+    update?: DailyDeckCompletionUpdateWithWhereUniqueWithoutUserInput | DailyDeckCompletionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyDeckCompletionUpdateManyWithWhereWithoutUserInput | DailyDeckCompletionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyDeckCompletionScalarWhereInput | DailyDeckCompletionScalarWhereInput[]
+  }
+
   export type DeckUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<DeckCreateWithoutUserInput, DeckUncheckedCreateWithoutUserInput> | DeckCreateWithoutUserInput[] | DeckUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DeckCreateOrConnectWithoutUserInput | DeckCreateOrConnectWithoutUserInput[]
@@ -7313,6 +8709,20 @@ export namespace Prisma {
     deleteMany?: FlashcardScalarWhereInput | FlashcardScalarWhereInput[]
   }
 
+  export type DailyDeckCompletionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyDeckCompletionCreateWithoutUserInput, DailyDeckCompletionUncheckedCreateWithoutUserInput> | DailyDeckCompletionCreateWithoutUserInput[] | DailyDeckCompletionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyDeckCompletionCreateOrConnectWithoutUserInput | DailyDeckCompletionCreateOrConnectWithoutUserInput[]
+    upsert?: DailyDeckCompletionUpsertWithWhereUniqueWithoutUserInput | DailyDeckCompletionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyDeckCompletionCreateManyUserInputEnvelope
+    set?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+    disconnect?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+    delete?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+    connect?: DailyDeckCompletionWhereUniqueInput | DailyDeckCompletionWhereUniqueInput[]
+    update?: DailyDeckCompletionUpdateWithWhereUniqueWithoutUserInput | DailyDeckCompletionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyDeckCompletionUpdateManyWithWhereWithoutUserInput | DailyDeckCompletionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyDeckCompletionScalarWhereInput | DailyDeckCompletionScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7325,20 +8735,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedEnumDeckTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.DeckType | EnumDeckTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumDeckTypeFilter<$PrismaModel> | $Enums.DeckType
-  }
-
-  export type NestedEnumEnglishLvlFilter<$PrismaModel = never> = {
-    equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel>
-    in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
-    not?: NestedEnumEnglishLvlFilter<$PrismaModel> | $Enums.EnglishLvl
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -7380,6 +8776,34 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDeckTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeckType | EnumDeckTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeckTypeFilter<$PrismaModel> | $Enums.DeckType
+  }
+
+  export type NestedEnumEnglishLvlFilter<$PrismaModel = never> = {
+    equals?: $Enums.EnglishLvl | EnumEnglishLvlFieldRefInput<$PrismaModel>
+    in?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
+    notIn?: $Enums.EnglishLvl[] | ListEnumEnglishLvlFieldRefInput<$PrismaModel>
+    not?: NestedEnumEnglishLvlFilter<$PrismaModel> | $Enums.EnglishLvl
+  }
+
   export type NestedEnumDeckTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.DeckType | EnumDeckTypeFieldRefInput<$PrismaModel>
     in?: $Enums.DeckType[] | ListEnumDeckTypeFieldRefInput<$PrismaModel>
@@ -7398,20 +8822,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEnglishLvlFilter<$PrismaModel>
     _max?: NestedEnumEnglishLvlFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -7513,6 +8923,86 @@ export namespace Prisma {
     _max?: NestedEnumEnglishLvlNullableFilter<$PrismaModel>
   }
 
+  export type UserCreateWithoutDailyDeckCompletionsInput = {
+    id?: string
+    email: string
+    password: string
+    refreshToken?: string | null
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
+    daysStreak?: number
+    englishLvl?: $Enums.EnglishLvl | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    decks?: DeckCreateNestedManyWithoutUserInput
+    interests?: InterestCreateNestedManyWithoutUsersInput
+    learnedWords?: FlashcardCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDailyDeckCompletionsInput = {
+    id?: string
+    email: string
+    password: string
+    refreshToken?: string | null
+    isDailyComplete?: boolean
+    isAnsweredInRepeating?: boolean
+    daysStreak?: number
+    englishLvl?: $Enums.EnglishLvl | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    decks?: DeckUncheckedCreateNestedManyWithoutUserInput
+    interests?: InterestUncheckedCreateNestedManyWithoutUsersInput
+    learnedWords?: FlashcardUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDailyDeckCompletionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDailyDeckCompletionsInput, UserUncheckedCreateWithoutDailyDeckCompletionsInput>
+  }
+
+  export type UserUpsertWithoutDailyDeckCompletionsInput = {
+    update: XOR<UserUpdateWithoutDailyDeckCompletionsInput, UserUncheckedUpdateWithoutDailyDeckCompletionsInput>
+    create: XOR<UserCreateWithoutDailyDeckCompletionsInput, UserUncheckedCreateWithoutDailyDeckCompletionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDailyDeckCompletionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDailyDeckCompletionsInput, UserUncheckedUpdateWithoutDailyDeckCompletionsInput>
+  }
+
+  export type UserUpdateWithoutDailyDeckCompletionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
+    englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    decks?: DeckUpdateManyWithoutUserNestedInput
+    interests?: InterestUpdateManyWithoutUsersNestedInput
+    learnedWords?: FlashcardUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDailyDeckCompletionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
+    isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
+    daysStreak?: IntFieldUpdateOperationsInput | number
+    englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    decks?: DeckUncheckedUpdateManyWithoutUserNestedInput
+    interests?: InterestUncheckedUpdateManyWithoutUsersNestedInput
+    learnedWords?: FlashcardUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutDecksInput = {
     id?: string
     email: string
@@ -7526,6 +9016,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     interests?: InterestCreateNestedManyWithoutUsersInput
     learnedWords?: FlashcardCreateNestedManyWithoutUserInput
+    dailyDeckCompletions?: DailyDeckCompletionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDecksInput = {
@@ -7541,6 +9032,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     interests?: InterestUncheckedCreateNestedManyWithoutUsersInput
     learnedWords?: FlashcardUncheckedCreateNestedManyWithoutUserInput
+    dailyDeckCompletions?: DailyDeckCompletionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDecksInput = {
@@ -7608,6 +9100,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interests?: InterestUpdateManyWithoutUsersNestedInput
     learnedWords?: FlashcardUpdateManyWithoutUserNestedInput
+    dailyDeckCompletions?: DailyDeckCompletionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDecksInput = {
@@ -7623,6 +9116,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interests?: InterestUncheckedUpdateManyWithoutUsersNestedInput
     learnedWords?: FlashcardUncheckedUpdateManyWithoutUserNestedInput
+    dailyDeckCompletions?: DailyDeckCompletionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FlashcardUpsertWithWhereUniqueWithoutDeckInput = {
@@ -7671,6 +9165,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     decks?: DeckCreateNestedManyWithoutUserInput
     interests?: InterestCreateNestedManyWithoutUsersInput
+    dailyDeckCompletions?: DailyDeckCompletionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLearnedWordsInput = {
@@ -7686,6 +9181,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     decks?: DeckUncheckedCreateNestedManyWithoutUserInput
     interests?: InterestUncheckedCreateNestedManyWithoutUsersInput
+    dailyDeckCompletions?: DailyDeckCompletionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLearnedWordsInput = {
@@ -7742,6 +9238,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decks?: DeckUpdateManyWithoutUserNestedInput
     interests?: InterestUpdateManyWithoutUsersNestedInput
+    dailyDeckCompletions?: DailyDeckCompletionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLearnedWordsInput = {
@@ -7757,6 +9254,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decks?: DeckUncheckedUpdateManyWithoutUserNestedInput
     interests?: InterestUncheckedUpdateManyWithoutUsersNestedInput
+    dailyDeckCompletions?: DailyDeckCompletionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DeckUpsertWithoutFlashcardsInput = {
@@ -7803,6 +9301,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     decks?: DeckCreateNestedManyWithoutUserInput
     learnedWords?: FlashcardCreateNestedManyWithoutUserInput
+    dailyDeckCompletions?: DailyDeckCompletionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInterestsInput = {
@@ -7818,6 +9317,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     decks?: DeckUncheckedCreateNestedManyWithoutUserInput
     learnedWords?: FlashcardUncheckedCreateNestedManyWithoutUserInput
+    dailyDeckCompletions?: DailyDeckCompletionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInterestsInput = {
@@ -7938,6 +9438,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DailyDeckCompletionCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyDeckCompletionUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyDeckCompletionCreateOrConnectWithoutUserInput = {
+    where: DailyDeckCompletionWhereUniqueInput
+    create: XOR<DailyDeckCompletionCreateWithoutUserInput, DailyDeckCompletionUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyDeckCompletionCreateManyUserInputEnvelope = {
+    data: DailyDeckCompletionCreateManyUserInput | DailyDeckCompletionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DeckUpsertWithWhereUniqueWithoutUserInput = {
     where: DeckWhereUniqueInput
     update: XOR<DeckUpdateWithoutUserInput, DeckUncheckedUpdateWithoutUserInput>
@@ -8007,6 +9531,33 @@ export namespace Prisma {
     data: XOR<FlashcardUpdateManyMutationInput, FlashcardUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type DailyDeckCompletionUpsertWithWhereUniqueWithoutUserInput = {
+    where: DailyDeckCompletionWhereUniqueInput
+    update: XOR<DailyDeckCompletionUpdateWithoutUserInput, DailyDeckCompletionUncheckedUpdateWithoutUserInput>
+    create: XOR<DailyDeckCompletionCreateWithoutUserInput, DailyDeckCompletionUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyDeckCompletionUpdateWithWhereUniqueWithoutUserInput = {
+    where: DailyDeckCompletionWhereUniqueInput
+    data: XOR<DailyDeckCompletionUpdateWithoutUserInput, DailyDeckCompletionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DailyDeckCompletionUpdateManyWithWhereWithoutUserInput = {
+    where: DailyDeckCompletionScalarWhereInput
+    data: XOR<DailyDeckCompletionUpdateManyMutationInput, DailyDeckCompletionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DailyDeckCompletionScalarWhereInput = {
+    AND?: DailyDeckCompletionScalarWhereInput | DailyDeckCompletionScalarWhereInput[]
+    OR?: DailyDeckCompletionScalarWhereInput[]
+    NOT?: DailyDeckCompletionScalarWhereInput | DailyDeckCompletionScalarWhereInput[]
+    id?: StringFilter<"DailyDeckCompletion"> | string
+    userId?: StringFilter<"DailyDeckCompletion"> | string
+    date?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+    createdAt?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyDeckCompletion"> | Date | string
+  }
+
   export type FlashcardCreateManyDeckInput = {
     id?: string
     word: string
@@ -8072,6 +9623,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decks?: DeckUpdateManyWithoutUserNestedInput
     learnedWords?: FlashcardUpdateManyWithoutUserNestedInput
+    dailyDeckCompletions?: DailyDeckCompletionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInterestsInput = {
@@ -8087,6 +9639,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decks?: DeckUncheckedUpdateManyWithoutUserNestedInput
     learnedWords?: FlashcardUncheckedUpdateManyWithoutUserNestedInput
+    dailyDeckCompletions?: DailyDeckCompletionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutInterestsInput = {
@@ -8120,6 +9673,13 @@ export namespace Prisma {
     easinessFactor?: number
     interval?: number
     dueDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DailyDeckCompletionCreateManyUserInput = {
+    id?: string
+    date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8203,6 +9763,27 @@ export namespace Prisma {
     easinessFactor?: IntFieldUpdateOperationsInput | number
     interval?: IntFieldUpdateOperationsInput | number
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyDeckCompletionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyDeckCompletionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyDeckCompletionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

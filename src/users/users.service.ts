@@ -25,6 +25,7 @@ export class UsersService {
       include: {
         learnedWords: true,
         interests: true,
+        dailyDeckCompletions: true,
       },
     });
   }
@@ -89,13 +90,31 @@ export class UsersService {
     }
 
     if (fulfilled.length > 0) {
-      return this.updateUser(userId, {
+      await this.updateUser(userId, {
         isDailyComplete: true,
         daysStreak: user.daysStreak + 1,
       });
+      await this.createDailyDeckCompletion(userId);
+
+      return { message: 'Daily completed and streak updated' };
     }
 
     return { message: 'No updates performed' };
+  }
+
+  async createDailyDeckCompletion(userId: string) {
+    try {
+      await this.prismaService.dailyDeckCompletion.create({
+        data: {
+          userId,
+          date: new Date(),
+        },
+      });
+    } catch (error) {
+      if (!(error.code === 'P2002' && error.meta?.target?.includes('userId_date'))) {
+        throw error;
+      }
+    }
   }
 
   async setReviewAnswer(

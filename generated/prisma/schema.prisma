@@ -1,3 +1,14 @@
+model DailyDeckCompletion {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+}
+
 model Deck {
   id         String      @id @default(uuid())
   title      String
@@ -47,19 +58,20 @@ model Interest {
 }
 
 model User {
-  id                    String      @id @default(uuid())
-  email                 String      @unique
+  id                    String                @id @default(uuid())
+  email                 String                @unique
   password              String
   refreshToken          String?
-  isDailyComplete       Boolean     @default(false)
-  isAnsweredInRepeating Boolean     @default(false)
-  daysStreak            Int         @default(0)
+  isDailyComplete       Boolean               @default(false)
+  isAnsweredInRepeating Boolean               @default(false)
+  daysStreak            Int                   @default(0)
   englishLvl            EnglishLvl?
   decks                 Deck[]
   interests             Interest[]
   learnedWords          Flashcard[]
-  createdAt             DateTime    @default(now())
-  updatedAt             DateTime    @updatedAt
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  dailyDeckCompletions  DailyDeckCompletion[]
 }
 
 generator client {
