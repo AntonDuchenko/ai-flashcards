@@ -25,7 +25,11 @@ export class UsersService {
       include: {
         learnedWords: true,
         interests: true,
-        dailyDeckCompletions: true,
+        dailyDeckCompletions: {
+          orderBy: {
+            date: 'asc',
+          },
+        },
       },
     });
   }
