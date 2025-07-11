@@ -24,7 +24,7 @@ export class ProfileResponseDto {
   isDailyComplete: boolean;
 
   @IsString()
-  @Expose()
+  @Exclude()
   isAnsweredInRepeating: boolean;
 
   @IsNumber()
@@ -44,15 +44,15 @@ export class ProfileResponseDto {
   englishLvl: EnglishLvl;
 
   @IsDateString()
-  @Expose()
+  @Exclude()
   createdAt: Date;
 
   @IsDateString()
-  @Expose()
+  @Exclude()
   updatedAt: Date;
 
   @IsArray()
-  @Expose()
+  @Exclude()
   learnedWords: [];
 
   @IsArray()

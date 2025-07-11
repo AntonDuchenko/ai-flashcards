@@ -4,15 +4,20 @@ import { Request, Response } from 'express';
 import { AccessTokenGuard } from 'src/common/guards/jwt.guard';
 import { LoginDto } from './dto';
 import { RequestWithUser } from 'src/common/types';
+import { CommandBus } from '@nestjs/cqrs';
+import { LoginUserCommand, LogoutUserCommand, RegisterUserCommand } from './commands';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   @Post('login')
   async login(@Body() body: LoginDto, @Res() res: Response) {
     const { email, password } = body;
-    const tokens = await this.authService.login(email, password);
+    const tokens = await this.commandBus.execute(new LoginUserCommand(email, password));
 
     const options = this.authService.getCookieOptions();
 
@@ -26,22 +31,22 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body: LoginDto, @Res() res: Response) {
-    const { email, password } = body;
-    const tokens = await this.authService.register(email, password);
+    const tokens = await this.commandBus.execute(
+      new RegisterUserCommand(body.email, body.password),
+    );
+
     const options = this.authService.getCookieOptions();
 
     res.cookie('access_token', tokens.accessToken, options);
     res.cookie('refresh_token', tokens.refreshToken, options);
 
-    return res.status(201).json({
-      message: 'Registration successful',
-    });
+    return res.status(201).json({ message: 'Registration successful' });
   }
 
   @UseGuards(AccessTokenGuard)
   @Post('logout')
   async logout(@Res() res: Response, @Req() req: RequestWithUser) {
-    await this.authService.logout(req.user.sub);
+    await this.commandBus.execute(new LogoutUserCommand(req.user.sub));
     const options = this.authService.getCookieOptions();
 
     res.clearCookie('access_token', options);
