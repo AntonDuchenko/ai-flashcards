@@ -25,12 +25,9 @@ async function bootstrap() {
   const frontendUrl = config.getOrThrow<string>('FRONTEND_URL');
   const port = config.getOrThrow<number>('PORT');
 
-  const swaggerConfig = new DocumentBuilder()
-    .setTitle('AI flashcards')
-    .setVersion('1.0')
-    .build();
+  const swaggerConfig = new DocumentBuilder().setTitle('AI flashcards').setVersion('1.0').build();
   const documentFactory = () => SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('swagger', app, documentFactory);
+  SwaggerModule.setup('docs', app, documentFactory);
 
   app.enableCors({
     origin: frontendUrl,

@@ -67,7 +67,6 @@ export class DeckService {
   async createRepeatingDeck(userId: string, englishLvl: EnglishLvl, limit = 15) {
     const now = new Date();
 
-    // 1️⃣ Находим / создаём REPEATING-деку
     let deck = await this.prismaService.deck.findFirst({
       where: { userId, type: 'REPEATING' },
     });
@@ -77,18 +76,16 @@ export class DeckService {
       });
     }
 
-    // 2️⃣ Очищаем прошлые карточки
     await this.prismaService.flashcard.updateMany({
       where: { userId, deckId: deck.id },
       data: { deckId: null },
     });
 
-    // 3️⃣ Берём до 15 «просроченных» Learning-карточек  (repetition < 2)
     const overdueCards = await this.prismaService.flashcard.findMany({
       where: {
         userId,
         deckId: null,
-        repetition: { lt: 2 }, // ← ключевая строка
+        repetition: { lt: 2 },
         dueDate: { lte: now },
       },
       orderBy: { dueDate: 'asc' },
@@ -96,7 +93,6 @@ export class DeckService {
       select: { id: true },
     });
 
-    // 4️⃣ Назначаем их в текущую REPEATING-деку
     if (overdueCards.length) {
       await this.prismaService.flashcard.updateMany({
         where: { id: { in: overdueCards.map((c) => c.id) } },

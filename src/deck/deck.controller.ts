@@ -4,6 +4,7 @@ import { AccessTokenGuard } from 'src/common/guards';
 import { RequestWithUser } from 'src/common/types';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { DecksResponseDto } from './dto';
+import { plainToInstance } from 'class-transformer';
 
 @UseGuards(AccessTokenGuard)
 @Controller('deck')
@@ -14,6 +15,10 @@ export class DeckController {
   @ApiResponse({ status: 200, type: [DecksResponseDto] })
   @Get()
   getUserDecks(@Req() req: RequestWithUser) {
-    return this.deckService.getUserDecks(req.user.sub);
+    const decks = this.deckService.getUserDecks(req.user.sub);
+
+    return plainToInstance(DecksResponseDto, decks, {
+      excludeExtraneousValues: true,
+    });
   }
 }

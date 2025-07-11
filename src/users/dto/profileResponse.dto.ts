@@ -25,11 +25,15 @@ export class ProfileResponseDto {
 
   @IsString()
   @Expose()
-  isAnsweredInRepeating: false;
+  isAnsweredInRepeating: boolean;
 
   @IsNumber()
   @Expose()
-  daysStreak: 0;
+  daysStreak: number;
+
+  @IsNumber()
+  @Expose()
+  bestStreak: number;
 
   @IsArray()
   @Expose()

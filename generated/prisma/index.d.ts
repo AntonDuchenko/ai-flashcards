@@ -5807,10 +5807,12 @@ export namespace Prisma {
 
   export type UserAvgAggregateOutputType = {
     daysStreak: number | null
+    bestStreak: number | null
   }
 
   export type UserSumAggregateOutputType = {
     daysStreak: number | null
+    bestStreak: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -5821,6 +5823,7 @@ export namespace Prisma {
     isDailyComplete: boolean | null
     isAnsweredInRepeating: boolean | null
     daysStreak: number | null
+    bestStreak: number | null
     englishLvl: $Enums.EnglishLvl | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5834,6 +5837,7 @@ export namespace Prisma {
     isDailyComplete: boolean | null
     isAnsweredInRepeating: boolean | null
     daysStreak: number | null
+    bestStreak: number | null
     englishLvl: $Enums.EnglishLvl | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5847,6 +5851,7 @@ export namespace Prisma {
     isDailyComplete: number
     isAnsweredInRepeating: number
     daysStreak: number
+    bestStreak: number
     englishLvl: number
     createdAt: number
     updatedAt: number
@@ -5856,10 +5861,12 @@ export namespace Prisma {
 
   export type UserAvgAggregateInputType = {
     daysStreak?: true
+    bestStreak?: true
   }
 
   export type UserSumAggregateInputType = {
     daysStreak?: true
+    bestStreak?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -5870,6 +5877,7 @@ export namespace Prisma {
     isDailyComplete?: true
     isAnsweredInRepeating?: true
     daysStreak?: true
+    bestStreak?: true
     englishLvl?: true
     createdAt?: true
     updatedAt?: true
@@ -5883,6 +5891,7 @@ export namespace Prisma {
     isDailyComplete?: true
     isAnsweredInRepeating?: true
     daysStreak?: true
+    bestStreak?: true
     englishLvl?: true
     createdAt?: true
     updatedAt?: true
@@ -5896,6 +5905,7 @@ export namespace Prisma {
     isDailyComplete?: true
     isAnsweredInRepeating?: true
     daysStreak?: true
+    bestStreak?: true
     englishLvl?: true
     createdAt?: true
     updatedAt?: true
@@ -5996,6 +6006,7 @@ export namespace Prisma {
     isDailyComplete: boolean
     isAnsweredInRepeating: boolean
     daysStreak: number
+    bestStreak: number
     englishLvl: $Enums.EnglishLvl | null
     createdAt: Date
     updatedAt: Date
@@ -6028,6 +6039,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: boolean
+    bestStreak?: boolean
     englishLvl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6046,6 +6058,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: boolean
+    bestStreak?: boolean
     englishLvl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6059,6 +6072,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: boolean
+    bestStreak?: boolean
     englishLvl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6072,12 +6086,13 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: boolean
+    bestStreak?: boolean
     englishLvl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "isDailyComplete" | "isAnsweredInRepeating" | "daysStreak" | "englishLvl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "refreshToken" | "isDailyComplete" | "isAnsweredInRepeating" | "daysStreak" | "bestStreak" | "englishLvl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     decks?: boolean | User$decksArgs<ExtArgs>
     interests?: boolean | User$interestsArgs<ExtArgs>
@@ -6104,6 +6119,7 @@ export namespace Prisma {
       isDailyComplete: boolean
       isAnsweredInRepeating: boolean
       daysStreak: number
+      bestStreak: number
       englishLvl: $Enums.EnglishLvl | null
       createdAt: Date
       updatedAt: Date
@@ -6541,6 +6557,7 @@ export namespace Prisma {
     readonly isDailyComplete: FieldRef<"User", 'Boolean'>
     readonly isAnsweredInRepeating: FieldRef<"User", 'Boolean'>
     readonly daysStreak: FieldRef<"User", 'Int'>
+    readonly bestStreak: FieldRef<"User", 'Int'>
     readonly englishLvl: FieldRef<"User", 'EnglishLvl'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
@@ -7117,6 +7134,7 @@ export namespace Prisma {
     isDailyComplete: 'isDailyComplete',
     isAnsweredInRepeating: 'isAnsweredInRepeating',
     daysStreak: 'daysStreak',
+    bestStreak: 'bestStreak',
     englishLvl: 'englishLvl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -7513,6 +7531,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFilter<"User"> | boolean
     isAnsweredInRepeating?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
+    bestStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -7530,6 +7549,7 @@ export namespace Prisma {
     isDailyComplete?: SortOrder
     isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
+    bestStreak?: SortOrder
     englishLvl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7550,6 +7570,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFilter<"User"> | boolean
     isAnsweredInRepeating?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
+    bestStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -7567,6 +7588,7 @@ export namespace Prisma {
     isDailyComplete?: SortOrder
     isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
+    bestStreak?: SortOrder
     englishLvl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7588,6 +7610,7 @@ export namespace Prisma {
     isDailyComplete?: BoolWithAggregatesFilter<"User"> | boolean
     isAnsweredInRepeating?: BoolWithAggregatesFilter<"User"> | boolean
     daysStreak?: IntWithAggregatesFilter<"User"> | number
+    bestStreak?: IntWithAggregatesFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableWithAggregatesFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -7864,6 +7887,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7881,6 +7905,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7898,6 +7923,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7915,6 +7941,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7932,6 +7959,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7945,6 +7973,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7958,6 +7987,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8328,6 +8358,7 @@ export namespace Prisma {
     isDailyComplete?: SortOrder
     isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
+    bestStreak?: SortOrder
     englishLvl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8335,6 +8366,7 @@ export namespace Prisma {
 
   export type UserAvgOrderByAggregateInput = {
     daysStreak?: SortOrder
+    bestStreak?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -8345,6 +8377,7 @@ export namespace Prisma {
     isDailyComplete?: SortOrder
     isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
+    bestStreak?: SortOrder
     englishLvl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8358,6 +8391,7 @@ export namespace Prisma {
     isDailyComplete?: SortOrder
     isAnsweredInRepeating?: SortOrder
     daysStreak?: SortOrder
+    bestStreak?: SortOrder
     englishLvl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8365,6 +8399,7 @@ export namespace Prisma {
 
   export type UserSumOrderByAggregateInput = {
     daysStreak?: SortOrder
+    bestStreak?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8931,6 +8966,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8947,6 +8983,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8979,6 +9016,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8995,6 +9033,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9011,6 +9050,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9027,6 +9067,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9095,6 +9136,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9111,6 +9153,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9160,6 +9203,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9176,6 +9220,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9233,6 +9278,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9249,6 +9295,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9296,6 +9343,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9312,6 +9360,7 @@ export namespace Prisma {
     isDailyComplete?: boolean
     isAnsweredInRepeating?: boolean
     daysStreak?: number
+    bestStreak?: number
     englishLvl?: $Enums.EnglishLvl | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9352,6 +9401,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFilter<"User"> | boolean
     isAnsweredInRepeating?: BoolFilter<"User"> | boolean
     daysStreak?: IntFilter<"User"> | number
+    bestStreak?: IntFilter<"User"> | number
     englishLvl?: EnumEnglishLvlNullableFilter<"User"> | $Enums.EnglishLvl | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -9618,6 +9668,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9634,6 +9685,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9650,6 +9702,7 @@ export namespace Prisma {
     isDailyComplete?: BoolFieldUpdateOperationsInput | boolean
     isAnsweredInRepeating?: BoolFieldUpdateOperationsInput | boolean
     daysStreak?: IntFieldUpdateOperationsInput | number
+    bestStreak?: IntFieldUpdateOperationsInput | number
     englishLvl?: NullableEnumEnglishLvlFieldUpdateOperationsInput | $Enums.EnglishLvl | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -165,6 +165,7 @@ exports.Prisma.UserScalarFieldEnum = {
   isDailyComplete: 'isDailyComplete',
   isAnsweredInRepeating: 'isAnsweredInRepeating',
   daysStreak: 'daysStreak',
+  bestStreak: 'bestStreak',
   englishLvl: 'englishLvl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

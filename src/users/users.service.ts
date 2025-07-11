@@ -97,6 +97,7 @@ export class UsersService {
       await this.updateUser(userId, {
         isDailyComplete: true,
         daysStreak: user.daysStreak + 1,
+        bestStreak: Math.max(user.bestStreak, user.daysStreak + 1),
       });
       await this.createDailyDeckCompletion(userId);
 

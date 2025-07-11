@@ -65,6 +65,7 @@ model User {
   isDailyComplete       Boolean               @default(false)
   isAnsweredInRepeating Boolean               @default(false)
   daysStreak            Int                   @default(0)
+  bestStreak            Int                   @default(0)
   englishLvl            EnglishLvl?
   decks                 Deck[]
   interests             Interest[]
